@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>하이퍼링크태그</title>
+</head>
+<body>
+  <p>
+    <h1>하이퍼링크태그</h1>
+    a태그: 다른 페이지로 이동할때 사용하는 태그 -> 메뉴,팝업 페이지 열때 사용<br>  
+  </p>
+  <h2>기본 a태그 적용하기</h2>
+  <a href="https://www.naver.com">네이버</a><br>  
+  <a href="07_hyperlinktag.html">멀티미디어태그</a><br>
+  <p>
+    target 속성을 이용하면 새창으로 페이지를 열 수 있음 -> default값은 _self
+  </p>
+  <a href="https://www.google.com" target="_blank">google</a><br>
+  <a href="06_multmediatag.html" target="_self">이미지태그</a><br>
+
+  <h3>이미지를 이용해서 페이지 이동하기</h3>
+  <ul>
+    <li><a href="http://www.naver.com"><img src="스크린샷 2021-03-16 오후 1.50.34.png" width="40" height="40"></a></li>
+    <li><a href="http://www.naver.com"><img src="data:image/png;base64,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" width="100" height="80"></a></li>
+  </ul>
+
+  <style>
+    a{text-decoration: none;}
+  </style>
+
+  <h2>문서 내부의 지정위치로 이동</h2>
+  <a href="#id1">1번</a>
+  <a href="#id2">2번</a>
+
+  <h4 id="id1">1번위치</h4>
+  전문
+
+       유구한 역사와 전통에 빛나는 우리 대한국민은 3·1운동으로 건립된 대한민국임시정부의 법통과 불의에 항거한 4·19민주이념을 계승하고, 조국의 민주개혁과 평화적 통일의 사명에 입각하여 정의·인도와 동포애로써 민족의 단결을 공고히 하고, 모든 사회적 폐습과 불의를 타파하며, 자율과 조화를 바탕으로 자유민주적 기본질서를 더욱 확고히 하여 정치·경제·사회·문화의 모든 영역에 있어서 각인의 기회를 균등히 하고, 능력을 최고도로 발휘하게 하며, 자유와 권리에 따르는 책임과 의무를 완수하게 하여, 안으로는 국민생활의 균등한 향상을 기하고 밖으로는 항구적인 세계평화와 인류공영에 이바지함으로써 우리들과 우리들의 자손의 안전과 자유와 행복을 영원히 확보할 것을 다짐하면서 1948년 7월 12일에 제정되고 8차에 걸쳐 개정된 헌법을 이제 국회의 의결을 거쳐 국민투표에 의하여 개정한다.
+
+       제1장 총강
+
+조문체계도버튼
+ 제1조 ①대한민국은 민주공화국이다.
+
+②대한민국의 주권은 국민에게 있고, 모든 권력은 국민으로부터 나온다.
+
+조문체계도버튼
+ 제2조 ①대한민국의 국민이 되는 요건은 법률로 정한다.
+
+②국가는 법률이 정하는 바에 의하여 재외국민을 보호할 의무를 진다.
+
+조문체계도버튼
+ 제3조 대한민국의 영토는 한반도와 그 부속도서로 한다.
+
+조문체계도버튼
+ 제4조 대한민국은 통일을 지향하며, 자유민주적 기본질서에 입각한 평화적 통일 정책을 수립하고 이를 추진한다.
+
+조문체계도버튼
+ 제5조 ①대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다.
+
+②국군은 국가의 안전보장과 국토방위의 신성한 의무를 수행함을 사명으로 하며, 그 정치적 중립성은 준수된다.
+
+조문체계도버튼
+ 제6조 ①헌법에 의하여 체결ㆍ공포된 조약과 일반적으로 승인된 국제법규는 국내법과 같은 효력을 가진다.
+
+②외국인은 국제법과 조약이 정하는 바에 의하여 그 지위가 보장된다.
+
+조문체계도버튼
+ 제7조 ①공무원은 국민전체에 대한 봉사자이며, 국민에 대하여 책임을 진다.
+
+②공무원의 신분과 정치적 중립성은 법률이 정하는 바에 의하여 보장된다.
+
+조문체계도버튼
+ 제8조 ①정당의 설립은 자유이며, 복수정당제는 보장된다.
+
+②정당은 그 목적ㆍ조직과 활동이 민주적이어야 하며, 국민의 정치적 의사형성에 참여하는데 필요한 조직을 가져야 한다.
+
+③정당은 법률이 정하는 바에 의하여 국가의 보호를 받으며, 국가는 법률이 정하는 바에 의하여 정당운영에 필요한 자금을 보조할 수 있다.
+
+④정당의 목적이나 활동이 민주적 기본질서에 위배될 때에는 정부는 헌법재판소에 그 해산을 제소할 수 있고, 정당은 헌법재판소의 심판에 의하여 해산된다.
+
+조문체계도버튼
+ 제9조 국가는 전통문화의 계승ㆍ발전과 민족문화의 창달에 노력하여야 한다.
+
+       제2장 국민의 권리와 의무
+
+조문체계도버튼
+ 제10조 모든 국민은 인간으로서의 존엄과 가치를 가지며, 행복을 추구할 권리를 가진다. 국가는 개인이 가지는 불가침의 기본적 인권을 확인하고 이를 보장할 의무를 진다.
+
+조문체계도버튼
+ 제11조 ①모든 국민은 법 앞에 평등하다. 누구든지 성별ㆍ종교 또는 사회적 신분에 의하여 정치적ㆍ경제적ㆍ사회적ㆍ문화적 생활의 모든 영역에 있어서 차별을 받지 아니한다.
+
+②사회적 특수계급의 제도는 인정되지 아니하며, 어떠한 형태로도 이를 창설할 수 없다.
+
+③훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한 특권도 이에 따르지 아니한다.
+
+조문체계도버튼
+ 제12조 ①모든 국민은 신체의 자유를 가진다. 누구든지 법률에 의하지 아니하고는 체포ㆍ구속ㆍ압수ㆍ수색 또는 심문을 받지 아니하며, 법률과 적법한 절차에 의하지 아니하고는 처벌ㆍ보안처분 또는 강제노역을 받지 아니한다.
+
+②모든 국민은 고문을 받지 아니하며, 형사상 자기에게 불리한 진술을 강요당하지 아니한다.
+
+③체포ㆍ구속ㆍ압수 또는 수색을 할 때에는 적법한 절차에 따라 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다. 다만, 현행범인인 경우와 장기 3년 이상의 형에 해당하는 죄를 범하고 도피 또는 증거인멸의 염려가 있을 때에는 사후에 영장을 청구할 수 있다.
+
+④누구든지 체포 또는 구속을 당한 때에는 즉시 변호인의 조력을 받을 권리를 가진다. 다만, 형사피고인이 스스로 변호인을 구할 수 없을 때에는 법률이 정하는 바에 의하여 국가가 변호인을 붙인다.
+
+⑤누구든지 체포 또는 구속의 이유와 변호인의 조력을 받을 권리가 있음을 고지받지 아니하고는 체포 또는 구속을 당하지 아니한다. 체포 또는 구속을 당한 자의 가족등 법률이 정하는 자에게는 그 이유와 일시ㆍ장소가 지체없이 통지되어야 한다.
+
+⑥누구든지 체포 또는 구속을 당한 때에는 적부의 심사를 법원에 청구할 권리를 가진다.
+
+⑦피고인의 자백이 고문ㆍ폭행ㆍ협박ㆍ구속의 부당한 장기화 또는 기망 기타의 방법에 의하여 자의로 진술된 것이 아니라고 인정될 때 또는 정식재판에 있어서 피고인의 자백이 그에게 불리한 유일한 증거일 때에는 이를 유죄의 증거로 삼거나 이를 이유로 처벌할 수 없다.
+
+조문체계도버튼
+ 제13조 ①모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다.
+
+②모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.
+
+③모든 국민은 자기의 행위가 아닌 친족의 행위로 인하여 불이익한 처우를 받지 아니한다.
+
+조문체계도버튼
+ 제14조 모든 국민은 거주ㆍ이전의 자유를 가진다.
+
+조문체계도버튼
+ 제15조 모든 국민은 직업선택의 자유를 가진다.
+
+조문체계도버튼
+ 제16조 모든 국민은 주거의 자유를 침해받지 아니한다. 주거에 대한 압수나 수색을 할 때에는 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다.
+
+조문체계도버튼
+ 제17조 모든 국민은 사생활의 비밀과 자유를 침해받지 아니한다.
+
+조문체계도버튼
+ 제18조 모든 국민은 통신의 비밀을 침해받지 아니한다.
+<h4 id="id2">2번</h4>
+조문체계도버튼
+ 제19조 모든 국민은 양심의 자유를 가진다.
+
+조문체계도버튼
+ 제20조 ①모든 국민은 종교의 자유를 가진다.
+
+②국교는 인정되지 아니하며, 종교와 정치는 분리된다.
+
+조문체계도버튼
+ 제21조 ①모든 국민은 언론ㆍ출판의 자유와 집회ㆍ결사의 자유를 가진다.
+
+②언론ㆍ출판에 대한 허가나 검열과 집회ㆍ결사에 대한 허가는 인정되지 아니한다.
+
+③통신ㆍ방송의 시설기준과 신문의 기능을 보장하기 위하여 필요한 사항은 법률로 정한다.
+
+④언론ㆍ출판은 타인의 명예나 권리 또는 공중도덕이나 사회윤리를 침해하여서는 아니된다. 언론ㆍ출판이 타인의 명예나 권리를 침해한 때에는 피해자는 이에 대한 피해의 배상을 청구할 수 있다.
+
+조문체계도버튼
+ 제22조 ①모든 국민은 학문과 예술의 자유를 가진다.
+</body>
+</html>
