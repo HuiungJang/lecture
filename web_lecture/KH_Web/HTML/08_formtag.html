@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .scale{width:800px; height:500px;}
+    p {font-size: 20px;}
+  </style>
+</head>
+<body>
+  <h1>input으로 넘기는 값은 모두 <b>문자형</b>이다 </h1>
+
+  <h1>form 태그</h1>
+  <p>
+    사용자가 입력한 data를 보내는 방식과 처리할 프로그램을 정하는 태그
+  </p>
+  <img src="스크린샷 2021-03-17 오전 9.19.07.png" class="scale">
+  <h2>주요 속성</h2>
+  <p>
+    <h3>method : 데이터를 어떻게 보낼꺼냐 </h3>
+    <ol>
+      <li>get : url 주소에 데이터를 추가해서 보낸다. <u>모든 데이터가 다 보여서 보안에 취약 -> 크기에 제한이 있음</u></li>
+      <li>post : 패킷으로 보내는 방식. <u>데이터를 숨겨서 보냄-> 크기에 제한이 없음</u></li>
+    </ol>
+  </p>
+
+  <p>
+    <h3>action : 데이터를 어디서 처리할꺼냐 서버냐 페이지냐</h3>
+  </p>
+  <h2>post/get 방식으로 데이터 전송하기</h2>
+  <h3>get</h3>
+  <form method="GET" action="06_multmediatag.html">
+    <input type="text" name="id">
+    <input type="password"name="pw">
+    <input type="submit" value="로그인">
+  </form>
+  <h3>post</h3>
+  <form method="POST" action="08_formtag.html">
+   아이디 <input type="text" name="id"><br>
+   패스워드<input type="password"name="pw"><br>
+    <input type="submit" value="로그인">
+  </form>
+  <p>
+    form태그의 method속성은 반드시 필요한 속성으로 default값을 가지고 있음 -> get
+  </p>
+  <form action="05_areatag.html">
+    <input type="text" name="test">
+    <input type="submit" value="전송">
+  </form>
+
+  <h2>fieldset태그와 legend태그 알아보기</h2>
+  <fieldset>
+    <legend>검색창</legend>
+    <form action="">
+      <input type="text" name="test">
+      <input type="submit" value="전송">
+      <p>검색어를 입력</p>
+    </form>
+  </fieldset>
+  
+  <br><br><br>
+  <h1>input태그</h1>
+  <p>
+    : 사용자로부터 data를 입력받기 위한 태그 
+  보통 form태그안에 넣어두고 사용하지만 반드시는 아님<br>
+  key, value형식으로 저장된다.
+  </p>
+
+  <img src="스크린샷 2021-03-17 오전 9.32.21.png" class="scale">
+  <img src="스크린샷 2021-03-17 오전 9.39.36.png" class="scale">
+  <img src="스크린샷 2021-03-17 오전 9.42.10.png" class="scale">
+
+  <h3>type: text,password</h3>
+  <p>text, password 타입은 한줄 문자를 입력받는 화면(컴포넌트)</p>
+  <input type="text" id="str" name="str"><br>
+  <input type="text" name="str" placeholder="검색어를 입력하세요"><br>
+  <input type="text" name="str" value="오늘 아침 추워요" readonly><br>
+  <input type="text" name="str" size="3" maxlength="3">
+  <!-- 최대 글자 입력하게 하기 -->
+  <form action="">
+    <input type="text" size="8" minlength="3">
+    <!-- 최소 글자 입력하게 하기 -->
+    <input type="text" name="keyword" required>
+    <!-- 반드시 입력해야하면 required 사용하기 -->
+    <input type="submit" value="제출">
+  </form>
+  <br>
+  password type <input type="password" name="pw">
+  <h2>hidden 타입</h2>  
+  <p>
+    사용자에게 보여줄 데이터는 아니지만 서비스를 실행할 때 반드시 보내야하는 값을 설정할때<br>
+    value속성에 값을 반드시 입력
+  </p>
+  <form action="">
+    제목 <input type="text" name="title" value="이거수정">
+    내용 <input type="text" name="content">
+    <input type="hidden" name="boardNo" value="1">
+    <input type="submit" value="수정">
+  </form>
+
+  <h2>type: button</h2>
+  <p>버튼모양만 생김 -> 반드시 기능추가(이벤트처리)해야함 ---> 자바스크립트와 연결해서 사용</p>
+  아이디<input type="text" name="id">
+  <input type="button" value="버튼" onclick="test();">
+  <script>
+    function test(){
+      console.log("ㅎㅇ");
+      open("","_blank","width=300,height=300")
+    }
+  </script>
+
+  <h2>type checkbox, radio</h2>
+  <p>
+    선택사항을 두고 체크, 선택할 수 있는 화면을 출력<br>
+    name,value 값을 반드시 지정해야한다. <br>
+    동일한 선택조건 있는 것은 name을 동일하게 한다. -> 데이터가 <b>배열</b>로 넘어간다<br>
+    checkbox : 다중선택 <br>
+    radio : 다중선택 불가능 한가지만 선택가능함.
+  </p>
+  label 태그로 감싸서 글자를 클릭하면 체크박스가 체크되도록 할 수 있다.
+  <fieldset>
+    <legend>취미</legend>
+    <form action="">
+      <label for="code">코딩</label><br><br><br>
+      <!-- 떨어져 있어도 laber for를 이용해서 체크되도록 할 수 있다. -->
+      <!-- default로 체크되어있게 하려면 checked를 적는다. -->
+      <label>운동<input type="checkbox" name="hobby" value="운동"><br></label>
+      코딩<input type="checkbox" id="code" name="hobby" value="코딩" checked disabled><br>
+      <!-- disabled 옵션을 주면 체크가 불가능하게 할 수 있다. -->
+      <label>독서<input type="checkbox" name="hobby" value="독서"><br></label>
+      <label>여행<input type="checkbox" name="hobby" value="여행"><br></label>
+      <input type="submit" value="전송">
+    </form>
+  </fieldset>
+  <form>
+    name이 다르면 중복선택 가능 name같으면 중복선택 불가능<br>
+    <label>남자<input type="radio" name="gender" id="m"><br></label>
+    <label>여자<input type="radio" name="gender" id="f"><br></label>
+    <input type="submit" value="전송">
+  </form>
+
+  <h2>file type </h2>
+  <p>
+    파일을 서버에 업로드할 때 -> local에 있는 파일을 가져올 때<br>
+    바이너리 파일이 전송되기 때문에 form으로 전송할때는 encoding값을 변경해야함 <br>
+    ->enctype 속성 이용 , method는 반드시 post로 전송해야함
+  </p>
+  <form action="" method="POST" enctype="multipart/form-data">
+    <input type="file" name="upload" accept="audio/*" multiple>
+    <!-- 포맷을 제한 하고 싶다면 accept를 사용하자 -->
+    <!-- multiple 속성 추가하면 한번에 여러개 파일을 선택할 수 있다. -->
+  </form>
+
+  <h2>type image</h2>
+  <p>
+    사진을 submit으로 이용하는 타입 <br>
+    클릭시 사진을 클릭한 좌표 값이 넘어감 
+  </p>
+  <form action="">
+    <input type="text" name="title">
+    <input type="image" src="스크린샷 2021-03-16 오후 1.50.34.png" alt="" name="test" value="test" width="50" height="50">
+  </form>
+
+  <h2>submit, reset </h2>
+  <p>
+    submit : form태그의 자식인 input태그의 값을 전송하는 태그
+    reset : from태그의 자식인 input태그의 값을 초기화 시킴
+    submit / reset 버튼으로 출력버튼에 출력되는 내용은 value형식으로 출력
+  </p>
+  <fieldset>
+    <legend>회원가입</legend>
+    <form action="">
+      아이디 <input type="text" name="userID" id=""><br>
+      비밀번호 <input type="password" name="userPwd" id=""><br>
+      취미<br>
+      <input type="checkbox" name="hobby" id="" value="운동">운동
+      <input type="checkbox" name="hobby" id="" value="독서">독서
+      <input type="checkbox" name="hobby" id="" value="코딩">코딩
+      <input type="checkbox" name="hobby" id="" value="잠자기">잠자기<br>
+      <!-- <input type="submit" value="회원가입"> -->
+      <button>회원가입</button>
+      <!-- 이렇게하면 submit 기능을 가진다 -->
+      <button type="button" onclick="test();">회원가입</button>
+      <!-- 이렇게 해도 된다. -->
+      <input type="reset" value="취소">
+    </form>
+  </fieldset>
+  <h2>html5에서 지원하는 type</h2>
+  <p>
+    type : color -> 색상선택하는 type <br>
+  </p>
+  <form action="">
+    <input type="color" name="backgroundcolor" value="">
+    <input type="submit" value="전송">
+  </form>
+
+  <h2>type date, datetime, datetime-local, month,week, time</h2>
+  <p>
+    날짜를 입력받은 타입
+  </p>
+  <form action="">
+    <input type="date" name="birthday" min="2021-01-01" max="2021-12-31"><br>
+    <!-- 범위 지정 -->
+    <input type="datetime" name="" id=""><br>
+    <input type="datetime-local" name="" id=""><br>
+    <input type="month" name="" id=""><br>  
+    <input type="week" name="" id=""><br>
+    <input type="time" name="" id=""><br>
+    <input type="submit" value="전송">
+  </form>
+
+  <h2>type number</h2>
+  <p>
+    숫자입력 전용
+  </p>
+  <form action="">
+    <input type="number" name="" id=""><br>
+    <input type="number" max="100" min="0" step="10" name="">
+    <!-- 기본값은 1씩 증가  -->
+    <!-- step 속성을 주면 일정 수 간격으로 증감이 가능하다. -->
+    <input type="submit" value="submit">
+  </form>
+
+  <h2>search, range, url, email</h2>
+  <p>
+    search : 검색어 입력시 x버튼이 있음<br>
+    range : 일정범위에 있는 값을 표시 max,min, step값이 필요하다 <br>
+    url : 사이트의 주소를 받는 입력창 입력값에 http:// 문구가 있는지 확인함 <br>
+    email: 이메일을 입력받는 창. @가 있는지 확인함
+  </p>
+  <form action="">
+    <input type="search" name="keyword" id=""><br>
+    <input type="range" name="range" id="" max="100" min="0" step="10"><br>
+    <input type="email" name="email" id=""><br>
+    <input type="url" name="url" id=""><br>
+    <input type="submit" value="제출">
+  </form>
+
+  <h2>기타 입력창 태그</h2>
+  <p>
+    select : combobox 형식으로 선택해야하는 것 <br> 
+    datalist : input 태그 text타입의 자동완성기능을 할 수 있게 하는 태그 <br>
+    =>자식태그로 option 태그를 가지고 있음 <br>
+    textarea : 여러문장을 입력받게 하는 태그, 긴글, 소개글, 게시판 내용등등 <br>
+    특정범위를 속성으로 지정해줘야함 cols, rows
+  </p>
+
+  <form action="">
+    <select name="category">
+      <optgroup label="시">
+        <option value="서울">서울</option>
+        <option value="대전">대전</option>
+        <option value="부산">부산</option>
+      </optgroup>
+      <optgroup label="도">
+        <option value="강원도">강원도</option>
+        <option value="경기도">경기도</option>
+        <!-- value값이 전달된다. -->
+      </optgroup>
+    </select>
+
+    <input type="text" name="smaple" list="data">
+    <!-- 자동완성 기능  -->
+    <datalist id="data">
+      <option value ="유병승">유병승</option>
+      <option value ="김상현">김상현</option>
+      <option value ="김예진">김예진</option>
+      <option value ="제인혁">제인혁</option>
+      <option value ="김지한">김지한</option>
+    </datalist>
+    <br>
+
+    <textarea name="info" id="" cols="30" rows="5" style="resize:none" placeholder="내용을 입력하세요"></textarea>
+
+    <input type="submit" value="제출">
+
+  </form>
+  <progress id="p" value="10" max="100"></progress>
+  <script>
+      setInterval( () => {
+        let pro = document.getElementById("p");
+        pro.value+= (Number)(Math.random()*10);
+      },500);
+  </script>
+
+  
+
+</body>
+</html>
