@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    선택자는 페이지에 있는 원하는 태그(element)를 선택하는 것 <br>
+    자주 사용하는 것 -> 아이디선택자, 클래스선택자, 자손, 후손 선택자, 반응 선택자 <br>
+    전체, 구조, 속성, 동위 선택자가 있음.
+  </p>
+  <h3>전체 선택자 : * </h3>
+  <table>
+    <tr>
+      <td>변경하자</td>
+      <td>변경하자2</td>
+      <td>변경하자3</td>
+    </tr>
+  </table>
+  <style>
+    *{font-size: 30px; background-color: black; color:white;}
+    /* 전체 선택자는 페이지의 폰트, 배경색등을 설정할 때 사용한다.*/
+    table {height: 200px; height: 300px; border: 1px orange solid;}
+    td{border: 1px orangered solid; background-color:thistle;}
+    #idselect{font-size:20px; color: red; background-color: yellow;}
+    .font{font-size:20px; font-weight: bold; font-family: "D2Coding";}
+    .classselect{background-color: yellowgreen;}
+
+    /* 속성 선택자 */
+    /* = 연산자 이용하기 */
+    [name="userid"]{background-color: cyan;} /* name이 userid인 것 전부 바꿔라 */
+    input[type="password"]{background-color: red; color:wheat;}
+    /* input속성의 password 타입인 것의 색상을 바꿔라 */
+
+    /* ^= 연산자 이용하기 */
+    a[href^="www"]{text-decoration: none;}
+    /* href 속성 중 www로 시작하는 것은 밑줄을 없애라 */
+
+    /* ~= 연산자 이용하기 */
+    a[href~="naver"]{color: lime;}
+    /* 띄어쓰기 앞에 값이 있다면 */
+
+    /* |= 연산자 이용하기 */
+    a[href|="naver"]{background-color: lightcoral;}
+    /* - 앞에 있다면 바꿔라 */
+
+    /* *= 연산자 이용하기 */
+    a[href*="com"]{background-color: rgb(164, 144, 238);}
+    /* com 글자가 포함되어있다면 바꿔라 */
+    
+    /* 속성선택자 */
+    /* width가 200이면 전부 바꿔라 */
+    [width="200"]{border-radius: 90px; border:1px yellowgreen solid;}
+
+    /* 자식, 후손 선택자 */
+    header>ul>#chlidselect{color: lightpink; font-size:50px;}
+    header>div>h3{color: lightpink; font-size:50px;}
+    /* 자식선택자 선택 */
+
+    header li{background-color: darkorange; color:deeppink};
+    /* 후손선택자 선택 */
+
+    /* 동등선택자 */
+    h3+p{background-color: royalblue; color:lightgreen;}
+    /* h3태그 다음에 오는 p 태그는 전부 바꿔라  */
+    p+p{text-decoration: underline; color: hotpink;}
+    /* p태그 다음에 오는 p태그를 바꿔라 */
+    p~h3{color:lavender; background-color: khaki;}
+    /* p태그 다음에 오는 모든 h3태그를 바꿔라 */
+
+  </style>
+
+  <h3>태그 선택자</h3>
+  <p>태그명으로 태그(element)를 선택하는 것</p>
+  <table>
+    <tr>
+      <td>이름</td>
+      <td>나이</td>
+      <td>성별</td>
+    </tr>
+    <tr>
+      <td>유병승</td>
+      <td>19</td>
+      <td>남</td>
+    </tr>
+    <tr>
+      <td>김상현</td>
+      <td>29</td>
+      <td>남</td>
+    </tr>
+  </table>
+
+  <h3>아이디 선택자 : #아이디명</h3>
+  <p>
+    id 속성이 설정되어있는 태그를 선택하는 것 <br>
+    아이디명이 일치하는 태그(element)만 선택해서 style 적용 <br>
+    ** 아이디명은 중복되면 안됨 유일한 한개의 태그** <br>
+    js에서 불러올때 에러
+  </p>
+  <p id="idselect">아이디 선택자로 변경해보자</p>
+  <p>이것도 변경되나?</p>
+
+  <h3>클래스 선택자 : .클래스명</h3>
+  <p>
+    클래스 속성명이 일치하는 태그에 style을 적용하는 것 <br>
+    중복값을 허용함. 다수의 태그에 설정해서 style을 한번에 적용할 수 있음. <br>
+    style 라이브러리에서 많이 사용함.
+  </p>
+
+  <div>
+    <p>div안에 p태그</p>
+    <h4 class="classselect font">div안에 h4태그</h4>
+    <ul>
+      <li class="classselect">li태그 1</li>
+      <li>li태그 2</li>
+    </ul>
+    <ul>
+      <li class="font">li태그 3</li>
+      <li><a class="classselect" href href="">li태그 4</a></li>
+    </ul>
+  </div>
+
+  <h3>속성 선택자 : 선택자[속성명 비교연산 속성값]</h3>
+  <p>
+    태그에 설정되어있는 속성과 속성값을 기준으로 선택하는 선택자 <br>
+    input, img, a 등의 속성을 기준으로 디자인을 적용할 때 <br>
+    속성 값이랑 비교하는 연산 <br>
+    = : 일치한 것 ex) 속성명 = 속성값 <br>
+    ~= : 띄어쓰기를 기준으로 값을 확인 (띄어쓰기 앞을 비교) <br>
+    |= : -를 기준으로 값을 확인  <br>
+    ^= : 맨 앞글자를 기준으로 확인 <br>
+    $= : 맨 뒷글자를 기준으로 확인 <br>
+    *= : 포함여부 확인
+  </p>
+  <input type="text" name="userid"><br>
+  <input type="password" name="pwd"> <br>
+
+  <!-- ^= 연산자 활용하기 -->
+  <a href="www.naver.com">^=</a> <br>
+  <a href="www-naver.com">^=</a> <br>
+  <a href="_wwwnaver.com">^=</a> <br>
+
+  <!-- ~= 연산자 이용하기 -->
+  <a href="naver com">~=</a> <br>
+  <a href="naver net">~=</a> <br>
+  <a href="co naver kr ">~=</a> <br>
+
+  <!-- |= 연산자 이용하기 -->
+  <a href="naver-net">naver-net</a> <br>
+  <a href="naver net">naver net</a> <br>
+  <a href="naver~net">naver~net</a> <br>
+
+  <!-- *= 연산자 이용하기 -->
+  <a href="www.naver.com">www.naver.com</a>
+  <a href="www.google.com">www.google.com</a>
+  <a href="www.nate.com">www.nate.com</a>
+
+  <!-- 속성 선택자 -->
+  <img src="data:image/jpeg;base64,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"
+  alt="마동석" width="200" height="200">
+  <p width="200">이것도 적용됨?</p>
+
+  <!-- 자손 / 후손 선택자 -->
+  <h3>자식/ 후손 선택자 : 부모선택자 > 자식선택자  /  부모선택자 자식선택자</h3>
+  <p>
+    자식 선택자 : 부모하고 직접연결 되어있는 태그 <br>
+    후손 선택자 : 부모선택자가 포함하고 있는 모든 태그
+  </p>
+  <header>
+    <h3>자식 선택자 h3</h3>
+    <ul>
+      <li>후손태그</li>
+      <li id="chlidselect">후손태그</li>
+      <!-- id선택자가 제일 우선이기 때문에 나머지는 무시 -->
+      <li>후손태그</li>
+    </ul>
+    <p>자식태그</p>
+    <div>
+      <h3>후손태그 h3</h3>
+      <ul>
+        <li>div안에 ul안에 li1</li>
+        <li>div안에 ul안에 li2</li>
+        <li>div안에 ul안에 li3</li>
+      </ul>
+    </div>
+  </header>
+
+  <h3>동등선택자 : 선택자+선택자, 선택자~선택자</h3>
+  <p>
+    같은 위치(level)에 있는 태그를 선택하는 것 <br>
+    +: 같은 위치 태그 중 전선택자 다음에 오는 후선택자 태그 <br>
+    ~: 같은 위치 태그 중 전선택자 다음에 오는 <b>모든</b> 후선택자 태그 <br>
+  </p>
+  <section>
+    <p>1 p</p>
+    <p>2 p</p>
+    <div>3div</div>
+    <div>
+      <p>4 p</p>
+      <h3>h3</h3>
+      <h3>h3</h3>
+    </div>
+    <p>5 p</p>
+    <h3>h3</h3>
+    <h3>h3</h3>
+  </section>
+  
+</body>
+</html>

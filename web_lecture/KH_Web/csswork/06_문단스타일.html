@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .nowrap{white-space: nowrap;}
+    .container{width: 400px; height: 100px; border: 1px skyblue solid;}
+
+    /* text-align */
+    .left{text-align: left;}
+    .right{text-align: right;}
+    .center{text-align: center;}
+    .justify{text-align: justify;}
+
+    /* text-indent */
+    .textindent{text-indent: 20px;}
+
+    /* line-height */
+    .lineheight{line-height:50px;}
+
+    /* text-overflow */
+    .textover{overflow: hidden; text-overflow: clip;}
+    .textoverellipsis{overflow: hidden; text-overflow: ellipsis;}
+
+
+  </style>
+</head>
+<body>
+  <h3>문단스타일</h3>
+  <p>
+    글자 쓰기 방향지정 <br>
+      ltr : 왼쪽->오른쪽 <br>
+      rtl : 오른쪽 -> 왼쪽
+  </p>
+
+  <h3>문단 스타일</h3>
+  <p>
+    text-algin <br>
+      left : 왼쪽 정렬 <br>
+      right : 오른쪽 정렬<br>
+      center : 가운데 정렬<br>
+      justify : 양쪽 정렬 <br>
+      ----------------------- <br>
+    text-indent : 문장을 들여쓰기하는 속성 <br>
+    line-height : 문장끼리의 줄간격을 조정  <br>
+    text-overflow : 영역을 벗어나는 텍스트 표시속성 clip. ellpsis
+  </p>
+  <div class="container">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+
+  <div class="container left">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+  <div class="container right">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+  <div class="container center">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+  <div class="container justify">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+
+  <h3>text-indent</h3>
+  <p>문단 들여쓰기, 문단의 첫번째 문자를 들여쓰기함</p>
+  <div class="container textindent">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+
+  <h3>line-height</h3>
+  <p>문장 사이의 간격, 태그 사이의 간격도 띄울 수 있음</p>
+  <div class="container lineheight nowrap">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+  <p class="lineheight">이건 p 태그 </p>
+  <p class="lineheight">이건 p 태그 </p>
+  <p>이건 p 태그 </p>
+  <p>이건 p 태그 </p>
+
+  <h3>text-overflow</h3>
+  <p>
+    내가 지정한 영역을 텍스트가 벗어났을 때 설정 <br>
+    clip : 넘어가? 잘라버림 <br>
+    ellipsis : 말줄임 <br>
+  </p>
+  <div class="container  nowrap textover">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+  <div class="container  nowrap textoverellipsis">
+    글자를 복사해와야하는데 귀찮아서 그냥 작성합니다
+    복사를 해올껄그랬나봐요 그냥 작성하는게 더 귀찮네요
+    아무말이나 막쓰는 것도 쉬운일은 아니네요.
+  </div>
+
+</body>
+</html>

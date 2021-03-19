@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* color */
+    .colorchange{color:#420034}
+
+    /* text-decoration */
+    .decounder{text-decoration: underline;}
+    .decodele{text-decoration: line-through;}
+    .decoover{text-decoration: overline;}
+    .deconone{text-decoration: none;}
+
+    /* text-transform */
+    .uppercase{text-transform:uppercase;}
+    .lowercase{text-transform:lowercase;}
+    .capitalize{text-transform:capitalize;}
+
+    /* text-shadow */
+    .basicshadow{text-shadow:1px 1px 2px red,-1px -1px 2px gold;}
+    
+    /* white-space */
+    #container{width: 300px; height: 200px; border: 1px solid red;}
+    .pre{white-space: pre;}
+    /* 여러개의 공백을 모두 표시함 있는 그대로 나옴 */
+    .nowrap{white-space: nowrap;}
+    /* 공백을 있는 그대로 표시하지만 개행은 안함 */
+    .preline{white-space: pre-line;}
+    .prewrap{white-space: pre-wrap;}
+
+    /* letter-spacing, word-spacing */
+    .letterspacing{letter-spacing: 10px;}
+    .wordspacing{word-spacing: 10px;}
+  </style>
+</head>
+<body>
+  <h3>글자색 변경하기</h3>
+  <div id="color">
+    <p class="colorchange">안녕하세요</p>
+  </div>
+
+  <h3>text-decoration</h3>
+  <div id="color">
+    <p class="decounder">문장에 밑줄</p>
+    <p class="decodele">문장에 삭선</p>
+    <p class="decoover">문장에 윗줄</p>
+    <a href="" class="deconone">하이퍼링크지만 문장에 <span class="decounder"> 표시</span> 없애기</a>
+  </div>
+  
+  <h3>text-transform</h3>
+  <div>
+    <p class="uppercase">영문자를 대문자로 uppercase</p>
+    <p class="lowercase">영문자를 소문자로 LOWERCASE</p>
+    <p class="capitalize">영어 첫글자를 대문자로 capitalize</p>
+  </div>  
+
+  <h3>text-shadow</h3>
+  <p>
+    문자에 그림자 표시 <br>
+    text-shadow: 가로, 세로, 번짐, 색상
+  </p>
+  <div>
+    <p class="basicshadow">오늘은 금요일이니까 문자에 빨간 그림자를 넣어보자 </p>
+  </div>
+
+  <h3>white-space</h3>
+  <p>공백에 대한 설정을 하는 속성 (띄어쓰기, 개행)</p>
+  <div id="container" class="pre">
+    동해 물과                           백두산이 마르고 닳도록
+    하느님이 보우하사 우리나라 만세.
+    <p class="nowrap"> 
+    무궁화 삼천리 화려 강산
+    대한 사람, 대한으로 길이 보전하세. 
+    </p>      
+  </div>
+  <div id="container" class="preline">
+    동해 물과   백두산이 마르고 닳도록
+    하느님이 보우하사 우리나라 만세.
+  </div>
+
+  <div id="container" class="prewrap">
+    동해 물과   백두산이 마르고 닳도록
+    하느님이 보우하사 우리나라 만세.
+  </div>
+  
+  <h3>letter-spacing, word-spacing</h3>
+  <p>
+    letter-spacing : 문자간의 간격을 조정(자간) <br>
+    word-spacing : 단어간의 간격 -> 띄어쓰기 간격
+  </p>
+  <p class="letterspacing">오늘은 금요일 금요일에 시간어때요?</p>
+  <p class="wordspacing">오늘은 금요일 금요일에 시간어때요?</p>
+
+</body>
+</html>

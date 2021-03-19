@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 반응 선택자 */
+    #activetest:active{font-size:30px; color:palegreen; background-color: tan;}
+    .hovertest:hover{color:tomato; background-color: violet;}
+    li+nav>ul{height: 0px; overflow: hidden;}
+    li:hover+nav>ul,nav>ul:hover{height: 100px;}
+    nav>ul>li{display: inline-block; margin-right: 20px; font-size:30px; color:white; font-weight: bold;}
+    nav>ul{background-color: lightgreen;}
+
+    /* 문자 선택자 */
+    div>p::first-letter{font-size: 30px; color:lime;}
+    div>p::first-line{background-color: goldenrod;}
+    div>p::after{content:"-bs-";}
+    /* 태그가 끝난 후 -bs-를 붙임 */
+    div>p::before{content: "시작"; color: greenyellow; background-color: red;}
+    /* 태그가 시작할 때 "시작"을 붙임  */
+    div>p::selection{background-color: khaki; color: red;}
+
+    /* 구조 선택자 */
+    h5:first-child{background-color: magenta;}
+    h5:last-child{background-color: maroon;}
+    h5:nth-child(2n){background-color: lightgoldenrodyellow;}
+    /* 몇번째를 선택할껀지 몇의 배수로 할껀지 정할 수 있다. */
+
+    h5:first-of-type{background-color: darkmagenta;}
+    /* 타입의 첫번째 */
+    h5:last-of-type{background-color: red;}
+    /* 타입의 마지막 */
+    div#notTest>p:not(:nth-child(2n-1)){background-color: lemonchiffon;}
+    div#notTest *:not(p){background-color: coral;}
+
+    /* 선택자 사용하기 */
+    input[type="text"],div>p{font-size:30px; border:5px blue solid;}
+    /* , 연결하면 한번에 여러개를 선택할 수 있다. */
+  </style>
+</head>
+<body>
+  <h2>반응선택자 : 선택자:active, 선택자:hover</h2>
+  <p>
+    마우스의 이벤트에 의해 style적용되는 선택자 <br>
+    active : 마우스를 클릭했을 때 style 적용 <br>
+    hober : 마우스가 태그영역에 들어갔을 때 style 적용 
+  </p>
+  <nav>
+    <p id="activetest">클릭하면 변해라</p>
+    <p class="hovertest">마우스가 오면 변해라 ~</p>
+  </nav>
+  <nav>
+    <ul>
+      <li>메인메뉴</li>
+      <li>게시판</li>
+      <nav>
+        <ul>
+          <li>자유게시판</li>
+          <li>모임게시판</li>
+        </ul>
+      </nav>
+    </ul>
+  </nav>
+
+  <h3>문자선택자 </h3>
+  <p>
+    ::first-letter : 첫번째 글자만 style적용하기 <br>
+    ::first-line : 첫번째 줄만 style 적용하기 <br>
+    ::after : 태그의 끝문자에 문자 추가 <br>
+    ::before : 태그의 시작에 문자 추가<br>
+    ::selection : 마우스 드래그로 선택했을 때 style 적용
+  </p>
+  <div>
+    <p>
+      나의 이름은 유병승입니다. 사는 곳은 경기도 시흥시 <br>
+      나의 나이는 19살이고 취미는 코딩입니다.
+    </p>
+    <p>
+      김상현은 남자, R클래스 반장, 태희 괴롭히.
+    </p>
+  </div>
+
+  <h3>구조 선택자</h3>
+  <p>
+    선택자:first-child : 구조상 첫번째인 자식인 선택자 태그 <br>
+    선택자:last-child : 구조상 마지막 자식인 선택자 태그 <br>
+    선택자:nth-child : 구조상 n번째 자식인 선택자  
+  </p>
+    <div>
+      <p>이제 내가 첫번째</p>
+      <h5>h5 1번째</h5>
+      <h5>h5 2번째</h5>
+      <h5>h5 3번째</h5>
+      <h5>h5 4번째</h5>
+      <p>p태그</p>
+        <div>
+          <h5>div 내부 h5 1번째</h5>
+          <h5>div 내부 h5 1번째</h5>
+          <h5>div 내부 h5 1번째</h5>
+          <h5>div 내부 h5 1번째</h5>
+          <h5>div 내부 h5 1번째</h5>
+        </div>
+    </div>
+
+  <h4>부정 선택자</h4>
+  <p>
+    선택자1:not(선택자2) => 선택자1인데 선택자2는 빼고
+  </p>
+  <div id="notTest">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <div>div2</div>
+    <p>4</p>
+    <div>div3</div>
+    <p>5</p>
+  </div>
+
+  <h2>선택자 사용하기</h2>
+  <p>
+    여러 선택자를 혼합해서 사용함 <br>
+    한개의 스타일에 여러 선택자를 적용시킬수 있음
+  </p>
+  <div>
+    <input type="text" name="userId" >
+    <p>test</p>
+  </div>
+  
+</body>
+</html>

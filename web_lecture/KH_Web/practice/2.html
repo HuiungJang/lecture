@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .tabletop {background-color:aqua; width:500px; height:250px;}
+  .tabletop .tablerow{background-color:rgb(216, 60, 13);}
+  .tabletop .tablerow .tabledata{background-color:orange}
+  .tablefont{font-weight: bold; font-size: 20px; }
+  .tablesum {background-color: yellow;}
+</style>
+<body>
+  <table class="tabletop" border="2">
+    <tr>
+      <td colspan="7" align="center" class="tablefont">하수정 보석 컬렉션</td>
+    </tr>
+    <tr class="tablerow" >
+      <td rowspan="5">제품리스트</td>
+      <td>코드</td>
+      <td>가격</td>
+      <td>분류</td>
+      <td>구매가능 개수</td>
+   
+    </tr>
+    <tr class="tablerow">
+      <td class="tabledata">01-468</td>
+      <td class="tabledata">가을</td>
+      <td class="tabledata">200,000원</td>
+      <td class="tabledata">1068</td>
+    </tr>
+
+    <tr class="tablerow">
+      <td class="tabledata">01-469</td>
+      <td class="tabledata">가을</td>
+      <td class="tabledata">150,000원</td>
+      <td class="tabledata">1700</td>
+    </tr>
+
+    <tr class="tablerow">
+      <td class="tabledata">01-470</td>
+      <td class="tabledata">여름</td>
+      <td class="tabledata">950,000원</td>
+      <td class="tabledata">2500</td>
+    </tr>
+
+    <tr class="tablerow">
+      <td class="tabledata">01-471</td>
+      <td class="tabledata">봄</td>
+      <td class="tabledata">120,000원</td>
+      <td class="tabledata">3200</td>
+    </tr>
+   
+    <tr class="tablerow">
+      <td colspan="3">종합</td>
+      <td class="tablesum">1,420,000원</td>
+      <td class="tablesum">8468</td>
+    </tr>
+   
+  </table>
+</body>
+</html>

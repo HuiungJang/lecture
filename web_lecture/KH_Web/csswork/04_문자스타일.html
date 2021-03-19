@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+
+  <title>textstyle</title>
+  <style>
+    .bolder{font-weight:bold;}
+    .defaultFont{font-family:"Song Myung"; font-weight: "bolder";}
+    div>p#family1{font-family: "Black Han Sans","D2coding","궁서","궁서체"; font-size:120%;}
+    /* 
+
+    웹폰트에서 가져올 때는 웹폰트 이름을 복사해서 가져오되 +는 띄어쓰기로 바꿔서
+    가져온다.
+
+     */
+    /* p태그이면서 id가 family1인 것들 
+      띄어쓰기하면  p태그 후손중 id가 family1인 것들*/
+      div>p:first-child{font-size:2em;}
+      .variant{font-variant:small-caps;}
+
+      /* 전체 글꼴 스타일 한번에 적용하기 */
+      .all{font:italic small-caps bloder 30px "Black Han Sans"}
+  </style>
+</head>
+<body>
+  <h3>글꼴 스타일 적용하기</h3>
+  <h2>글꼴 적용하기</h2>
+  <p>
+    <b>웹폰트</b><br>
+    웹폰트를 이용해서 페이지를 열때 글꼴을 가져와서 사용하게 할 수 있음 <br>
+    네트워크 통신이 가능하면 글꼴제공하는 사이트에서 가져와서 사용 
+  </p>
+  <div id="content">
+    <p>기본글꼴로 출력하기</p>
+    <p id="family1">궁서체적용하기</p>
+  </div>
+
+  <p>폰트 굵기 조절할 폰트입니다~</p>
+  <p class="bolder">폰트 굵기 조절할 폰트입니다~</p>
+
+  <p class="variant">영문자 MemberLevel</p>
+  <p class="variant">영문자 memberlevel</p>
+  <p class="all"> 전체 글꼴 스타일 한번에 적용하기 today class is finish!</p>
+</body>
+</html>

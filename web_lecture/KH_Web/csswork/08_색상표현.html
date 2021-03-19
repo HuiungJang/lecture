@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>배경/ 색상에 대해 알아보자</title>
+  <style>
+    .container{width:300px; height:200px; border: 1px green solid;}
+    .background{
+      /* background-color: rgba(255,0,0,0.5); */
+      background-color: hsl(316,100%,51%,0.3);
+      /* 채도 조절도 가능하다. */
+    }
+    /* 배경색상 */
+    .bg{background-color: royalblue;}
+    .bg1{background-color: greenyellow; width: 50%; height: 50%;}
+
+    /* background-clip */
+    .containerbasic{display: flex;}
+    .container2{border:10px gold dotted; width:200px; height: 200px; padding:20px}
+    .borderbox{background-clip:border-box; background-color: silver;}
+    .paddingbox{background-clip: padding-box; background-color: brown}
+    .contentbox{background-clip: content-box; background-color: coral}
+
+    /* background-image */
+    .size{width:100%; height: 800px;}
+    .backimg{background-image: url(https://pds.joins.com//news/component/htmlphoto_mmdata/201711/28/fbd5ab5f-ee35-42bd-a626-9a2f1a7c1aef.jpg);}
+    .repeat{background-repeat: repeat-x;}
+    /* x축만 반복 */
+  .repeatno{background-repeat: no-repeat;}
+    /* 반복안함 */
+
+    /* background-size */
+    .contain{background-size: contain;}
+    .cover{background-size: cover;}
+    .imgsize{
+      /* background-size: 100px 100px; */
+      /* 고정 값으로 할 수 있다. */
+      background-size: 50% 50%;
+      /* 비율로 상대적인 값으로 정할 수 있다.*/
+    }
+
+    /* 이미지 위치 조절 */
+    .imgposition{
+      /* background-position: right top; */
+      /* 위치설정할때는 2개를 해야함 기본 설정이 정가운데이기 때문에 */
+      /* background-position:50px 100px; */
+      background-position:50% 30%;
+      /* x y 값을 주어서 위치를 설정할 수 있다. 절대,상대 가능 */
+    }
+    .origin{background-origin:border-box;}
+    .content{background-origin: content-box;}
+
+    /* background-attachment */
+    .attachment{
+      /* background-attachment: fixed; */
+      background-attachment: scroll;
+    }
+    /* linear-gradient */
+    .linerg{
+      /* background:linear-gradient(to right,crimson,royalblue) */
+      /* background:linear-gradient(45deg,crimson,royalblue) */
+      /* 각도를 설정할 수 도 있다. */
+      /* background:linear-gradient(45deg,crimson ,royalblue ,purple ,magenta ) */
+      /* %를 통해 비율을 정할 수 있다. */
+      /* 중단점을 적용해서 여러가지 색을 적용 가능하다. */
+      background:repeating-linear-gradient(45deg,crimson,royalblue)
+      /* 반복적으로 그라데이션을 적용할 수 도 있다. */
+    }
+    /* 원형그라데이션 */
+    .radialg{
+      background:radial-gradient(circle closest-side,blue,red)
+      /* 선형 그라데이션처럼 중단점, 반복, 비율을 정할 수 있다. */
+    }
+  </style>
+</head>
+<body>
+  <h2>색상</h2>
+  <p>
+    css로 색상을 표시할 때는 생상 영문명, 16진수 RGB값,rgb(),rgba() 이용
+  </p>
+  <div class="container background">
+  투명도 있는 색상
+  </div>
+  <p>여기도 content영역</p>
+
+  <h2>background-color</h2>
+  <p>
+    태그마다 페이지에서 차지하는 각 영역이 있는데 그 영역에 대한 색상을 선택할 수 있게함 <br>
+    배경색을 지정하는 속성 <br>
+  </p>
+
+  <div class="container bg">
+    <ul class="bg1">
+      <li>html</li>
+      <li>css</li>
+      <li>javascript</li>
+      <li>jquery</li>
+    </ul>
+  </div>
+
+  <h3>background-clip</h3>
+  <p>
+    border-box : 박스 모델의 가작 외곽 테두리까지 적용 <br>
+    padding-box : 테두리 제외한 패딩범위까지 적용<br>
+    content-box : 내용부분만 적용 <br>
+  </p>
+  <div class="containerbasic">
+    <div class="container2 borderbox">border-box</div>
+    <div class="container2 paddingbox">padding-box</div>
+    <div class="container2 contentbox">content-box</div>
+  </div>
+  <h3>background-imgage</h3>
+  <p>
+    태그에 이미지를 넣을 떄 사용하는 속성<br>
+    사진을 불러와서 출력 -> url(경로) 
+  </p>
+
+  <div class="container2 backimg repeatno"></div>
+  <h3>background-repeat</h3>
+  <p>
+    기본적으로 배경이미지를 설정하면 반복(바둑판식)으로 출력<br>
+    조정할 수 있는 속성 ->repeat, repeat-x / repeat-y, no-repeat
+  </p>
+
+  <h3>background-size</h3>
+  <p>
+    배경이미지의 크기를 조정할 수 있는 속성 <br>
+    contain : 이미지가 영역안에 모두 들어갈 수 있게 확대, 축소 -> 이미지 모두 출력<br>
+    cover : 영역이 꽉차게 설정함 -> 이미지 일부만 출력될 수 있음 <br>
+    숫자/백분율 : 크기를 지정
+  </p>
+
+  <div class="containerbasic">
+    <div class="container2 backimg repeat"></div>
+    <div class="container2 backimg repeat contain"></div>
+    <div class="container2 backimg repeat cover"></div>
+    <div class="container2 backimg repeatno imgsize"></div>
+  </div>
+
+  <h3>background-position</h3>
+  <p>
+    배경 이미지의 위치를 조정하는 속성 <br>
+    background-position : left || right || top || bottom || center || 숫자(절대, 상대)
+  </p>
+  <div class="container2 backimg repeatno imgsize imgposition"></div>
+
+  <h3>background-origin</h3>
+  <p>
+    배경이미지가 차지하는 범위를 설정하는 속성 <br>
+    background-origin : border-box,padding-box,content-box
+  </p>
+  <div class="containerbasic">
+    <div class="container2 backimg repeatno imgsize "></div>
+    <div class="container2 backimg repeatno imgsize origin"></div>
+    <div class="container2 backimg repeatno imgsize content"></div>
+  </div>
+  <h3>background-attachment</h3>
+  <p>
+    페이지가 스크롤에 의해 움직일때 배경 이미지의 위치를 설정하는 속성 <br>
+    scroll : 페이지가 움직이면 따라 움직임 <br>
+    fixed : 페이지가 이동해도 설정한 위치에 있음 <br>
+  </p>
+  <div class="container2 size backimg repeatno attachment">
+  </div>
+
+  <h3>linear-gradient</h3>
+  <p>
+    그라데이션 속성
+    background:linear-gradient(각도||방향, 시작색, 끝색)
+  </p>
+  <div class="container2 linerg"></div>
+  <div class="container2 radialg"></div>
+
+</body>
+</html>
