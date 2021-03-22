@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container{border:1px green solid; width:200px; height:200px;}
+    .paddingall{padding: 10px;}
+    .parent{display: flex;}
+    .paddingleft{padding-left: 50px;}
+    .paddingtest{padding:10px 10px 0 0;}
+    .marginall{margin: 50px;}
+    .marginleft{margin-left: 50px;}
+    .inline{display: inline;}
+    .margintop{margin-top: 100px;}
+    /* inline 속성에서 margin-top, bottome은 설정되지 않음 */
+    header{display: flex;}
+    header>div{display: inline-block; margin-right: 40px; width: 300px; height: 300px;  border: 1px red solid;}
+    ul{padding-top:100px;}
+    ul>li{display: inline; margin-right:20px;}
+
+  </style>
+</head>
+<body>
+  <h1>여백 스타일</h1>
+  <h2>padding과 margin</h2>
+  <p>
+    <h4>padding</h4>
+    테두리와 콘텐츠 영역 사이의 거리를 조절 <br>
+    태그에서 테두리와 content사이의 간격을 조절하는 속성
+  </p>
+  <div class="parent">
+    <div class="container">기본</div>
+    <div class="container paddingall">content 내용</div>
+    <div class="container paddingleft">content 내용</div>
+    <div class="container">
+      <img src="/KH_Web/HTML/스크린샷 2021-03-16 오후 1.50.34.png" alt="" class="paddingall" width=100px height=100px>
+    </div>
+    <div class="container paddingtest">기본</div>
+  </div>
+
+  <p>
+    <h4>margin</h4>
+    box레벨이나 inline레벨의 요소들간의 간격을 조절하는 속성 <br>
+    태그와 태그사이, 태그와 페이지 사이의 거리를 조절 <br>
+    테두리와 padding값을 생각해야한다. 
+  </p>
+  <div>
+    <div class="container marginall inline">div 1</div>
+    <div class="container marginleft inline">div 2</div>
+    <div class="container margintop inline">div 3</div>
+  </div>
+
+  <header>
+    <div>
+      <img src="https://img4.yna.co.kr/photo/cms/2019/05/02/02/PCM20190502000402370_P2.jpg" alt="" width=300px height=300px>
+    </div>
+    <div>
+      <nav>
+        <ul>
+          <li>즐겨찾기</li>
+          <li>마이페이지</li>
+          <li>로그아웃</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+</body>
+</html>

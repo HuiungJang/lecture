@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container{border:1px red solid; width:500px; height: 400px;}
+    .basicposition{position: relative; top:0px; left:0px;}
+    .bacisabsolute{position:absolute; border:1px lime solid; width:300px; height: 200px; top:30%; left:30%;}
+    .absolute{position: absolute; top:100px; left:100px; border:1px purple solid; width: 100px; height: 100px;}
+    .relative{position: relative; top:200px; left:200px; border:1px aqua solid; width:100px; height: 100px;}
+    .fixed{position:fixed; width:200px; height:200px; background-color: grey; top:200px; left:200px;}
+
+    header{height: 10%; }
+    div#menu *{border:1px green solid; margin:0 0 0 0; padding: 0 0 0 0;}
+    header>div{display: inline-block; margin: 10px;}
+    div#logo{margin: 0 0 0 0; float: left;}
+    div#login> *{display: block; }
+    div#title {float: left; margin-top: 20px;}
+    
+    .test{border:1px blue solid; width:200px; height: 100px;}
+    .visibility{visibility:hidden;}
+    #target:hover+div{visibility:visible;}
+
+    div.zindex-con{position: relative; height: 400px;}
+    div.zindex-con>div{width: 100px; height: 100px; border:1px darkgreen solid;}
+    .z1{background-color: lightcyan; position: absolute; top:10px; left:5px; z-index:100;}
+    .z2{background-color: lightcoral; position: absolute; top:30px; left:15px; z-index:990;}
+    .z3{background-color: lightskyblue; position: absolute; top:50px; left: 25px; z-index:992;}
+
+    .float-container>div:last-child{clear: both;}
+    .float-container{width:500px; height: 400px; border:1px goldenrod solid;}
+    .float-container>div{border:1px maroon solid; width:100px; height: 100px;}
+    .left{float:left; border:1px lime solid !important;}
+    .right{float:right;}
+
+    .parent{display: flex; border:1px blue solid; justify-content:space-around; flex-direction:row;}
+    /* 
+    justify-content -> 속성값에 맞춰서 알아서 정렬함
+    flex-direction -> 크기에 맞춰 알아서 나눔 
+    flex-wrap -> 크기에 맞춰 개행하면서 순서대로 정렬함
+              ->reverse 속성을 주면 역순으로 정렬함
+    */
+    .child{width:200px; height: 100px; border:1px red solid;}
+
+    .c1{flex-grow:0;}
+    .c2{flex-grow:2;}
+    .c3{flex-grow:0;}
+  </style>
+</head>
+<body>
+  <h1>포지셔닝</h1>
+  <h2>요소 배치</h2>
+  <p>
+    페이지에 elements들을 배치하려면 position이 필수다
+  </p>
+
+  <h3>position 속성</h3>
+  <p>
+    태그를 원하는 위치에 배치하는 속성값 <br>
+    default 값은 static이다. <br>
+    position 속성은 위치를 지정하는 top,left,right,bottom 속성과 같이 사용한다. <br>
+    position : static , relative, absoulte, fixed <br>
+    relative : 부모의 position이 static일때 태그의 설정위치를 0,0으로 사용 <br>
+    absoulte : 부모의 position이 static일때 페이지 왼쪽 꼭지점을 0,0으로 사용 <br>
+    부모가 relative, absolute 포지션이면 부모의 0,0포지션이 시작위치다. <br>
+    fixed : 특정태그를 지정위치에 고정해서 출력할 때 사용
+  </p>
+  <div id="container" class="basicposition">
+    <div class="absolute">
+      <img src="https://pbs.twimg.com/media/D0AEcLJVYAErhXl.jpg" alt="" width=100px height=100px>
+    </div>
+    <div>
+       <div class="relative"></div>
+    </div>
+  </div>
+  <div class="bacisabsolute">
+    <div class="absolute"></div>
+    <div>
+      <div class="relative"></div>
+   </div>
+  </div>
+  <div class="fixed"></div>
+
+
+  <div id="menu">
+    <header>
+      <div id="logo">
+        <img src="http://1.bp.blogspot.com/-mVAqnKw_lW8/VL9V6fhewNI/AAAAAAAAAco/-eTiP5HF40I/s1600/3034007-slide-s-3-whats-the-difference-between-a-logo-and-a-symbol.jpg"
+        width=80px height=80px alt="">
+      </div>
+      <div id="title">
+        <h1>안녕하세요 스타벅스입니다.</h1>
+      </div>
+      <div id="login">
+        <table>
+          <tr>
+            <td><label>ID <input type="text" name="userId" id=""></label></td>
+          </tr>
+          <tr>
+            <td><label>PWD <input type="text" name="userPwd" id=""> </label></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="로그인"> &nbsp;<input type="submit" value="취소"></td>
+          </tr>
+        </table>
+      </div>
+    </header>
+  </div>
+  
+  <br>
+  <h3>visibility 속성</h3>
+  <p>태그를 표현할지 결정하는 태그</p>
+  <div id="target" class="test">div1</div>
+  <div class="test visibility">visibility</div>
+  <!-- 
+    display none -> 영역을 확보하지 않고 보이지 않게함. 
+    visibility hidden -> 영역을 확보하고 보이지 않게함.
+  -->
+  <div class="test">div2</div>
+
+  <h3>z-index</h3>
+  <p>
+    페이지의 요소들을 순서대로 위에 쌓는 속성 <br>
+    속성 값이 크면 가장 위에 있는 요소,작으면 밑에 있는 요소 <br>
+    속성값이 크다? 우선순위가 제일 높다
+  </p>
+  <div class="zindex-con">
+    <div class="z1">div1</div>
+    <div class="z2">div2</div>
+    <div class="z3">div3</div>
+  </div>
+
+  <h3>float</h3>
+  <p>
+    페이지 내에서 왼쪽 혹은 오른쪽으로 지정하는 속성 <br>
+    기본 static position에서 벗어나 왼쪽, 오른쪽 상단으로 배치시키는 속성
+  </p>
+    <div class="float-container">
+      <div class="left">left</div>
+      <div class="left">left</div>
+
+      <div class="right">right</div>
+      <div class="right">right</div>
+      <div>basic</div>
+      <!-- content 내용만 남기고 테두리는 left 아래로 들어가버림 -->
+    </div>
+
+  <h2>div 태그를 수평정렬하는 것</h2>
+  <p>
+    수평정렬할 때 display:flex 속성을 이용할 수 있다. <br>
+    div를 모두 포함하는 부모태그 설정 -> <br>
+    자식 block 속성 태그를 수평으로 정렬해줌
+  </p>
+  <div class="parent">
+    <div class="child c1">ch1</div>
+    <div class="child c2">ch2</div>
+    <div class="child c3">ch3</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container{border:1px red solid;}
+    .absize{height:200px; width:900px;}
+    .resize{height: 200px; width: 70%;}
+    .basicsize{height: 200px; width: 300px;}
+    .inline{display: inline;}
+    .inlineblock{display: inline-block ;}
+    .block{display: block;}
+    ul>li{display: inline;}
+    .none{display:none;}
+    #target:hover+div{display: block; background-color: red;}
+  </style>
+</head>
+<body>
+  <h1>영역에 대한 크기 설정하기</h1>
+  <h2>height/width</h2>
+  <p>
+    콘텐츠가 차지하고 있는 영역의 크기를 조절 할 수 있는 속성 <br>
+    상대크기와 절대크기가 있다. <br>
+    상대크기 단위 -> 창크기가 줄면 창크기에 따라 변경 <br>
+    절대크기 단위 -> 창크기에 상관없이 고정된 위치에 나옴 <br>
+    height -> 높이 (세로) <br>
+    width -> 넓이 (가로) <br>
+    단위 : px -> 절대크기, % -> 상대크기
+  </p>
+  <h3>절대크기</h3>
+  <div class="container absize"></div>
+  <h3>상대크기</h3>
+  <div class="container resize"></div>
+  
+  <h1>태그별 배치속성</h1>
+  <h2>블록/ 인라인 레벨 요소</h2> <br>
+  <h3>블록 레벨요소</h3>
+  <p>
+    한줄 전체를 차지하는 요소 -> 박스모델, 사용시 개행됨<br>
+    한줄에 여러 요소가 올 수 없음<br>
+    div, p ,hn,ul,ol,blockquote,form,hr,table, fieldset,address
+  </p>
+  <h4>기본 div(block) 배치하기</h4>
+  <div class="container basicsize">기본 div1</div>
+  <div class="container basicsize">기본 div2</div>
+  <div class="container basicsize">기본 div3</div>
+
+  <h2>display</h2>
+  <p>
+    화면 배치방법 변경속성, 박스->인라인, 인라인->박스
+  </p>
+
+  <h3>기본 div(block)을 inline속성으로 변경하기</h3>
+  <div class="container basicsize inline">기본 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div1</div>
+  <div class="container basicsize inline">기본 div2</div>
+  <div class="container basicsize inline">기본 div3</div>
+  <!-- 내가 설정한 것과 상관 없이 자동으로 width,height 값을 준다. 자동으로 조절함  -->
+
+  <h4>기본 div(block)을 inline-block속성으로 변경하기</h4>
+  <div class="container basicsize inlineblock">기본 div1</div>
+  <div class="container basicsize inlineblock">기본 div2</div>
+  <div class="container basicsize inlineblock">기본 div3</div>
+  
+  <h2>인라인 레벨요소</h2>
+  <p>
+    한줄에 일부분만 차지하는 요소 -> 한줄에 여러 요소가 올 수 있는 요소
+    img, object,br,sub,sup,span,input,textarea, label,button
+  </p>
+
+  <h4>기본 span(inline) 배치하기</h4>
+  <span class="container">span1</span>
+  <span class="container">span2</span>
+  <span class="container">span3</span>
+
+  <h3>span(inline) -> block 속성으로 변경하기</h3>
+  <span class="container block basicsize">span1</span>
+  <span class="container block">span2</span>
+  <span class="container block basicsize">span3</span>
+  <h3>input태그를 block 속성으로 변경하기</h3>
+  <!-- block 속성으로 바꾸면 따로 개행을 하지 않아도 배치된다.하지만 보통 div로 묶어서 사용한다. -->
+  <div> 이름<input type="text"> </div>
+  나이<input type="text" class="block">
+  성별<input type="text" class="block">
+
+  <h3>메뉴만들기</h3>
+  <nav>
+    <ul>
+      <li>게시판</li>
+      <li>갤러리</li>
+      <li>자료실</li>
+    </ul>
+  </nav>
+
+  <h2>display : none</h2>
+  태그를 숨기는 것 
+  <p>
+    display속성에 none 설정하면 html에서 태그가 안보이게됨<br>
+    코드상에만 있고 차지하는 영역은 표시하지 않음
+  </p>
+  <div id="target" class="container basicsize">div1</div>
+  <div class="container basicsize none">none</div>
+  <div class="container basicsize">div2</div>
+
+  <script>
+    let t =document.getElementById("target");
+    t.addEventListener("click",(e)=>{
+      e.target.nextElementSibling.style.display="block"
+    });
+  </script>
+
+
+</body>
+</html>
