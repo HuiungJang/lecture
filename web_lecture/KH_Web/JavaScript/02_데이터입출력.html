@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
+    <title>Title</title>
+</head>
+<body>
+    <h1>데이터 출력하기</h1>
+        <p>
+            스크립트에서 데이터를 출력하는 방식은 두개로 나눌 수 있음 <br>
+            1. 페이지에 출력하는 방법 <br>
+            2. 브라우저가 출력하는 방법( 알림창, console 창)
+        </p>
+        <ul>
+            <li>페이지에서 출력
+                <ol>
+                    <li>document.writer("출력구문 || 태그+출력구문")</li>
+                    <li>태그선택.innerHTML="출력구문"</li>
+                </ol>
+            </li>
+            <li>브라우저에서 출력
+                <ol>
+                    <li>알림창 출력 : alert("출력문구")</li>
+                    <li>console 창 출력 : console.log("출력문구")</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h3>페이지 출력하기</h3>
+            <h4>document.write()함수(메소드)이용하기</h4>
+
+                <button onclick="addImg();" >이미지</button>
+                <script>
+                  document.write("write로 작성한 문구");
+                  //  document.write 함수의 매개변수에 태그형식으로 넣으면?
+                  document.write("<h1>이것도 write 함수이용해서 작성함</h1>")
+
+                  function addImg(){
+                    document.write("<img src='https://lh3.googleusercontent.com/proxy/IrPcQgP0cHtWC9OFlxtb_" +
+                      "8VrZIH5YGVJs6WYKCTsORzXma9fgqU46ud7LRtRNOKkwCXHqQh1LF29gJfRUJ5g-puKssYYSea5twvi-5MrAJ" +
+                      "vw34IFtZbCztjTyC7yGCYQcsaZFWFspYOEDiiLGq3r8ecVmLpSKFrbmNwhvgfXOqLrx0Gh2wQIitJiBxEyKgF" +
+                      "aafkQPnGPrCIidiQ5rk9VX97Pn35yo1ffd5Clcd-FQOdKVG6aRbHuDGKmdhynjJD0nWeit9Lyl7KIQIb-BYHH" +
+                      "I7qr-UTRGhDh'>");
+                    //  이미지도 넣을 수 있다.
+                  };
+                </script>
+
+            <h4> innerHTML 속성 이용하기</h4>
+                <p>
+                    태그마다 innerHTML 속성을 가지고 있음 <br>
+                    innerHTML 속성은 현재 출력하고 있는 문구를 저장하는 속성 <br>
+                    innerHTML 속성에 저장되어있는 값이 화면에 출력. <br>
+                    태그.innerHTML="문구";
+                </p>
+                <div id="target"></div>
+                <button onclick="inputData();">문구변경</button>
+                <script>
+                    function inputData(){
+                      document.getElementById("target").innerHTML="출력문구 바꾸기";
+                    };
+                </script>
+
+        <h3>브라우저에 출력하기</h3>
+            <h4>알람창으로 출력하기 : alert()함수이용</h4>
+            <script>
+                // alert('알림창출력');
+            //    클라이언트한테 알림 메시지를 출력할때 사용
+            //    디버깅시 실행여부확인할때 / 변수값 확인할 때 등등 -> console.log를 많이 쓰긴하지만 쓰긴씀
+            </script>
+
+            <h4>console 창에 출력하기 : console.log() 함수 이용</h4>
+            <script>
+                let msg = '메시지 테스트';
+                console.log(msg);
+                console.log("이건 콘솔창에 출력");
+            //    개발자도구 console 탭에서만 확인가능 클라이언트는 확인안함.
+            //    개발시에 확인이 필요한 내용을 출력.
+            //    에러 메시지나 경고메시지 출력
+                console.error("이건안됨");
+                console.warn("경고! 경고!")
+                console.table(document.getElementById("target"));
+                console.dir(document.getElementById("target"));
+                console.log(document.getElementById("target"));
+            </script>
+
+    <h1>데이터 입력받기</h1>
+    <p>
+        1. 함수를 이용해서 입력받는 방법<br>
+        -> prompt(); , confirm(); <br>
+        2. input 태그를 이용해서 입력받는 방법 <br>
+    </p>
+        <h3>함수를 이용해서 입력받는 방법</h3>
+            <h4>confirm() 함수 이용하기</h4>
+            <p>
+                confirm() 함수는 ture/ false 를 반환해주는 함수 <br>
+                선택 -> 확인(true) 취소(false)
+            </p>
+<!--            <script>-->
+<!--              console.log(confirm("당신은 19세 이상입니까?"));-->
+<!--            </script>-->
+
+            <h4>prompt 함수로 입력받기</h4>
+            <p>
+                클라이언트에게 문구를입력받아 반환하는 함수
+            </p>
+            <h5 id="prompttest"></h5>
+<!--            <script>-->
+<!--                console.log(prompt("당신의 취미는 ?"));-->
+<!--                document.getElementById("prompttest").innerHTML=prompt("당신의 취미는?");-->
+<!--            </script>-->
+
+        <h3>input 태그를 이용해서 입력받기</h3>
+        <input type="text" id="userId" name="userId">
+        <button onclick="checkInput();">inputData가져오기</button>
+        <script>
+            function checkInput(){
+              console.log(document.getElementById("userId").value);
+              document.getElementById("prompttest").innerHTML=
+                document.getElementById("userId").value;
+            }
+        </script>
+</body>
+</html>

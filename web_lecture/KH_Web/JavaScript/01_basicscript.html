@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<script>
+  alert('internal 방식으로 script 적용이지만 html 태그 시작 밖이요~');
+</script>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
+    <title>기본 js 실행하기</title>
+    <script>
+        let test=document.getElementsByTagName("p");
+        console.log(test[0]);
+        console.log(test + 'head 태그');
+    </script>
+</head>
+<body>
+    <h1>자바스크립트 이용하기</h1>
+    <p>
+        자바스크립트로 페이지를 interactive 하게 구성하려면 <br>
+        자바스크립트 구문을 태그내 속성(inline), script 태그내부, 외부 js 파일에 작성한다.
+    </p>
+    <ol>
+        <li>inline: 태그 내부의 이벤트 속성(on)에 직접 코드를 작성함 -> 간단한 것만 사용</li>
+        <li>internal : 페이지의 script 태그안에 코드를 작성하는 것</li>
+        <li>external : 특정 확장자(.js) 파일에 js 코드를 작성하고 페이지에서 불러오는 것 <br>
+        ex) script src="주소" / 서버내부 파일이나 외부주소(https://)에서 지원하는 파일 가능</li>
+    </ol>
+
+    <h3>inline 방식 적용</h3>
+    <p onclick="alert('js 세계에 온 것을 환영합니다.');">inline 으로 자바스크립트 적용하기</p>
+
+    <h3>internal 방식 적용</h3>
+    <script>
+        alert('internal 방식으로 script 적용');
+    </script>
+
+    <h3>external 방식 적용</h3>
+    <script src="js/basic.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+    <script>
+      let test1=document.getElementsByTagName("p");
+      console.log(test1[0]);
+      console.log(test1 + 'body 태그');
+    </script>
+
+    <h3>스크립트를 지원하지 않는 브라우저 예외처리</h3>
+    <noscript>
+        <p style="color:red; font-size:30px;">이 브라우저는 스크립트를 지원하지 않습니다. 다른 브라우저를
+        이용하거나 버전을 업그레이드 하세요.</p>
+    </noscript>
+</body>
+</html>
+<script>
+  alert('internal 방식으로 script 적용이지만 html 끝난 후요~');
+</script>
