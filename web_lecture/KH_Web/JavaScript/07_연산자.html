@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>연산자</title>
+</head>
+<body>
+  <h2>연산자</h2>
+  <p>
+    연산자를 기본적으로 자바와 동일하게 사용함
+  </p>
+  <input type="text" name="" id="str">
+  <button onclick="addStr();">문자 더하기</button>
+  <div id="result"></div>
+  <script>
+    function addStr(){
+      let inputStr=document.getElementById("str");
+      if('end'!=inputStr.value&&'끝'!=inputStr.value){
+        document.getElementById("result").innerHTML+=inputStr.value;
+      }
+      inputStr.value="";
+    }
+  </script>
+
+  <h3>=== 연산자와 !== 연산자</h3>
+  <p>
+    자바스크립트의 유연성때문에 나온 연산자
+  </p>
+  <script>
+    let su = 100;
+    let strSu="100";
+    let su2 = 100;
+    console.log(su== strSu);
+    // 자료형을 보지 않고 값만 보고 형변환해서 비교함
+    console.log(su === Number(strSu));
+    // 자료형의 일치여부까지 확인함
+
+    console.log(su === su2);
+  </script>
+  <h3>짧은 조건문 이용하기</h3>
+  <p>
+    && : 두개다 true-> true <br>
+    || : 한개라도 true -> true 
+  </p>
+  <!-- <script>
+    let num=100;
+    num%2==0 &&alert('짝수');
+    num%2==0||alert('홀수');
+  </script> -->
+  input태그로 숫자를 입력받아 그 숫자가 홀수인지 짝수인지 출력하는 기능 구현 <br>
+  input, button누르면 div에 출력 <br>
+
+  
+  <input type="number" name="" id="num">
+  <button onclick="check();">홀짝?</button>
+  <div id="print"></div>
+  <script>
+    function check(){
+      let num2 = document.getElementById("num");
+      let print =document.getElementById("print");
+      
+      // if(Number(num2.value)%2===0){
+      //   print.innerHTML="짝수";
+      // }else print.innerHTML="홀수";
+      
+      num2.value%2==0 && (print.innerHTML="짝수");
+      num2.value%2==0 || (print.innerHTML="홀수");
+    }
+  </script>
+</body>
+</html>

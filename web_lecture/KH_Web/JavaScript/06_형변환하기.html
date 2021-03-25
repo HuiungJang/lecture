@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>숫자 -> 문자로 변경</h3>
+  <script>
+    let su = 19;
+    let name='병승';
+
+    console.log(su+name,typeof(su+name));
+    console.log(su,typeof su);
+    console.log(su.toString(), typeof su.toString());
+  </script>
+
+  <h3>문자를 숫자로 변경하기</h3>
+  <p>
+    두가지 방법이 있다. <br>
+    1. Number() 함수이용 <br>
+    2. parseInt() 함수이용
+  </p>
+  <input type="number" name="su" id="su1">
+  <input type="number" name="su" id="su2">
+  <button onclick="sum();">계산하기</button>
+  <span id="result"></span>
+  <script>
+    let su2 = 19;
+    let strsu ="19";
+    let strsu2 ="19살";
+
+    console.log(su2 , typeof su2);
+    console.log(strsu, typeof strsu);
+    console.log(su + strsu);
+    console.log(su + Number(strsu));
+    console.log(su + parseInt(strsu));
+
+    console.log(su + strsu2);
+    console.log(su + Number(strsu2)); // NaN -> 숫자 형태가 아닌걸 숫자로 변환했음 
+    console.log(su + parseInt(strsu2)); // 숫자 형태가 아닌거는 버리고 숫자만 빼서 바꿈
+
+    function sum(){
+      let su1= document.getElementById("su1");
+      let su2= document.getElementById("su2");
+      let result = document.getElementById("result");
+
+      let value1 =su1.value;
+      let value2 =su2.value;
+      
+      result.innerHTML=parseInt(value1)+parseInt(value2);
+      console.log(parseInt(value1)+parseInt(value2));
+    }
+  </script>
+</body>
+</html>
