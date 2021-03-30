@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>함수선언하기</h1>
+  <ul>
+    <li>
+      <p>선언적 함수 : 함수명이 명시된 함수</p>
+      <p>function 함수명 ([매개변수]){처리로직}</p>
+    </li>
+    <li>
+      <p>익명함수 : 함수명이 없는 함수</p>
+      <p>function([매개변수,..]){처리로직}</p>
+      <p>변수(일반,매개변수의 인자)에 대입하여 사용</p>
+    </li>
+  </ul>
+  <h2>선언적 함수</h2>
+  <div id="container"></div>
+  <button onclick="sumFun(prompt('수1 :' ),prompt('수2 :'));">계산</button>
+  <script>
+    //매개 변수가 없고 반환형이 없는 함수
+    function basicFunc(){
+      console.log("아무것도 없는 함수");
+    }
+    // 함수 호출하기
+    basicFunc();
+
+    //매개변수가 있고 반환형이 없는 함수
+    //매개변수 선언시에는 자료형 없이 변수명만 선언하면 됨
+    function paramFunc(age,name){
+      if(typeof(age)==='number'){
+        console.log(`당신의 나이는 만${--age}이고 이름은 ${name}입니다.`);
+      }else{
+        console.error('첫번째 매개변수는 숫자여야합니다.');
+      }
+    }
+
+    function sumFun(su,su2){
+      let el = document.getElementById('container');
+      el.innerHTML=su+su2;
+      // 숫자 계산해야하는 로직이지만 입력값이 문자열이기 때문에
+      // 예외처리를 해줘야한다. 혹은 형변환을 해줘야한다.
+    }
+    // paramFunc('유병승',19);
+    paramFunc(19,'유병승');
+
+    // 만약 함수에서 선언한 매개변수의 인자를 다 넣지 않고 호출한다면?
+    // paramFunc에 매개변수를 넣지 않고 호출한다면?
+    // 가능하지만 매개변수는 undefined가 된다.
+    paramFunc();
+
+
+    //반환형이 있는 선언적 함수
+    // 자바스크립트에서는 선언시에 반환형을 명시하지 않음
+    // 반환형이 있는 함수의 경우
+    //{}안에서(로직에서) return예약어를 사용해서 반환을 명시
+    function returnTest(){
+      console.log("??");
+      // return '안녕 나 리턴이야';
+      return [1,2,3,4,5];
+      // 배열반환도 가능하다.
+    }
+    console.log(returnTest());
+    let returnVal=returnTest();
+    console.log(`리턴값 변수 : ${returnVal}`);
+
+    // 함수도 hoisting이 있다. 때문에 함수명이 중복되면 아래 있는 것으로 덮어쓰기 된다.
+    // 함수명이 겹치지 않도록 하자
+
+  </script>
+  <h2>익명함수 활용하기</h2>
+  <p>
+    익명함수를 변수(일반,매개)에 대입하기 전까지 활용이 불가능한 함수. <br>
+    반드시 변수에 넣어서 사용을 함 <br>
+    스스로 동작하게 만들 수 있음 -> 재사용 불가능 <br>
+    callback 함수에서 많이 사용 -> 매개변수로 함수를 넣는것
+  </p>
+  <script>
+    // 매개변수가 없고 반환형이 없는 함수
+    let nothing =function(){
+      console.log('아무것도 없는 익명함수 ');
+    }
+    nothing();
+
+    // 매개변수가 있고 반환형이 없는 함수
+    let annoyParam = function(su,su2){
+      console.log(su+su2);
+      return su+su2;
+    }
+    let result = annoyParam(10,20);
+    console.log(`return결과 : ${result}`);
+
+    // 변수, 함수 호이스팅으로 인한 변화
+    console.log(test);
+
+    var test="???";
+    console.log(test);
+    function hoistingFunc(){
+      console.log("호이스팅 되어 호출이 가능 ");
+    }
+    
+    // var을 사용했을 경우
+    var makerArr1 =function(a,b,c,d,e){
+      return [a,b,c,d,e];
+    }
+    console.log(makerArr1(1,2,3,4,5));
+    console.log(makerArr1('가','나','다','라','마'));
+
+    var makerArr1=function(){
+      console.log("이것도 덮어쓰기?");
+    }
+    console.log(makerArr1(1,2,3,4,5));
+    console.log(makerArr1('가','나','다','라','마'));
+    // 변수명이 중복으로 선언된다
+    // -> let을 사용하자
+  </script>
+  <h2>callback 함수이용하기</h2>
+  <p>
+    매개변수로 함수를 전달하는 것 <br>
+    이벤트 처리할때 많이 사용 <br>
+    기본제공함수에서 많이 사용
+  </p>
+  <ul>
+    <li class="test">1</li>
+    <li class="test">2</li>
+    <li class="test">3</li>
+  </ul>
+  <script>
+    let lis = document.getElementsByClassName("test");
+    for(let i =0; i<lis.length; i++){
+      lis[i].addEventListener("click",function(){
+        // alert("클릭함");
+        this.innerHTML+="클릭함";
+      });
+    };
+
+    setTimeout(function(){
+      console.log("일정 시간 후 한 번 실행");
+    },500);
+
+  setTimeout(argumentsTest,2000);
+  function argumentsTest(){
+    console.log("선언적 함수로 실행");
+  }
+  </script>
+
+  <script>
+    let returnFunc = function(){
+      return function(){
+        console.log("리턴이라네 함수가 리턴이라네~");
+      }
+    }
+
+    let tmp = returnFunc();
+    console.log(tmp,typeof tmp);
+    tmp();
+    returnFunc()();
+  </script>
+  
+  <h2>함수를 리턴하기 -클로저-</h2>
+  <p>
+    함수내부에서 선언된 변수(지역변수)를 함수 외부에서 사용할 수 있도록 만드는 로직 <br>
+    return된 함수를 이용해서 변수를 사용할 수 있게 함.
+  </p>
+  <script>
+    let basicFunc2 =function(n){
+      let name = n;
+      return function(str){
+        console.log(`추가 ${name} ${str}`);
+      }
+    }
+    let a = basicFunc2("김상현");
+    let b = basicFunc2("김예진");
+    a();
+    a('권력자');
+    b();
+    b('김상현킬러!')
+  </script>
+
+  <div id="closure"></div>
+  <button onclick="tt();">누르면 변경</button>
+  <style>
+    #closure{
+      width:100px;
+      height:100px;
+      border: 1px solid red;
+    }
+    .t1{
+      background-color: blue;
+    }
+    .t2{
+      background-color: red;
+    }
+  </style>
+  <script>
+    let tt =(function(){
+      let flag =true;
+      return function(){
+        let el = document.getElementById("closure");
+        flag? el.className="t1": el.className="t2";
+        flag =! flag;
+      }
+    })();
+    
+  </script>
+  <br>
+  <button onclick="count2();">+</button>
+  <div id="result">0</div>
+  <script>
+    // let count = 0;
+    function increase(){
+      let count=0;
+      return function(){
+        document.getElementById("result").innerHTML=++count;
+      }
+    }
+    const count2= increase();
+  </script>
+  <h1>매개변수 전체 보관하는 객체</h1>
+  <p>
+    arguments 객체 인자를 순차적으로 보관하는 객체
+  </p>
+  <script>
+    let arguTest = function(){
+      console.log(arguments);
+      if(arguments.length===3){
+        for(let i=0; i<arguments.length; i++){
+          console.log(arguments[i]);
+        }
+      }else{
+        console.log("매개변수는 3개만 넣으세요");
+      }
+    }
+    arguTest(1,2,3,4,5);
+    arguTest(1,"김상현",true,function(){console.log('test')});
+  </script>
+</body>
+</html>

@@ -49,6 +49,7 @@
     <li>def</li>
     <li>1000</li>
   </ul>
+  <div id="area"></div>
   <button onclick="lichange();">리스트 변경</button>
   <script>
     // li 태그에 있는 글자가 ->속성에 있는 값을 가져올 때면 속성을 호출하면 가져올 수 있음.
@@ -92,6 +93,47 @@
 
         }else{
           lis[i].style.backgroundColor="royalblue";
+        }
+      }
+      // <h1>switch 문으로 변경하기 </h1>
+
+      // let color="";
+      // switch(val.length){
+      //   case 1: color="pink"; break;
+      //   case 2: color="crimson"; break;
+      //   case 3: color="magenta"; break;
+      //   default : color="royalblue"; break;
+      // }
+      // switch(true){
+      //   case val.length===1: color="pink"; break;
+      //   case val.length===2: color="crimson"; break;
+      //   case val.length===3: color="magenta"; break;
+      //   default : color="royalblue"; break;
+      // }
+    }
+  </script>
+
+
+
+  <h1>반복문 활용하기</h1>
+  <button onclick="checkList();">반복문활용하기</button>
+  <script>
+    function checkList(){
+      let list = document.getElementsByTagName("li");
+      // for(let i =0; i<list.length; i++){
+      //   let tmp = list[i].innerHTML;
+      //   if(tmp==='23'){
+      //     document.getElementById("area").innerHTML = "<p>"+tmp+"</p>";
+      //   }
+      // }
+
+      let i =0;
+      while(true){
+        let tmp=list[i++].innerHTML;
+        if(tmp==='23'){
+          document.getElementById("area").innerHTML="<p style=background-color:royalblue>"+tmp
+            +"</p>"; 
+            break;
         }
       }
     }
