@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    <h1>window 객체</h1>
+    브라우저 창에 대한 설정을 하는 객체, 자바스크립트 최상위 객체 <br>
+    모든 객체는 window객체 하위에 존재함
+    <br>
+    <h3>BOM객체 : browser object model</h3>
+    browser 한개 마다 한개의 윈도우 객체가 생성됨 <br>
+    location : 브라우저 url주소 설정/ 정보 <br>
+    navigator : 브라우저에 대한 정보, 미디어 스트림 등의 설정 가져옴 <br>
+    screen: 사용자 화면에 대한 정보 <br>
+    history : 페이지 이동 이력 정보 <br>
+
+    <h3>DOM 객체 : Document object model</h3>
+    document : 브라우저의 html태그들을 객체화해서 처리하는 객체 <br>
+
+    <h4>주요함수</h4>
+    <p>
+      윈도우를 조작하고, 다른 추가기능(입력, 알림, 새창열기, 주기적인 실행등 ) <br>
+      resizeTo() <br>
+      moveTo() <br>
+      focus() <br>
+      height() <br>
+      width() <br>
+      alert, prompt, confirm, setInterval, setTimeout 
+    </p>
+  </p>
+  <script>
+    console.log(window);
+  </script>
+
+  <h1>윈도우 함수 이용하기</h1>
+  <h3>윈도우 open함수</h3>
+  <p>
+    새창을 생성하는 함수<br>
+    [window.]open('','',''); <br>
+    매개변수 첫번째 : 새창을 열었을 때 오픈할 페이지 주소(URL) <br>
+    두번째 : target속성 (_self, _blank) <br>
+    세번째 : 새로 오픈하는 창에 대한 설정 (크기)
+  </p>
+
+  <button onclick="openTest();">open</button>
+  <button onclick="childControl();">자식객체 조작하기</button>
+
+  <div id="container"></div>
+  <script>
+    function openTest(){
+      let child = open("","_blank","height=300, width=300");
+      console.log(child);
+      child.document.write("<h1>ghghghg</h1>");
+    }
+    // open 함수는 새로생긴 윈도우 객체를 반환함.
+
+    const childControl=()=>{
+            const child=open("","_blank","width=400,height=300");
+            let temp="<script>";
+                temp+="function sendData(){";
+                temp+="let con=opener.document.getElementById('container');";
+                temp+="let val=document.getElementById('data').value;";
+                temp+="con.innerHTML='<h2>'+val+'</h2>';}";
+                temp+="</";
+                temp+="script>";
+                child.document.write("<html><body><h2>부모창에서 작성한내용</h2><input id='data' type='text'><button onclick='sendData();'>데이터전송</button>"+temp+"</body></html>")
+              }
+              
+  </script>
+</body>
+</html>
