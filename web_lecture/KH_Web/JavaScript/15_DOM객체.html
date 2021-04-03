@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM 객체</title>
+</head>
+<body>
+  <h1>DOM</h1>
+  <p>
+    html 문서에 있는 태그들을 객체화하여 관리할 수 있게한 객체 <br>
+    window객체의 property객체로 document객체로 관리함 
+  </p>
+  <script>
+    console.log(document);
+    // html 문서 전체를 의미한다.
+    console.dir(document);
+  </script>
+
+  <h1>태그를 동적으로 생성해보자</h1>
+  <p>
+    document 객체의 createElement()함수를 이용함 -> 요소노드 생성 <br>
+    documnet 객체의 createTextNode() 함수를 이용해서 -> 텍스트 노드생성 <br>
+    *텍스트 노드가 필요없는 요소(태그)는 생성하지 않는다. <br>
+      ex) img input video audio 등 <br>
+    노드간 연결을 해줘야함 <br>
+    Element.appendChild() 함수를 이용해서 노드간 연결함 <br>
+    부모노드.appendChild(자식노드); <br>
+    => 램상에서 생성한것이고 페이지에는 출력되지 않음 <br>
+    페이지에 있는 실제태그를 불러와서 그 태그와 연결을 해줘야함
+  </p>
+  <button onclick="createTag();">태그생성하기</button>
+  <button onclick="createH2();">h2추가생성하기</button>
+
+  <div id="container"></div>
+  <!-- h2 태그 추가하기 -->
+  <!-- 클라이언트가 선택한 태그와 문구를 생성해주는 기능 -->
+  <!-- p h1 h2 h3  -->
+  <br>
+  <script>
+    const createH2 = ()=>{
+      let h2 = document.createElement("h2")
+      let text = document.createTextNode("만드는 제목태그");
+      h2.appendChild(text);
+      document.getElementById("container").appendChild(h2);
+    }
+
+    const createTag=()=>{
+      //1. 요소 노드 생성하기
+      let p = document.createElement("p");
+      console.log(p);
+      console.dir(p);
+
+      //2. 텍스트 노드 생성하기
+      let txt=document.createTextNode("하은씨가 좋아하는 p태그");
+      console.log(txt);
+      console.dir(txt);
+
+      //3. 요소노드의 자식으로 텍스트 노드넣기
+      p.appendChild(txt);
+      console.log(p);
+      console.dir(p);
+
+      //페이지에 있는 요소의 자식으로 추가
+      let container = document.getElementById("container");
+      container.appendChild(p);
+
+      let input= document.createElement("input");
+      container.appendChild(input);
+    }
+  </script>
+    <select name="" id="select">
+      <option value="p">p</option>
+      <option value="h1">h1</option>
+      <option value="h2">h2</option>
+      <option value="h3">h3</option>
+    </select>
+    <input type="text" name="" id="text">
+    <button onclick="inputText();">태그 생성</button>  
+  <script>
+    const inputText =()=>{
+      let select = document.getElementById("select").value;
+      let textvalue = document.getElementById("text").value;
+      let text = document.createTextNode(textvalue);
+
+      let tag=document.createElement(select);
+      tag.appendChild(text);
+
+      // if(select === 'p'){
+      //   tag=document.createElement("p")
+      //   tag.appendChild(text);
+      // }else if(select ==='h1'){
+      //   tag=document.createElement("h1")
+      //   tag.appendChild(text);
+
+      // }else if(select ==='h2'){
+      //   tag=document.createElement("h2")
+      //   tag.appendChild(text);
+
+      // }else{
+      //   tag=document.createElement("h3")
+      //   tag.appendChild(text);
+      // }
+
+    
+      document.getElementById("container").appendChild(tag);
+
+    }
+      // console.log(form);
+    </script>
+
+    <h2>텍스트 노드가 없는 태그 생성하기</h2>
+    <p>
+      input, img , video, audio ... <br>
+      텍스트 노드가 없기 때문에 요소 노드만 생성하고 <br>
+      태그의 속성을 설정해줘야한다.
+    </p>
+    <button onclick="newImage();">이미지 추가하기</button>
+    <button onclick="newInput();">이름 추가하기</button>
+    <div id="imgContainer"></div>
+
+    <script>
+      const newImage=()=>{
+        // 1. 요소 노드 만들기
+        let img=document.createElement("img");
+        console.log(img);
+        // 2. 요소에 필요한 속성을 설정
+        // 설정방식은 2개가 있따.
+        // 1) 함수이용 setAttribute();
+        // 2) 속성에 직접접근해서 설정 elemnet.src="";
+
+
+
+        // 직접접근해서 주소값 넣기
+        img.src="https://cdn.crowdpic.net/detail-thumb/thumb_d_DF7DAE3135D206268C7D65D2C331CC51.png";
+        console.log(img.src);
+
+        // 함수로 주소값 넣기
+        img.setAttribute("src","https://cdn.crowdpic.net/detail-thumb/thumb_d_DF7DAE3135D206268C7D65D2C331CC51.png");
+        console.log(img.src);
+        
+        // 3. 페이지에 있는 요소에 추가/ 연결한다.
+        document.getElementById("imgContainer").appendChild(img);
+      }
+
+      let count=0;
+      const newInput=()=>{
+        let input=document.createElement("input");
+        input.setAttribute("type","text");
+        input.setAttribute("name",`name${count++}`);
+
+        document.getElementById("imgContainer").appendChild(input);
+      }
+    </script>
+    <h3>태그안에 태그가 있게 만들기</h3>
+    <p>
+      목록(ul,ol) 테이블태그, div안에 태그넣기 
+    </p>
+    <h4>목록태그만들기</h4>
+    <div id="liContainer"></div>
+    <button onclick="addList();">목록태그생성</button>
+    <script>
+      const addList =()=>{
+        let ul=document.createElement("ul");
+        // let li1=document.createElement("li");
+        // let li2=document.createElement("li");
+        // let li3=document.createElement("li");
+        // let li4=document.createElement("li");
+
+        // let txt1=document.createTextNode("1");
+        // let txt2=document.createTextNode("2");
+        // let txt3=document.createTextNode("3");
+        // let txt4=document.createTextNode("4");
+
+        // li1.appendChild(txt1);
+        // li2.appendChild(txt2);
+        // li3.appendChild(txt3);
+        // li4.appendChild(txt4);
+
+        // ul.appendChild(li1);
+        // ul.appendChild(li2);
+        // ul.appendChild(li3);
+        // ul.appendChild(li4);
+        
+        // document.getElementById("liContainer").appendChild(ul);
+
+        for(let i =0; i<4; i++){
+          let li =document.createElement("li");
+          let txt = document.createTextNode(1+i);
+          li.appendChild(txt);
+          ul.appendChild(li);
+        }
+        document.getElementById("liContainer").appendChild(ul);
+      }
+    </script>
+
+    <!-- 숙제 -->
+    <h3>테이블 태그 만들기</h3>
+    <p>
+      5*5테이블 만들기
+    </p>
+    <div id="tableContainer"></div>
+    <button onclick="createTable();">테이블만들기</button>
+    <br>
+    <br>
+
+    <select name="" id="row">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <select name="" id="col">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button onclick="rowcolTable();">row,col조절해서 만들기</button>
+    <div id="tableContainer2"></div>
+
+    <script>
+      const createTable=()=>{
+        let table = document.createElement("table");
+        
+        for(let i=0; i<5; i++){
+          let tr =document.createElement("tr");
+          for(let j=0; j<5; j++){
+            let td = document.createElement("td");
+            let data = document.createTextNode(1+j);
+            td.appendChild(data);
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        document.getElementById("tableContainer").appendChild(table);
+      }
+
+      const rowcolTable =()=>{
+        let row = document.getElementById("row").value;
+        let col =document.getElementById("col").value;
+        let table = document.createElement("table");
+
+        for(let i=0; i<row; i++){
+          let tr =document.createElement("tr");
+          for(let j=0; j<col; j++){
+            let td = document.createElement("td");
+            let data = document.createTextNode(1+j);
+            td.appendChild(data);
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        document.getElementById("tableContainer2").appendChild(table);
+      }
+      
+    </script>
+  </body>
+</html>

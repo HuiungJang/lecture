@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOM 객체</title>
+</head>
+<body>
+  <h2>screen</h2>
+  <p>
+    window 객체의 property객체로 client 화면에 대한 정보를 가지고 있는 객체 <br>
+  </p>
+  <button onclick="infoScreen();">스크린객체정보</button>
+  <div id="screenInfo"></div>
+  <script>
+    const infoScreen=()=>{
+      let info=document.getElementById("screenInfo");
+      // console.log(window.screen);
+      // window 객체의 후손이니까 가능
+      console.log(screen);
+      for(let key in screen){
+        info.innerHTML+=`${key} -> ${screen[key]}<br>`;
+      }
+    }
+  </script>
+  <h2>navigator 객체 알아보기</h2>
+  <p>
+    window객체의 property 객체로 client 브라우저 정보를 가지고 있다.
+  </p>
+  <button onclick="infoNavi();">navigator정보</button>
+  <div id="naviInfo"></div>
+  <script>
+    const infoNavi=()=>{
+      let area= document.getElementById("naviInfo");
+      console.log(navigator);
+      for(let key in navigator){
+        area.innerHTML += `${key} -> ${navigator[key]}<br>`;
+      }
+      navigator.geolocation.getCurrentPosition((position)=>{
+        console.log(position);
+        area.innerHTML+=`위도 : ${position.coords.latitude}  경도 : ${position.coords.longitude}`;
+      })
+    }
+  </script>
+
+  <h2>location 객체</h2>
+  <p>
+    window 객체의 property객체로 브라우저의 URL정보를 가지고 있는 객체<br>
+    URL 정보를 변경하여 페이지를 이동할 수 있음. <br>
+    *주로 페이지 변경할 때 많이 사용함. <br>
+    함수/ 속성값을 변경 <br>
+    assign() / replace() / reload() <br>
+    location.href="주소값" -> URL이 바뀐다 -> 페이지가 바뀐다.
+  </p>
+  <button onclick="locationInfo();">location정보확인</button>
+  <div id="locationInfo"></div>
+
+  <h3>페이지 이동시키기</h3>
+  <h4>속성을 변경해서 페이지 이동하기</h4>
+  <button onclick="location.href='http://www.youtube.com'">유튜브로 이동</button>
+  <h4>함수를 이용해서 페이지 이동하기</h4>
+  <button onclick="location.assign('http://www.iei.or.kr')">유튜브로 이동</button>
+  <!-- 뒤로가기 가능 이전 히스토리 남아있음 -->
+  <button onclick="location.replace('https://www.netflix.com')">넷플릭스로 이동</button>
+  <!-- 뒤로가기가 안됨 이전 히스토리를 없앰. -->
+
+  <script>
+    const locationInfo=()=>{
+      let area= document.getElementById("locationInfo");
+      console.log(location);
+      for(let key in location){
+        area.innerHTML += `${key} ->${location[key]}<br>`;
+      }
+    }
+  </script>
+
+  <h3>history 객체</h3>
+  <button onclick="history.forward();">앞으로가기</button>
+  <button onclick="history.back();">뒤로가기</button>
+
+  <script>
+    console.log(history);
+  </script>
+  <h3>사용자가 입력한 페이지로 이동하는 로직</h3>
+  <input type="text" name="" id="movePage">
+  <button onclick="movePage();">이동</button>
+  <script>
+    const movePage =()=>{
+      let url=document.getElementById("movePage").value;
+      location.assign("http://"+url);
+      open(url,"_blank","width=400,height=400");
+    }
+  </script>
+</body>
+</html>
