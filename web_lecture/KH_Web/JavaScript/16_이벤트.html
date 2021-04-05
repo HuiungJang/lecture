@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>이벤트</h1>
+  <p>
+    이벤트 속성과 핸들러(함수)를 연동하여 이벤트 발생시 특정기능 하도록 하는 것 <br>
+    <ol>
+      종류
+      <li>고전이벤트 모델</li>
+      <li>인라인 이벤트 모델 </li>
+      <li>표준 이벤트 모델</li>
+    </ol>
+  </p>
+  고전 이벤트 모델 ==(거의 비슷) 인라인이벤트 모델 <br>
+
+  <h1>이벤트 속성 알아보기</h1>
+  <dl>
+    <dt>input 태그 관련 이벤트</dt>
+    <dd>focus : input 태그에 focus 되었을 때 발생 <mark>*주의할점 : blur 같이 처리됨. -> 무한루프조심</mark></dd>
+    <dd>blur : input 태그에 서 focus가 사라졌을 때 발생 </dd>
+    <dd>change : input 태그에 value 속성 값이 변경됐을 때 발생 *select 태그 이벤트에 많이 사용</dd>
+    <dd>submit : form 태그에서 submit 타입을 클릭했을 때 발생 form 태그로 데이터 전송시 발생</dd>
+    <dd>reset : form 태그에서 reset 타입을 클릭 했을 때 발생</dd>
+  </dl>
+
+  <dl>
+    <dt>mouse 관련 이벤트</dt>
+    <dd>click : 마우스 좌클릭 했을 때 발생</dd>
+    <dd>dbclick : 마우스 더블클릭 했을 때 발생</dd>
+    <dd>mouseenter : 지정한 영역 안에 마우가 들어왔을 때 발생</dd>
+    <dd>mouseleave : 지정한 영역 안에서 마우스가 나갔을 때 발생</dd>
+  </dl>
+
+  <dl>
+    <dt>key 관련 이벤트</dt>
+    <dd>keyup : 키가 올라왔을 때 발생</dd>
+    <dd>keydown : 키가 내려갔을 때 발생</dd>
+    <dd>keypress : 키가 눌렸을 때 발생</dd>
+  </dl>
+
+  <dl>
+    <dt>윈도우 창 관련 이벤트</dt>
+    <dd>load : 페이지의 태그들이 다 로드 됐을 때 *페이지 관련 이벤트</dd>
+    <dd>resize : 윈도우 크기가 조정 됐을 때 발생</dd>
+    <dd>scroll : 창에서 스크롤이 조정 됐을 때 발생</dd>
+
+  </dl>
+</body>
+</html>

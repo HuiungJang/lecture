@@ -222,6 +222,10 @@
     <button onclick="rowcolTable();">row,col조절해서 만들기</button>
     <div id="tableContainer2"></div>
 
+
+    <input type="file" name="" id="file">
+    <button onclick="file();">파일추가</button>
+
     <script>
       const createTable=()=>{
         let table = document.createElement("table");
@@ -258,7 +262,310 @@
 
         document.getElementById("tableContainer2").appendChild(table);
       }
+
+      const file = ()=>{
+        let inputTag = document.createElement("input");
+        inputTag.setAttribute("type","file");
+        inputTag.style.display="block";
+        document.getElementById("tableContainer2").appendChild(inputTag);
+      }
       
     </script>
+
+    <h2>생성된 태그를 원하는 위치에 넣기</h2>
+    <p>
+      insertAdjacentElement("예약어",태그); <br>
+      예약어 -> <br>
+      beforebegin : 지정태그의 앞에(형제) <br>
+      afterend : 지정태그의 뒤에(형제) <br>
+      beforeend : 지정태그의 맨 밑 자식 =appendChild<br>
+      afterbegin : 지정태그의 맨 위 자식
+    </p>
+    <button onclick="beforeendTest();">맨마지막 자식</button>
+    <button onclick="afterbeginTest();">맨 앞 자식</button>
+    <button onclick="beforebeginTest();">지정 태그 앞에</button>
+    <button onclick="afterendTest();">지정 태그 뒤에</button>
+    <div id="childTest">
+      <h2>기준태그</h2>
+    </div>
+      
+    <script>
+      const beforeendTest =()=>{
+        let parent = document.getElementById("childTest");
+        let p = document.createElement("p");
+        let txt = document.createTextNode("beging추가");
+        p.appendChild(txt);
+
+        parent.insertAdjacentElement("beforeend",p);
+      }
+
+      const afterbeginTest =()=>{
+        let parent = document.getElementById("childTest");
+        let p = document.createElement("p");
+        let txt = document.createTextNode("after추가");
+        p.appendChild(txt);
+
+        parent.insertAdjacentElement("afterbegin",p);
+      }
+
+      const beforebeginTest=()=>{
+        let parent = document.getElementById("childTest");
+        let h2 = document.createElement("h2");
+        let txt = document.createTextNode("앞에 추가");
+        h2.appendChild(txt);
+
+        parent.insertAdjacentElement("beforebegin",h2);
+      }
+
+      const afterendTest =()=>{
+        let parent = document.getElementById("childTest");
+        let h2 = document.createElement("h2");
+        let txt = document.createTextNode("뒤에 추가");
+        h2.appendChild(txt);
+
+        parent.insertAdjacentElement("afterend",h2);
+
+      }
+    </script>
+    <h2> 생성된 태그 style 속성 조작하기</h2>
+    <p>
+      생성된 태그 객체에 style property를 이용해서 태그의 css style을 지정할 수 있음. <br>
+      1. Elemnet 객체의 프로퍼티는 직접접근이 가능 -> 태그.style.속성명= "속성값" <br>
+      2. Element 객체의 setAttribute함수를 이용해서 style 속성 설정, 변경이 가능하다. <br>
+      *style 속성을 설정할 때는 - 가 들어간 속성은 -다음 영문을 대문자로 변경해서 사용
+    </p>
+    <button onclick="styleTest(this);">스타일 다루기</button>
+    <script>
+      const styleTest =(e)=>{
+        let el = document.createElement("img");
+        el.src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Shuhua_on_the_way_to_Music_Bank_at_May_11%2C_2018.jpg";
+        el.style.height="300px";
+        el.style.width="300px;";
+        el.style.borderRadius="20px";
+        // el.setAttribute("style","height:100px; width:100px;")
+        e.insertAdjacentElement("afterend",el);
+        console.dir(el);
+      }
+    </script>
+    <h2>특정 태그에서 원하는 태그 검색하기 (탐색)</h2>
+    <p>
+      특정 태그를 가져와 그 태그가 가지고 있는 자식 태그들 확인하기 <br>
+      Element 객체에 property로 자식, 형제의 값을 가지고 있음 <br>
+      <p>
+      chidren 속성 : 지정된 태그가 가지고 있는 자식 태그들 <br>
+      parentElement 속성 : 지정된 태그의 부모태그 <br>
+      previousElementSibling 속성 : 지정된 태그 위에 형제태그 <br>
+      nextElementSibling 속성 : 지정된 태그의 아래 형제태그 <br>
+      *여러번 사용가능하다.
+      </p>
+    </p>
+    <button onclick="searchElement(this);">태그 탐색하기</button>
+    <div id="searchTag">
+      <table>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+        </tr>
+      </table>
+      <ul>
+        <li>html</li>
+        <li>css</li>
+        <li>js</li>
+        <li>jq</li>
+      </ul>
+    </div>
+    <script>
+      const searchElement=(e)=>{
+        // 자식태그 확인하기
+        console.log(e.children);
+        let searchTag=document.getElementById("searchTag");
+
+        console.log(searchTag.children);
+        let c =searchTag.children;
+        console.log(c[0].children);
+
+        // c.forEach(element=>{
+        //   console.log(element);
+        // }); // 이렇게 순회는 안된다.
+
+        // 호출할 수 있는 방법
+        Array.prototype.forEach.call(c,element=>{
+          console.log(element);
+          if(element.tagName==='searchTag'){
+
+          }
+        });
+        for(let i=0; i<c.length; i++){
+          console.log(c[i]);
+          if(c[i].tagName==='UL'){
+
+          }
+        }
+        console.clear();
+        console.log(e.parentElement);
+        // 자식에 연결한적이 없으니 button의 부모인 body가 나옴
+
+        console.log(e.parentElement.parentElement);
+        // body의 부모인 html이 나옴
+        console.log(document.body.children);
+        let all = document.body.children;
+        Array.prototype.forEach.call(all,e=>{
+          if(e.tagName=="P"){
+            e.style.color="darkgreen";
+            e.style.fontSize="30px";
+          }
+        });
+
+        console.log(e.nextElementSibling); // 같은 레벨의 밑(다음) 태그
+        console.log(e.previousElementSibling)  // 같은 레벨의 위(앞) 태그
+      } 
+    </script>
+
+    <h3>클래스 속성관리하기</h3>
+    <p>
+      css를 미리 클래스 이름으로 지정한 다음 태그에 클래스를 부여하여 css를 적용하는 방식을 많이적용
+    </p>
+    <style>
+      .back1{
+        background-color: navy;
+        color:pink;
+      }
+      .back2{
+        background-color: lime;
+        color:magenta;
+      }
+      .font{
+        font-size:32px;
+        font-weight:bloder;
+        text-shadow:3px 3px 5px gray;
+      }
+    </style>
+    <h2 id="target">오늘은 월요일 월요병이 없는날 Rclass화이팅~</h2>
+    <button onclick="addClass();">back1font</button>
+    <button onclick="removeClass();">removefont</button>
+
+    <script>
+      const addClass=()=>{
+        let target = document.getElementById("target");
+        // target.className="back1 font";
+        // target.setAttribute("class","back1 font");
+        
+        for(let i=0; i<target.classList.length; i++){
+          if(target.classList[i]==='back1'){
+            target.classList.remove('back1');
+            target.classList.add('back2');
+
+          } else if(target.classList[i]==='back2'){
+            target.classList.remove('back2');
+            target.classList.add('back1');
+          } else{
+            target.classList.add('back1');
+          }
+        }
+        // target.classList.add('back1');
+        target.classList.add('font');
+      }
+
+      const removeClass=()=>{
+        let target = document.getElementById("target");
+        // target.className="back1";
+        let clist = target.classList;
+        for(let i=0; i<clist.length; i++){
+          console.log(clist[i]);
+          if(clist[i]==='font'){
+            clist.remove('font');
+          }
+        }
+      }
+    </script>
+
+    <h2>태그(Element) 삭제하기</h2>
+    <p>
+      페이지에 있는 태그, 생성된 태그를 삭제하는 함수 <br>
+      태그.remove() : 자기 자신을 삭제하는 함수 <br>
+      부모태그.removeChild(자식태그) : 자기 자식을 삭제하는 함수 <br>
+    </p>
+    <button onclick="removeTest();">앞에서 부터 객체삭제하기 removeChild()</button>
+    <button onclick="removeTest2();">뒤에서 부터 객체삭제하기 remove()</button>
+    <button onclick="changePosition();">변경</button>
+
+    <div id ="removeChild">
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </div>
   </body>
+  <script>
+    let lis = document.querySelectorAll("#removeChild li");
+  
+    const changePosition =()=>{
+      lis = document.querySelectorAll("#removeChild li");
+      let ul =document.querySelector("#removeChild>ul");
+      ul.appendChild(lis[0]);
+
+    }
+    
+    for(let i=0; i<lis.length; i++){
+      lis[i].addEventListener("click",(e)=>{
+        e.target.remove();
+      });
+    }
+
+    const removeTest=()=>{
+      let parent =document.querySelector("#removeChild");
+      let ul=document.querySelector("#removeChild>ul");
+      ul.removeChild(ul.childNodes[0]);
+    }
+
+    const removeTest2=()=>{
+      let del=document.querySelector("#removeChild>ul>li:last-child");
+      del.remove();
+    }
+  </script>
+<!-- 이미지 3개를 넣고 버튼 클릭하면 이미지가 위치가 변경될 수 있게 해보자 -->
+<style>
+  #imgcontainer2 img{
+    width: 150px;
+    height: 150px;
+  }
+  
+</style>
+<div id="imgcontainer2">
+  <img src="http://spnimage.edaily.co.kr/images/photo/files/NP/S/2020/10/PS20100800026.jpg" alt="">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/IU_MelOn_Music_Awards_2017_06.jpg" alt="">
+  <img src="https://i.pinimg.com/originals/52/c7/ab/52c7ab7f3825f0b804555681b7c6098b.jpg" alt="">
+</div>
+<button onclick="changeImg();">이미지 변경</button>
+<button onclick="imgstop();">이미지 멈춤</button>
+
+<script>
+  let inter;
+  const changeImg=()=>{
+    inter =setInterval(()=>{
+      const lis =document.querySelector("#imgcontainer2");
+      let img = document.querySelectorAll("img");
+    
+      lis.appendChild(img[0]);
+    },100);
+  }
+  const imgstop=()=>{
+    clearInterval(inter);
+    let imgs=document.querySelectorAll("img");
+    imgs[1].style.border="3px solid red";
+  }
+</script>
 </html>
