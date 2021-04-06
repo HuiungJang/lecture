@@ -49,7 +49,393 @@
     <dd>load : 페이지의 태그들이 다 로드 됐을 때 *페이지 관련 이벤트</dd>
     <dd>resize : 윈도우 크기가 조정 됐을 때 발생</dd>
     <dd>scroll : 창에서 스크롤이 조정 됐을 때 발생</dd>
-
   </dl>
+
+  <h2>고전이벤트 방식으로 이벤트 핸들러(함수) 등록하기</h2>
+  <h3>클릭하면 변경</h3>
+  <h3>클릭하면 변경</h3>
+  <h3>클릭하면 변경</h3>
+  <script>
+    // h3를 클릭하면 글자색을 변경하는 이벤트 핸들러 등록
+    // addEventListener("click",(e)=>{
+
+    // });
+
+    let elements = document.querySelectorAll("h3");
+    console.log(elements);
+      // 고전방식으로 이벤트 연결하기 : onclick 속성에 함수등록
+    elements[0].onclick=(e)=>{
+      // e로 선언한 매개변수에는 Event 객체 자동으로 대입 
+      // 자바스크립트 컴파일러가 생성해서 넣어줌
+      console.log(e);
+      console.log(e.target);
+      e.target.style.color="red";
+      console.log(e.x, e.y);
+    }
+
+    elements[1].onmouseenter =(e)=>{
+      console.log(e.target);
+      e.target.style.backgroundColor="gray";
+    }
+    elements[1].onmouseleave=(e)=>{
+      e.target.style.backgroundColor="white";
+    }    
+  </script>
+  <h2>인라인 이벤트 설정</h2>
+  <p>
+    태그 이벤트 속성에 직접값(함수)을 넣는것.
+  </p>
+  <h4 onmouseover="console.log('마우스올라감');">inline으로 이벤트 설정</h4>
+
+  <h2>표준방식으로 이벤트 처리하기</h2>
+  <p>
+    addEventListener() 함수를 이용하는 방식 <br>
+    Elements 객체에 있는 이벤트 연결함수 <br>
+    두개의 매개변수를 설정 <br>
+    첫번째: 이벤트 속성 <br>
+    두번째 : 이벤트 핸들러(함수) 매개변수로 event를 받음<br>
+  </p>
+  <form action="">
+    <input type="text" name="userId" id="userId" placeholder="아이디 입력"> <br>
+    <input type="password" name="pw" id="pw" placeholder="비밀번호 입력"> <br>
+    <input type="password" name="pw" id="pwcheck" placeholder="비밀번호 확인"><span id="result"></span> <br>
+  </form>
+  <script>
+    let id = document.getElementById("userId");
+    let pw = document.getElementById("pw");
+
+    // 표준방식으로 이벤트 설정하기
+    id.addEventListener("keyup",(e)=>{
+      e.target.style.color="red";
+      e.target.style.backgroundColor="black";
+    });
+    //focus 이벤트 설정
+    id.addEventListener("focus",(e)=>{
+      e.target.style.backgroundColor="lime";
+    });
+
+    let pwck = document.getElementById("pwcheck");
+    pwck.addEventListener("keyup", (e)=>{
+      let pw = document.getElementById("pw");
+      let result = document.getElementById("result");
+
+      if(pw.value === e.target.value){
+        result.innerHTML="비밀번호가 일치합니다."
+        result.style.color="green";
+      }else{
+        result.innerHTML="비밀번호가 불일치합니다."
+        result.style.color="red";      
+      }
+    });   
+  </script>
+  <select name="title" id="title">
+    <option value="제목">제목</option>
+    <option value="내용">내용</option>
+    <option value="작성자">작성자</option>
+  </select>
+  <input type="search" name="keyword" id="keyword">
+  <script>
+    let $select=document.getElementById("title");
+    $select.addEventListener("change",(e)=>{
+      // focus를 주자
+      // document.getElementById("keyword").focus()
+      // 모든 input에 id를 주고 관리하기는 어려움
+      // 태그를 순회하면서 찾아서 관리하는 것이 더 쉬움
+      console.log(e.target.nextElementSibling);
+      e.target.nextElementSibling.focus();
+    });
+  </script>
+  <h2>윈도우에 이벤트 설정하기</h2>
+  <script>
+    window.addEventListener("resize",(e)=>{
+      console.log(e);
+
+      // 윈도우 창의 길이 알아보기
+      console.log(`inner넓이:${e.target.innerWidth}, 높이:${e.target.innerHeight}`);
+      console.log(`outer:${e.target.outerHeight}`);
+    });
+
+    window.addEventListener("scroll",(e)=>{
+      console.log(window.scrollX,window.scrollY);
+    });
+  </script>
+
+  <h1>생성된 태그에 이벤트 설정하기</h1>
+  <p>
+    5*5테이블을 생성하기 마지막 5열에는 버튼태그를 추가하기 <br>
+    버튼 태그를 클릭하면 그 row의 배경색이 빨강으로 변경되게 하기
+  </p>
+  <button id="createTable">테이블 생성</button>
+  <button id="addTr">행 추가하기</button>
+  <div id="tablecontainer"></div>
+  <script>
+    //내가한거
+    // const createtable=document.getElementById("createTable");
+    // const container=document.getElementById("tablecontainer");
+
+    // createtable.addEventListener("click",(e)=>{
+    //   let table = document.createElement("table");
+    //   for(let i =0; i<5; i++){
+    //     let tr =document.createElement("tr")
+    //     for(let j=0; j<5; j++){
+    //       let td =document.createElement("td")
+    //       let data = document.createTextNode(1);
+    //       td.setAttribute("class",i);
+    //       if(j===4){
+    //         data = document.createElement("button");
+    //         data.innerHTML="버튼";
+            
+    //         data.addEventListener("click", (e)=>{
+    //           let tdselector = document.getElementsByClassName(i);
+              
+    //           for(let k=0;k<4; k++){
+    //             tdselector[k].style.backgroundColor="red";
+    //           }
+
+    //         });
+    //       }
+    //       td.appendChild(data)
+    //       tr.appendChild(td);
+    //       td.style.border="1px black solid";
+    //     }
+    //     table.appendChild(tr);
+    //   }
+    //   container.appendChild(table);
+
+    //   table.style.border="1px black solid";
+    //   table.style.height="100px";
+    //   table.style.width="150px";
+    // });
+
+    // 선생님이 한거
+    let $table = document.createElement("table");
+    document.querySelector("#createTable").addEventListener("click",(e)=>{
+      
+      // const $addTr=document.getElementById("addTr").addEventListener("click",e=>{
+      //   let count =0;;
+      //   for(let i =0; i<count; i++){
+      //     let $tr = document.createElement("tr");
+      //     for(let j=0; j<5; j++){
+      //       let $td =document.createElement("td");
+      //       let data=document.createTextNode(1);
+      //       $td.appendChild(data);
+      //       $tr.appendChild($td);
+      //     }
+      //     $table.appendChild($tr)
+      //   }
+      // });
+
+      document.getElementById("addTr").addEventListener("click",e=>{
+        const preElement = e.target.previousElement ;
+        if(preElement.tagName==="TABLE"){
+          const tr = document.createElement("tr");
+          for(let i =0; i<5;i++){
+            let td = document.createElement("td");
+            td.innerText=`${preElement.children.length}행 ${i+1}열`;
+            tr.appendChild(td);
+          }
+          preElement.appendChild(tr);
+        }else{
+          alert("추가할 테이블이 없습니다.");
+        }
+      });
+
+      for(let i=0; i<5; i++){
+        let $tr = document.createElement("tr");
+        for(let j=0;j<5; j++){
+          let $td =document.createElement("td");
+          if(j===4){
+            const btn=document.createElement("button");
+            btn.innerText="변경";
+            $td.appendChild(btn);
+            btn.addEventListener("click",e=>{
+              e.target.parentElement.parentElement.style.backgroundColor="red";
+              // 부모요소 선택해서 바꾸는 방법 
+
+              $tr.style.backgroundColor="red";
+              // 클로저의 한 방법
+            });
+          }else{
+            $td.innerHTML=`${i+1}행 ${j+1}열`;
+          }
+          $tr.appendChild($td);
+        }
+        $table.appendChild($tr);
+      }
+      e.target.insertAdjacentElement("afterend",$table);
+    });
+  </script>
+  <br>
+  <br>
+  <br>
+  <button id="pushTable">테이블추가</button>
+  <div id="tableContainer2"></div>
+  <div id="innerSpan"></div>
+  <script>
+    const button= document.getElementById("pushTable");
+    const con2 = document.getElementById("tableContainer2");
+    const inner = document.getElementById("innerSpan");
+
+    button.addEventListener("click",(e)=>{
+      let count=0;
+      let table = document.createElement("table");
+      
+      for(let i=0; i<5; i++){
+        let tr = document.createElement("tr");
+
+        for(let j=0; j<5; j++){
+          let td =document.createElement("td");
+          let button= document.createElement("button");
+          let text =document.createTextNode((i+1)+"행"+(j+1)+"열");
+
+          button.innerText="버튼";
+          td.appendChild(button);
+          td.appendChild(text);
+
+          tr.appendChild(td);
+          td.style.border="1px black solid";
+
+          button.addEventListener("click",(e)=>{
+            count++;
+            let div = document.createElement("div");
+            div.setAttribute("class","inner");
+            div.innerHTML="안쪽 속성";
+            inner.appendChild(div);
+
+            if(count===2){
+              let span2 = document.createElement("span");
+              span2.innerHTML="안쪽속성 <br>";
+              div.appendChild(span2);
+
+            }else if(count===3){
+              let span2 = document.createElement("span");
+              span2.innerHTML="안쪽속성";
+              div.appendChild(span2);
+
+              let span3 =document.createElement("span");
+              span3.innerHTML="안쪽속성 <br>";
+              div.appendChild(span3);
+
+            }else if(count===4){
+              let span2 = document.createElement("span");
+              span2.innerHTML="안쪽속성";
+              div.appendChild(span2);
+
+              let span3 =document.createElement("span");
+              span3.innerHTML="안쪽속성";
+              div.appendChild(span3);
+
+              let span4 =document.createElement("span");
+              span4.innerHTML="안쪽속성 <br>";
+              div.appendChild(span4);
+
+            }else if(count>4){
+              let span2 = document.createElement("span");
+              span2.innerHTML="안쪽속성";
+              div.appendChild(span2);
+
+              let span3 =document.createElement("span");
+              span3.innerHTML="안쪽속성";
+              div.appendChild(span3);
+
+              let span4 =document.createElement("span");
+              span4.innerHTML="안쪽속성";
+              div.appendChild(span4);
+
+              let span5 =document.createElement("span");
+              span5.innerHTML="안쪽속성 <br>";
+              div.appendChild(span5);
+            }
+
+            let querySelectorSpan = document.querySelectorAll(".inner")
+            
+            for(let k=0; k<count; k++){
+              querySelectorSpan[k].style.backgroundColor="black";
+              querySelectorSpan[k].style.color="white";
+              querySelectorSpan[k].style.border="1px white solid";
+            }
+          });
+        };
+
+        table.appendChild(tr);
+        table.style.border="1px black solid";
+        con2.appendChild(table);
+      }
+    })
+  </script>
+
+  <h2>댓글 form 추가하기</h2>
+  <input type="text" id="comment"> <button id="commit">확인</button>
+  <script>
+    // const commit = document.getElementById("commit");
+    // commit.addEventListener("click",e=>{
+    //   let $div = document.createElement("div");
+    //   commit.insertAdjacentElement("afterend",$div);
+
+    //   let inputText = document.getElementById("comment").value;
+    //   let $p = document.createElement("p");
+    //   let bt = document.createElement("button");
+    //   bt.innerText="댓글달기";
+
+    //   $p.innerHTML=inputText;
+    //   $p.appendChild(bt);
+    //   $div.appendChild($p)
+
+    //   bt.addEventListener("click",e=>{
+    //     let $input = document.createElement("input");
+    //     let bt2 = document.createElement("button");
+
+    //     $input.value
+
+    //   });
+
+    // })
+  </script>
+  <h2>댓글 추가하기</h2>
+  <input type="text" name="reply" id="reply"><button id="btn">등록</button>
+  <div></div>
+  <script>
+    document.getElementById("btn").addEventListener("click",e=>{
+            const target=e.target.nextElementSibling;//div선택
+            const p=document.createElement("p");
+            p.innerText=document.getElementById("reply").value;
+            //답글버튼만들기
+            const btn=document.createElement("button");
+            btn.innerText="답글";
+            const container=document.createElement("div");
+            p.style.display="inline-block";
+            p.style.marginRight="20px";
+            container.appendChild(p);
+            //버튼에 이벤트추가하기
+            //버튼 누르면 답글을 입력할수 있는 창 만들기
+            btn.addEventListener("click",e=>{
+                //alert("댓글버튼클릭");
+                const input=document.createElement("input");
+                input.setAttribute("type","text");
+                // input.style.marginRight="10px";
+                const container2=document.createElement("div");
+                container2.appendChild(input);
+                const btn2=document.createElement("button");
+                btn2.innerText="등록";
+                btn2.addEventListener("click",e=>{
+                  const val =e.target.previousElementSibling.value;
+                  //답글 input 값을 가져옴
+                  const p2=document.createElement("p");
+                  p2.innerText=val;
+                  p2.style.marginLeft="20px";
+                  e.target.parentElement.insertAdjacentElement("beforebegin",p2);
+                  e.nextElementSibling;
+                  e.target.parentElement.remove();
+                })
+                container2.appendChild(btn2);
+                e.target.parentElement.insertAdjacentElement("afterend",container2);
+
+            });
+            container.appendChild(btn);
+            target.appendChild(container);
+            document.getElementById("reply").value="";
+        })
+    
+  </script>
 </body>
 </html>
