@@ -10,7 +10,316 @@
   <h1>정규표현식</h1>
   <p>
     문장(문자열) 기준 , 조합, 구성을 체크하는 것 <br>
-    규칙을 정해놓고 맞추는 것
+    규칙을 정해놓고 맞추는 것 <br>
+    정규표현식은 자바스크립트 RegExp객체를 이용해서 처리함 <br>
+    사용방법은 두가지가 있음  <br>
+    1. new 연산자를 이용해서 객체 생성 후 사용 <br>
+    2. // 연산자를 이용해서 사용하는 방법 
   </p>
+  <script>
+    let reg=new RegExp("script");
+    // 패턴의 포함여부를 확인하기 위해 RegExp객체는 두가지 함수를 제공 
+    // 1. test() : 패턴에 일치하는지 확인하는 함수 ( T/F);
+    // 2. exec() : 패턴에 일치할 떄 그 패턴에 맞는 문구 출력
+    reg=/script/;
+    reg=/[0-9][0-9][0-9]/g;
+    // console.log(reg.test("javascript jquery"));
+    console.log(reg.exec("javascript jquery 110 444"));
+    // 패턴을 주고 그 패턴에 맞는 것을 검사한다.
+  </script>
+
+  <h1>정규표현식 메타데이터 배우기</h1>
+  <h3>대체문자 활용하기</h3>
+  <p>
+    $& : 패턴에서 찾은 문자를 지칭하는 기호 <br>
+    $` : 패턴에서 찾은 문자 앞에 문자를 지칭하는 기호 <br>
+    $' : 패턴에서 찾은 문자 뒤에 문자를 지칭하는 기호
+  </p>
+  <button onclick="test();">대체문자활용하기</button>
+  <div id=container></div>
+  <script>
+    const test=()=>{
+      let area =document.getElementById("container");
+      let reg=/as/;
+      let str="javascript jquery ajax sass";
+      // 정규표현식을 패턴으로 string.replace() 함수에서도 이용가능함
+      // 패턴에 해당하는 문자를 찾고 그 문자를 대체할 수 있음.
+      area.innerHTML=`$&: ${str.replace(reg,'($&)')}<br>`;
+      area.innerHTML+=`$\`: ${str.replace(reg,'($`)')}<br>`;
+      area.innerHTML+=`$': ${str.replace(reg,"($')")}<br>`;
+    }
+  </script>
+  <h3>플래그 문자</h3>
+  <p>
+    정규표현식에 사용하는 기호로 검색의 범위, 대소문자. 개행관련 옵션을 주는것 <br>
+    g : 전역으로 비교함 *default : 대상문자에서 정규표현식에 패턴에 맞는 값을 한개 찾으면 중단 <br>
+    i : 대소문자 구분없이 수행<br>
+    m : 개행이 되면 개행된 문자를 처음 시작으로 봄
+  </p>
+  <button onclick="testFlag();">플래그 테스트</button>
+  <div id="area1"></div>
+  <script>
+    const testFlag=()=>{
+      let area= document.getElementById("area1");
+      let reg =/a/; //기본
+      let str ="javascript jquery ajax";
+      area.innerHTML+=`기본: ${str.replace(reg,"($&)")}<br>`;
+
+      reg=/a/g;
+      area.innerHTML+=`g옵션: ${str.replace(reg,"($&)")}<br>`;
+
+      reg=/a/gi;
+      str="JAVA JQUERY AJaX";
+      area.innerHTML+=`gi옵션: ${str.replace(reg,"($&)")}<br>`;
+
+      reg=/^J/gi;
+      // J로 시작하는 문자열 찾아라.
+      str="JAVA \nJquery Ajax";
+      // 개행이 있으니까 넘어가버림
+      area.innerHTML+=`gi옵션: ${str.replace(reg,"($&)")}<br>`;
+
+      reg=/^J/gim;
+      // 개행 상관없이 찾음
+      area.innerHTML+=`gim옵션: ${str.replace(reg,"($&)")}<br>`;
+
+    }
+  </script>
+  <h3>메타문자 배워보자</h3>
+  <h4>^ , $</h4>
+  <p>
+    ^문자 : 문자로 시작하는 것(문장 첫번째 글자) <br>
+    $문자 : 문자로 끝나는 것 
+  </p>
+  <button onclick="test2();">실행</button>
+  <div id="area2"></div>
+  <script>
+    const test2=()=>{
+      let area =document.getElementById("area2");
+      let reg=/^유/g;
+      // 문장에서 처음 글자만 찾는다.
+      let str ='유병승은 자바강사다 유유';
+      area.innerHTML +=`^유 : ${str.replace(reg,'($&)')}<br>`;
+
+      reg=/^\d/g;
+      str = '010유병승';
+      area.innerHTML+= `^\\d: ${str.replace(reg,'($&)')}<br>`
+    
+      str = '유010병승';
+      area.innerHTML+= `^\\d: ${str.replace(reg,'($&)')}<br>`
+
+      reg=/승$/;
+      area.innerHTML+=`/승$/ : ${str.replace(reg,'($&)')}<br>`;
+    }
+  </script>
+
+  <h3>이스케이핑 처리하기</h3>
+  <p>
+    역슬래쉬를 사용하여 이스케이핑 처리를 한다.
+  </p>
+  <script>
+    const testEsc=()=>{
+      let str = "$12% \\-\\ $25$";
+      let reg=/\$ \\/g;
+      console.log(str.replace(reg,"($&)"));
+    }
+    testEsc();
+  </script>
+  <h3>임의의 한글자를 만드는 문자/../</h3>
+  <button onclick="test4();">포인트실행</button>
+  <div id="area3"></div>
+  <script>
+    const test4=()=>{
+      let area =document.getElementById("area3");
+      let reg= /a.b/g;
+      area.innerHTML+= `a.b -> ab: ${reg.test("ab")}<br>`
+      area.innerHTML+= `a.b -> a1b: ${reg.test("a1b")}<br>`
+      area.innerHTML+= `a.b -> a유b: ${reg.test("a유b")}<br>`
+
+      reg=/a....b/g;
+      area.innerHTML+= `a.b -> a1234b: ${reg.test("a1234b")}<br>`
+    }
+  </script>
+  <h3>대괄호 표현하기</h3>
+  <p>
+    []:대괄호 안에 여러문자를 작성할 수 있고, 여러문자를 작성했을 대는 OR로 연결하여 찾음 <br>
+    []안에서 -를 사용하면 범위를 의미함.
+  </p>
+  <button onclick="test5();">[]실행하기</button>
+  <div id="area4"></div>
+  <script>
+    const test5=()=>{
+      let area =document.getElementById("area4");
+      let reg=/[aj]/g; //or로 연결
+      let str ="javascript jquery ajax";
+      area.innerHTML+= `/[aj]/g : ${str.replace(reg,'($&)')}<br>`;
+
+      reg=/[^aj]/g; //제외
+      area.innerHTML+= `/[^aj]/g : ${str.replace(reg,'($&)')}<br>`;
+
+      reg=/[a-z]/g; // 영문자 소문자 전체
+      area.innerHTML+= `/[a-z]/g : ${str.replace(reg,'($&)')}<br>`;
+
+      str= "javascript 12342143 jquery 12341234 ajax";
+      reg=/[0-9]/g;
+      area.innerHTML+= `/[0-9]/g : ${str.replace(reg,'($&)')}<br>`;
+
+      reg=/[0-9a-z]/g; // 숫자또는 영어 소문자 전체
+      area.innerHTML+= `/[0-9a-z]/g : ${str.replace(reg,'($&)')}<br>`;
+
+      reg=/[가-힣]/g; // 한글 전체
+      str="가나다라히리히흐히힝라하하하핳";
+      area.innerHTML+= `/[가-힣]/g : ${str.replace(reg,'($&)')}<br>`;
+    }
+  </script>
+
+  <h3>() |</h3>
+  <p>
+    그룹 , or
+  </p>
+  <button onclick="test6();">실행하기</button>
+  <div id="area5"></div>
+  <script>
+    const test6 =()=>{
+      let week =["월요일","화요일","수요일","목요일","금요일","토요일","일요일"];
+      let area5 = document.getElementById("area5");
+      
+      let result = week.filter(v=>{
+        let reg=/(금|토|일)요일/g;
+        return reg.test(v);
+      });
+      area5.innerHTML=`결과: ${result}<br>`
+    }
+  </script>
+
+  <h3>추가 메타 문자</h3>
+  <p>
+    \d : 숫자 -> [0-9] <br>
+    \w : 영문자,숫자,_ -> [a-zA-Z0-9_] *한글, 공백은 제외 <br>
+    \s : 공백문자(탭,띄어쓰기, 개행) -> [ \t\n] <br>
+    \D : 숫자아닌 문자 ->[^0-9] <br>
+    \W : 영문자 숫자 _를 제외한 모든 문자 -> [^a-zA-Z0-9_] <br>
+    \S : 공백제외 모든 문자 ->[^ \t\n] <br>
+  </p>
+  <script>
+    (()=>{
+      let reg =/\d\w/g;
+      let str = "0a가01유";
+      console.log(str.replace(reg,'($&)'));
+    })();
+  </script>
+  <h3>문자열 반복수량을 표현하는 기호</h3>
+  <h4>정해진 반복수량 표시</h4>
+  <p>
+    문자* : *을 기준으로 왼쪽에 있는 문자가 0개 이상 반복 <br>
+    ex) 문 >가능, 문자 >가능, 문자자자자 > 가능 <br>
+    문자+ : +왼쪽에 있는 문자가 1개 이상 반복 <br>
+    ex) 문 > 불가능xxxxx , 문자 >가능, 문자자자자 > 가능 <br>
+    문자? : ? 왼쪽에 있는 문자가 0개 또는 한개 <br>
+    ex) 문 >가능, 문자 >가능, 문자자자자 > 불가능 xxxx <br>
+  </p>
+  <button onclick="test7();">반복실행하기</button>
+  <div id="area6"></div>
+  <script>
+    const test7 =()=>{
+      let area =document.getElementById("area6");
+      let reg=/a*b/g;
+      let str = "aabc abc a aaaaaaaaaaab b";
+      area.innerHTML+=`/a*b/g : ${str.replace(reg,"($&)")}<br>`
+
+      reg=/a+b/g;
+      area.innerHTML+=`/a+b/g : ${str.replace(reg,"($&)")}<br>`
+
+      reg=/a?b/g;
+      area.innerHTML+=`/a?b/g : ${str.replace(reg,"($&)")}<br>`
+
+      reg=/0[0-1][0169]-?[0-9]{4}-?[0-9]{4}/g;
+      str="010-1235-2345";
+      area.innerHTML+=`${str.replace(reg,"($&)")}<br>`;
+
+      str="01012352345";
+      area.innerHTML+=`${str.replace(reg,"($&)")}<br>`;
+    }
+  </script>
+  <h3>반복 수량을 지정하는 기호</h3>
+  <p>
+    a{n} : a를 n번 반복함 <br>
+    a{n,} : a를 n번 이상 반복 <br>
+    a{n,m} : a를 n번에서 m번까지 반복
+  </p>
+  <button onclick="test8();">실행하기</button>
+  <div id="area7"></div>
+  <script>
+    const test8=()=>{
+      let area = document.getElementById("area7");
+      let str = "AA ABA ABBA ABBBA ABBBA";
+      
+      let reg=/AB{2}A/gi;
+      area.innerHTML+=`/AB{2}A/: ${str.replace(reg,"($&)")}<br>`
+
+      reg=/AB{1,}A/gi; // == AB+A
+      area.innerHTML+=`/AB{1,}A/: ${str.replace(reg,"($&)")}<br>`
+
+      reg=/AB{2,3}A/gi;
+      area.innerHTML+=`/AB{2,3}A/: ${str.replace(reg,"($&)")}<br>`
+    }
+  </script>
+  <p>정규표현식을 만들 때는 찾으려고 하는 문자에 대한 규칙(패턴) 메타문자로 적용</p>
+  <p>
+    다음 문자열을 모두 골라 낼 수 있는 정규표현식을 생성하라
+    삭선은 제외되어야한다.
+  </p>
+  <ul>
+    <li>O.K.</li>
+    <li>K.O.R.E.A</li>
+    <li>봄은 졸음의 계절이다.</li>
+    <li>99.9</li>
+    <li><s>0.9</s></li>
+  </ul>
+  <button id="btn">check</button>
+  <script>
+    let $li =document.getElementsByTagName("li");
+    for(let str of $li){
+      let reg = /([A-Z]\.?){1,}/g;
+      let reg2 =/([가-힣]{1,}).{1,}/g;
+      let reg3 = /[0-9]{1,}../g;
+      // console.log(reg.exec(str.innerText));
+      // console.log(reg2.exec(str.innerText));
+      // console.log(reg3.exec(str.innerText));
+
+      console.log(`영어${str.innerText} : ${reg.test(str.innerText)}`);
+      console.log(`한글 ${str.innerText} : ${reg2.test(str.innerText)}`);
+      console.log(`숫자 ${str.innerText} : ${reg3.test(str.innerText)}`);
+    }
+
+    document.getElementById("btn").addEventListener("click",e=>{
+      // let $li =document.getElementsByTagName("li");
+      let $li =document.querySelectorAll("ul>li");
+      for(let i=0; i<$li.length; i++){
+        let reg = /..\./g;
+        let tmp =$li[i].innerText;
+        console.log(`${tmp} : ${reg.test(tmp)}`);
+      }
+    })
+  </script>
+  <p>
+    숫자로 시작하지 않으면서 xyz중 하나로 끝나는 4글자 이상의 문자열을 검사할 수 있도록 
+    정규표현식을 만들어보자
+  </p>
+  <input type="text" name="" id="inputData">
+  <button onclick="test9();">검사</button>
+  <script>
+    const test9 =()=>{
+      let te = document.getElementById("inputData").value;
+      let reg =/^[^0-9]{1,}.{2,}[xyz]{1,}$/ig;
+      
+      if(reg.test(te)){
+        alert("적합");
+      }else{
+        alert("부적합");
+        document.getElementById("inputData").value="";
+        document.getElementById("inputData").focus();
+      }
+    }
+  </script>
 </body>
 </html>

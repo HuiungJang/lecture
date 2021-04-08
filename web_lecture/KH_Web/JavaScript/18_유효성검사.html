@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>유효성검사</h2>
+  <p>
+    유효성검사 : client에게 입력받은 값을 check하는 로직을 의미함 <br>
+    사용자가 입력한 값을 확인하는 작업, 기준대로 하면 데이터 전송 아니면 차단
+  </p>
+  <form action="">
+    아이디<input type="text" name="userId"><br>
+    비밀번호<input type="password" name="userpw"><br>
+    비밀번호확인<input type="password" name="pwck"><br> 
+    이름<input type="text" id="name"><br> 
+    <input type="submit" onclick="return vaildata();"><br>
+  </form>
+  <script>
+    const vaildata =()=>{
+      let userId=document.getElementById("userId");
+      // 아이디는 첫글자 영소문자, 4~12글자
+      // 반드시 한개 이상의 숫자포함,영문,숫자
+
+      // // 정규표현식
+      // let reg= /^[a-z][\daa-zA-Z]{3,11}/;
+      // if(reg.test(userId.value)){
+      //   alert("첫글자 영소문자 4~12글자의 숫자,영문");
+      //   return false;
+      // }
+      // if(!/[\d]/.test(userId.value)){
+      //   alert("숫자필요");
+      //   return false;
+      // }
+
+
+      // 전위탐색 ?=
+      // 임의의 숫자가 있을수도 없을 수도 있다.
+      let reg=/^[a-z](?=.*?[/d])[a-z\dA-Z]{3,11}$/;
+      if(!reg.test(userId.value)){
+        alert("형식을 지켜주세요");
+        return false;
+      }
+
+      // 이름 한글2~4글자만 입력
+      let regName= /[가-힣]{2,4}/;
+      let name = document.getElementById("name");
+      if(!regName.test(name.value)){
+        alert("이름은 2글자 이상 4글자 이하로 입력해주세요.")
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -145,7 +145,7 @@
       e.target.nextElementSibling.focus();
     });
   </script>
-  <h2>윈도우에 이벤트 설정하기</h2>
+  <!-- <h2>윈도우에 이벤트 설정하기</h2>
   <script>
     window.addEventListener("resize",(e)=>{
       console.log(e);
@@ -158,7 +158,7 @@
     window.addEventListener("scroll",(e)=>{
       console.log(window.scrollX,window.scrollY);
     });
-  </script>
+  </script> -->
 
   <h1>생성된 태그에 이벤트 설정하기</h1>
   <p>
@@ -395,6 +395,8 @@
   <input type="text" name="reply" id="reply"><button id="btn">등록</button>
   <div></div>
   <script>
+    let count =0;
+
     document.getElementById("btn").addEventListener("click",e=>{
             const target=e.target.nextElementSibling;//div선택
             const p=document.createElement("p");
@@ -408,6 +410,9 @@
             container.appendChild(p);
             //버튼에 이벤트추가하기
             //버튼 누르면 답글을 입력할수 있는 창 만들기
+
+            // 답글 누르면 count 1씩 증가
+            // let count =0;
             btn.addEventListener("click",e=>{
                 //alert("댓글버튼클릭");
                 const input=document.createElement("input");
@@ -417,16 +422,34 @@
                 container2.appendChild(input);
                 const btn2=document.createElement("button");
                 btn2.innerText="등록";
+
                 btn2.addEventListener("click",e=>{
+                  count++;
+                  const container3=document.createElement("div");
                   const val =e.target.previousElementSibling.value;
                   //답글 input 값을 가져옴
                   const p2=document.createElement("p");
+                  // p태그 만들고
                   p2.innerText=val;
+                  // 거기에 넣고
                   p2.style.marginLeft="20px";
-                  e.target.parentElement.insertAdjacentElement("beforebegin",p2);
-                  e.nextElementSibling;
+
+                  if(count===1){
+                    let a=e.target.parentElement.insertAdjacentElement("beforebegin",p2).setAttribute("id",count);
+
+                  }else{
+                  // p2 태그의 부모(div)아래 div태그 형제태그로 생성.
+                  // 생성된 대댓글에 id 부여
+                  // nextElementSibling;
+                    let b= document.getElementById(count-1);
+                    b.insertAdjacentElement("afterend",p2).setAttribute("id",count);
+                }
+
+                  // console.log(a.nextElementSibling); -> 등록 버튼
+                  // a.nextElementSibling.insertAdjacentElement("beforebegin",p2);
                   e.target.parentElement.remove();
                 })
+
                 container2.appendChild(btn2);
                 e.target.parentElement.insertAdjacentElement("afterend",container2);
 
@@ -436,6 +459,35 @@
             document.getElementById("reply").value="";
         })
     
+  </script>
+  <h1>기본으로 설정된 이벤트 차단하기</h1>
+  <p>
+    a 태그 -> 클릭시 페이지 이동 
+    input submit -> 누르면 제출
+  </p>
+  <a href="http://www.naver.com" id="check">네이버</a>
+  <script>
+    let a =document.getElementById("check");
+    a.addEventListener("click",e=>{
+      e.preventDefault();
+      // 기본 이벤트 차단
+    });
+
+  </script>
+  <form action="">
+    <input type="text" name="userID" id="userID">
+    <input type="password" name="pw" id="">
+    <input type="submit" value="로그인" onclick="return checkData();">
+  </form>
+  <script>
+    const checkData=()=>{
+      let userID=document.getElementById("userID");
+      let userPW=document.querySelector("[name=pw]");
+      if(userID.value.length<4){
+        alert("4글자 이상 입력하세요");
+        return false;
+      }
+    }
   </script>
 </body>
 </html>
