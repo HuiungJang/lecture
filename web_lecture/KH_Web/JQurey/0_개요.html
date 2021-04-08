@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- <script src="library/jquery.3.6.0.js"></script> -->
+  <!-- 로컬파일 -->
+  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- 네트워크 사용해서 받아오기 -->
+
+  <title>JQuery적용하기</title>
+
+</head>
+<body>
+  <p>
+    JQuery 시작 <br>
+    $  / jquery(document).ready(); <br>
+    jquery를 사용하는 웹페이지 시작코드 $ or jquery 사용 <br>
+    window.onload 속성과 같은개념 <br>
+
+    기본형태 <br>
+    $(선택자).메소드명(속성, 속성값); <br>
+    ex) $('h1').css('color','red');
+  </p>
+  <h1>jquery 적용하기</h1>
+  <p>
+    jquery를 이용하기 위해서는 구현되어있는 js파일을 페이지에서 불러와서 사용함
+    <ul>
+      <li>CND : http 통신으로 서버에서 페이지 로드시 받아오는 방식</li>
+      <li>파일 다운로드 : 직접파일을 다운로드해서 프로젝트에 넣고 불러오는 방식</li>
+    </ul>
+  </p>
+
+  <script>
+    $(document).ready(function(){
+      $("ul>li").css("backgroundColor","lime");
+    });
+    // 보통 이런식으로 사용한다.
+    // ready == onload
+    // onload 는 한번만 선언가능하지만 
+    // ready 는 제약이 없다.
+
+    $(()=>{
+      $("ul>li").css("display","inline-block");
+    })
+  </script>
+
+  <h2>Elemnet 불러오기</h2>
+  <p>
+    jquery에서 element를 불러오려면 선택자를 입력해야함 <br>
+    전체선택자, 아이디 선택자 <br>
+    $||jquery(선택자) ->element를 불러옴 <br>
+    $(선택자)||jquery(선택자)
+  </p>
+  <button onclick="checkElement();">객체확인</button>
+  <p id="jq">jquery</p>
+  <p id="js">javascript</p>
+  <ul id ="target">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+  <script>
+    const checkElement =()=>{
+      // jquery 방식
+      console.log($("#jq"));
+      // console.log(jQuery("#jq")); 
+      // 이렇게 해도 똑같다.
+
+      //
+      console.log($("ul#target>li"));
+      let lis = $("ul#target>li");
+      lis.css("color","yellow");
+      // 배열형식이지만 자동 for문 돌아서 적용됨
+
+      // JS 방식
+      console.log(document.getElementById("js"));
+      //
+      console.log(document.querySelectorAll("ul#target>li"));
+      let lis2= document.querySelectorAll("ul#target>li");
+      for(let i=0; i<lis2.length;i++){
+        lis2[i].style.backgroundColor="red";
+      }
+    }
+  </script>
+</body>
+</html>
