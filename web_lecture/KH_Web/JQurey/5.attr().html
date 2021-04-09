@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>attr()</title>
+  <script src="library/jquery.3.6.0.js"></script>
+</head>
+<body>
+  <h1>attr() 함수</h1>
+  <p>
+    attr()
+    : 태그가 가지고 있는 속성에 대해 수정,확인 하는 함수
+  </p>
+  <ul>
+    <li>
+      attr("속성명")
+      : 속성명의 값을 확인
+    </li>
+    <li>
+      attr("속성명","속성값")
+      : 속성명에 속성값을 대입
+    </li>
+    <li>
+      attr("속성명",function(i,v){})
+      : 속성명에 함수가 반환하는 값을 대입
+    </li>
+    <li>
+      attr({속성명:속성값,속성명:속성값,...})
+      :객체에 지정된 속성과 속성값을 대입
+    </li>
+  </ul>
+  <img src="https://blog.kakaocdn.net/dn/dEYYVq/btqJUNp2dXO/pajy9K0I4ePxjjdD8972b0/img.jpg" alt=""
+  width="100" height="100">
+  <img src="https://blog.kakaocdn.net/dn/dEYYVq/btqJUNp2dXO/pajy9K0I4ePxjjdD8972b0/img.jpg" alt=""
+  width="200" height="200">
+  <img src="https://blog.kakaocdn.net/dn/dEYYVq/btqJUNp2dXO/pajy9K0I4ePxjjdD8972b0/img.jpg" alt=""
+  width="300" height="300">
+<br>
+  <button onclick="imgSizeChange();">이미지 크기 변경</button>
+  <button onclick="imgChange();">이미지 변경</button>
+  <button onclick="objTest();">객체매개변수 이용</button>
+  <button onclick="removeAttrTest();">속성 삭제하기</button>
+
+  <style>
+    .img1{
+      background-image: "";
+    }
+  </style>
+  <script>
+    $(function(){
+      //attr() 함수로 속성값 가져오기
+      let width = $("img").attr("width");
+      console.log(width);
+
+      let height =$("img").attr("height");
+      console.log(height);
+
+      let src =$("img").attr("src");
+      console.log(typeof src);
+      // 태그가 겹친다면 제일 첫번째거 하나만 가져옴
+    });
+
+    const imgSizeChange =()=>{
+      let width = $("img").attr("width");
+      let height =$("img").attr("height");
+
+      $("img").attr("width",(i,v)=>{
+        return Number(width)+Number(height);
+      });
+
+      $("img").attr("height",(i,v)=>{
+        return Number(width)+Number(height);
+      });
+    };
+
+    const imgChange=()=>{
+    $("img").attr("src",(i,v)=>{
+      if(i%2===0){
+        return "https://blog.kakaocdn.net/dn/dEYYVq/btqJUNp2dXO/pajy9K0I4ePxjjdD8972b0/img.jpg";
+      }else{
+        return "https://lh3.googleusercontent.com/proxy/AMsD8-HIGI7FOQ9wqHJ8DUbsgodjg9PM01Pnv5H-Lx1lzPg3HrFpE7--9TENQyiWJdxJyvVzkH9F9l4xpPmxMu6Mu1t0WPY3ijtT3j3xRQGSdOJ1wfxn";
+      }
+    });
+
+    }
+
+  const objTest =()=>{
+    $("img").even().attr({
+      height:"300",
+      widht:"300",
+      src:"https://lh3.googleusercontent.com/proxy/AMsD8-HIGI7FOQ9wqHJ8DUbsgodjg9PM01Pnv5H-Lx1lzPg3HrFpE7--9TENQyiWJdxJyvVzkH9F9l4xpPmxMu6Mu1t0WPY3ijtT3j3xRQGSdOJ1wfxn"
+    });
+  }
+
+  const removeAttrTest = ()=>{
+    $("img:last").removeAttr("src");
+  }
+  </script>
+  <br>
+  <form>
+    <input type="checkbox" value="java" id="">java
+    <input type="checkbox" value="oracle" id="">oracle
+    <input type="checkbox" value="front" id="">front
+  </form>
+  <button onclick="checkBoxValue();">값 가져오기</button>
+  
+  <script>
+    const checkBoxValue =()=>{
+      // $("input[type='checkbox']").attr("value",(i,v)=>{
+      //   console.log(v);
+      // });
+
+      //모든 input의 value 값 가져오기
+      $("input[type=checkbox]").each((i,v)=>{
+        // console.log($(v).attr("value"));
+        console.log($(v).val());
+      });
+
+      // check 된 값만 가져오기
+      //내가한거
+      $("input[type=checkbox]:checked").each((i,v)=>{
+        console.log($(v).val());
+      });
+      // 샘이한거
+      $("input[type=checkbox]").each((i,v)=>{
+        // 안됨
+        // console.log($(v).attr("checked"));
+
+        // checkbox check 된 것 확인하기
+        // checked 속성은 prop() 함수를 이용해서 가져올 수 있음
+        console.log($(v).prop("checked"));
+        // check가 되면 true 반환
+        // 안되면 false 반환
+        if($(v).prop("checked")){
+          console.log($(v).val());
+        }
+      });
+      // 선택자에서 :checked를 이용하면됨
+      // 내가한거하고 같음
+    }
+  </script>
+
+  <h2>css 함수</h2>
+  <p>
+    태그의 스타일을 추가, 변경, 확인할 떄 사용하는 함수
+    css("속성명")
+    css 속성 값 확인
+
+    css("속성명","속성값") 
+    css 속성 적용
+
+    css({객체}) 
+    다수의 style 속성 설정
+
+    css(function(i,v){}) 
+    로직에 의해 css 속성 적용
+  </p>
+  <div id="container1">
+    <h3>test1</h3>
+    <h2>test2</h2>
+    <h1>test3</h1>
+  </div>
+  <button onclick="checkStyle();">css 속성값 확인하기</button>
+  <button onclick="addStyle();">객체로 스타일 적용</button>
+  <button onclick="funcAddStyle();">객체로 스타일 적용</button>
+
+  <script>
+    const checkStyle =()=>{
+      // 제일 처음거 1개만 출력
+      console.log($("#container1").children().css("fontSize"));
+
+      // 해당되는거 전부 출력
+      $("#container1").children().each((i,v)=>{
+        console.log($(v).css("fontSize"));
+      })
+    };
+
+    const addStyle =()=>{
+      $("#container1").children().css({
+        "fontSize":"20px",
+        "text-decoration" : "overline",
+        "text-shadow" : "3px 3px 5px gray"
+      })
+    };
+
+      const funcAddStyle =()=>{
+        $("#container1").children().css("color",(i,v)=>{
+          switch(i%4){
+            case 0: return "red"; break;
+            case 1: return "orange"; break;
+            case 2: return "green"; break;
+            case 3: return "blue"; break;
+          }
+        });
+    }
+  </script>
+
+</body>
+</html>

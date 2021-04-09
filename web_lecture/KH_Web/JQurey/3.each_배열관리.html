@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="library/jquery.3.6.0.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h2> each 함수 이용하기</h2>
+  <p>
+    자바스크립트 배열이나 배열형식으로 가져온 element를 순회기능을 하는 함수 <br>
+    forEach문과 비슷
+  </p>
+  <ul>
+    <li>
+      배열
+      $.each(배열,callback함수(i,v){});
+    </li>
+    <li>
+      element 배열
+      $("선택자").each(function(i,v){
+        로직
+      })
+    </li>
+  </ul>
+  <h3>element 배열을 each()문으로 활용하기</h3>
+  <div id="container">
+    <h1>item-0</h1>
+    <h1>item-1</h1>
+    <h1>item-2</h1>
+    <h1>item-3</h1>
+    <h1>item-4</h1>
+  </div>
+<script>
+  'use strict';
+
+  $(function(){
+    console.log($("#container>h1"));
+    // JQuery로 가져온 elemnet에 접근하려면 
+    for(let i=0; i<$("#container>h1").length; i++){
+      console.log($("#container>h1")[i]);
+    }
+
+    //-> each 함수를 이용하면 편하게 접근할 수 있다.
+    $("#container>h1").each((i,v)=>{
+      console.log(i,v);
+    });
+
+    $("#container>h1").each((i,v)=>{
+      console.log(i,v);
+      switch (i%3){
+        case 0: $(v).css("backgroundColor","red"); break;
+        case 1: $(v).css("backgroundColor","orange"); break;
+        case 2: $(v).css("backgroundColor","yellow"); break;
+      }
+    });
+  });
+</script>
+<h2>배열 자료형에 each함수 적용하기</h2>
+<script>
+  $(function(){
+    let names=["유병승","제인혁","신충현","김예진"];
+    names.forEach((v,i)=>{
+      console.log(i,v);
+    });
+
+    // jq 방식으로 반영한다면
+    let flag = false;
+
+    $.each(names,(i,v)=>{
+      console.log(i,v);
+      if(v==="김상현"){
+        flag=true;
+      }
+    });
+    if(!flag) names.push("김상현");
+    console.log(names);
+
+  });
+</script>
+
+  <h3>객체병합하기</h3>
+  <p>
+    $.extend(객체1,객체2...)
+    : 여러개의 객체를 하나로 합칠 때 사용
+    첫번째 인자값으로 들어온 객체에 전부 합친다.
+    첫번째 인자의 원본값이 변경된다.
+  </p>
+  <button onclick="addObj();">객체합치기</button>
+  <script>
+    const addObj=()=>{
+      let obj={
+        name:"유병승",
+        age:19
+      }
+      let obj2={
+        gender:"남",
+        email:"123@123.com"
+      }
+      // js방식으로 객체 병합
+      for(let key in obj2){
+        obj[key]=obj2[key];
+      }
+      // JQuery 방식으로 객체 병합
+      $.extend(obj,obj2);
+      console.log(obj);
+    }
+  </script>
+
+  <h3>$ 변수 충돌 방지하기</h3>
+  <p>
+    $변수를 다른 라이브러리나 변수에서 활용하고 있으면 전부 오류난다.
+    let 바꿀문자 = $.noConflict();
+    html페이지 제일 위에 작성해야한다.
+  </p>
+  
+  </body>
+</html>

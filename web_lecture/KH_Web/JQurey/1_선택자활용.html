@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="library/jquery.3.6.0.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h1>선택자 활용하기</h1>
+  <p>
+    JQuery에서는 element를 불러올 때 선택자를 활용한다. <br>
+    $('선택자') -> Elemnet <br>
+    JQuery로 불러온 선택자는 배열형식으로 가져오게 된다.
+  </p>
+
+  <div id="container"></div>
+  <p class="test">p1</p>
+  <p class="test">p2</p>
+  <p class="test">p3</p>
+  <p class="test">p4</p>
+  <p class="test">p5</p>
+  <script>
+    //id가 container인 태그 불러오기
+    console.log($("#container"));
+
+    //class 선택자를 이용해서 불러오기
+    console.log($(".test"));
+
+    // 다중으로 태그를 불러오기
+    // , 를 사용한다
+    console.log($("#container,.test"));
+  </script>
+
+  <h3>:first :last :even :odd</h3>
+  <p>
+    작성방법 <br>
+    선택자:first  -> (선택자로 선택해서 가져온 element는 배열 형식) 선택된 Elemnet 중 0번 인덱스 태그 
+    <br>
+    선택자:last  -> 선택된 Elemnet 중 마지막 인덱스 태그 
+    <br>
+    선택자:even -> 선택된 Elemnet 중 짝수 인덱스 태그 
+    <br>
+    선택자:odd -> 선택된 Elemnet 중 홀수 인덱스 태그 
+  </p>
+  <script>
+    // 첫번째 선택
+    let tmp = $(".test:first");
+    console.log(tmp);
+    tmp.css("backgroundColor","blue");
+
+    // 마지막 선택
+    tmp = $(".test:last");
+    tmp.css("backgroundColor","red");
+    console.log(tmp);
+
+    // 짝수번째 선택
+    tmp = $(".test:even");
+    tmp.css("fontSize","30px");
+    console.log(tmp);
+
+    //홀수번쨰 선택
+    tmp = $(".test:odd");
+    tmp.css("fontSize","10px");
+    console.log(tmp);
+  </script>
+
+  <table>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>14</td>
+      <td>15</td>
+    </tr>
+  </table>
+
+  <script>
+    $("table").css("borderCollapse","collapse");
+    console.log($("table>tbody>tr"));
+    $("table>tbody>tr:even").css("backgroundColor","lightgray");
+    $("table>tbody>tr:odd").css("backgroundColor","lightskyblue");
+  </script>
+
+  <div id="contianer2">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <h2>4</h2>
+    <h2>5</h2>
+
+    <ul>
+      <li>li 1</li>
+      <li>li 2</li>
+      <li>li 3</li>
+    </ul>
+    <div>
+      <span>span 1</span>
+      <span>span 2</span>
+      <span>span 3</span>
+    </div>
+  </div>
+  <script>
+    let tmp2 = $("div#contianer2 *");
+    console.log(tmp2);
+  </script>
+
+  <h3>:eq , :gt , :lt</h3>
+  <ul>
+    <li>선택자:eq(n)  -> 선택된 태그중 n번 인덱스 태그를 가져옴</li>
+    <li>선택자:gt(n)  -> 선택된 태그중 n번보다 큰 번호를 가진 인덱스 태그들을 가져옴</li>
+    <li>선택자:lt(n)  -> 선택된 태그중 n번보다 작은 번호를 가진 인덱스 태그들을 가져옴</li>
+  </ul>
+
+  <ul id="target2">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+  </ul>
+  <script>
+    let $target2 = $("ul#target2>li");
+    console.log($target2);
+    $target2=$("ul#target2>li:eq(3)");
+    // 세번째 태그가 아니라 "index 3"을 가지고 있는 태그
+    $target2.css("color","pink");
+
+    $target2=$("ul#target2>li:gt(3)");
+    // 3번 인덱스보다 큰애들 전부
+    $target2.css("color","tomato");
+
+    $target2=$("ul#target2>li:lt(7)");
+    // 7번 인덱스보다 작은애들 전부
+    $target2.css("fontSize","30px");
+  </script>
+
+  
+</body>
+</html>

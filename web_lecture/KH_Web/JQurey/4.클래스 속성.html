@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>클래스 속성 관리하기</title>
+  <script src="library/jquery.3.6.0.js"></script>
+  <style>
+    .a0{
+      color: aquamarine;
+    }
+    .a1{
+      color:red;
+    }
+    .a2{
+      color:yellow;
+    }
+    .a3{
+      color:green;
+    }
+    .a4{
+      background-color: coral;
+    }
+  </style>
+</head>
+<body>
+  <h1>클래스 속성관리하기</h1>
+  <p>
+    jquery가 제공하는 함수를 통해서 class를 추가, 삭제를 할 수 있는것.
+  </p>
+  <ul>
+    <li>
+      addClass("클래스이름")
+      : 태그에 클래스를 추가
+    </li>
+    <li>
+      removeClass("클래스이름")
+      : 태그의 인자에 클래스 명이 있으면 삭제
+    </li>
+    <li>
+      toggleClass("클래스이름")
+      : 태그에 클래스 이름이 있으면 삭제 없으면 추가
+    </li>
+  </ul>
+  <div id="container">
+    <h1>h1</h1>
+    <p>p1</p>
+    <p>p2</p>
+    <span>span</span>
+    <h2>h2</h2>
+  </div>
+  <button onclick="addClassTest();">class 추가하기</button>
+  <button onclick="removeClassTest();">class 제거하기</button>
+  <button onclick="toggleTest();">toggle 적용하기</button>
+  <script>
+    const addClassTest =()=>{
+      $("#container>p").addClass("a0");
+      // 클래스를 추가하려면 한 번 더 써야한다. 
+      $("#container>p").addClass("a4");
+
+      $("#container").children().addClass((i,v)=>{
+        // 인덱스 번호를 불러오고 속해있는 클래스명과 함께 반환
+        cnosole.log(i,v);
+
+        //return 되는 값이 class 속성값으로 추가됨 
+        return "a"+i;
+      });
+    }
+
+    const removeClassTest =()=>{
+      $("#container>p").removeClass("a4");
+      // class에 인자와 일치하는 값을 삭제, 없으면 넘어감
+    }
+
+    const toggleTest=()=>{
+      $("#container").children().toggleClass("a2");
+    }
+
+  </script>
+</body>
+</html>

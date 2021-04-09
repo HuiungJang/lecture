@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="library/jquery.3.6.0.js"></script>
+</head>
+<body>
+  <h1>태그에 있는 textnode의 값을 수정해보자</h1>
+  <p>
+    html()
+    : 선택된 태그의 textnode 출력
+    html("매개변수")
+    : 선택된 태그의 textnode를 매개변수 값으로 출력
+
+    text()
+    : 선택된 태그의 textnode 출력
+    text("매개변수")
+    : 선택된 태그의 textnode를 매개변수 값으로 출력
+
+
+    html과 text의 차이점
+    매개변수에 태그형식이 들어 갔을 때
+    html -> 태그로 해석해서 출력함
+    text -> 문자열로 해석해서 출력함
+  </p>
+
+  <div id="container">
+    <p>안녕</p>
+    <p>하이</p>
+    <p>구텐탁</p>
+    <p>봉쥬르</p>
+  </div>
+  <button onclick="checkTest();">태그문자확인</button>
+  <script>
+    const checkTest =()=>{
+      $("#container").children().each((i,v)=>{
+        console.log($(v).html());
+        $(v).html("<mark>이제 점심시간이 다가온다</mark>");
+        console.log($(v).text());
+        // $(v).text("<mark>이번에 text() 점심시간이 다가온다.</mark>")
+      })
+    }
+  </script>
+  <br>
+  <select name="title" id="title">
+    <option value="라면">라면</option>
+  </select>
+  <input type="text" id="option"><button onclick="addMenu();">옵션추가</button>
+  <script>
+    const addMenu =()=>{
+      // 메뉴 5개까지만 추가되게하기
+      if($("#title option").length<5){
+
+        // 내가한거
+        // $("#title").append("<option></option>");
+        // $("#title option:last").attr("value",$("#option").val());
+        // $("#title option:last").text($("#option").val());
+        
+        // 샘이 한거
+        if($("#option").val().length!=0){
+          let content = $("#title").html();
+          let option =`<option>${$("#option").val()}</option>`;
+          $("#title").html(`${content}${option}`);
+          $("#option").val("");
+          // value 값을 비워주는 작업
+        }else{
+          alert("메뉴입력");
+          $("#option").focus();
+        }
+      }else{
+        alert("5개까지만 가능");
+        $("#option").attr("disabled","disabled");
+      }
+    }
+    
+    </script>
+</html>

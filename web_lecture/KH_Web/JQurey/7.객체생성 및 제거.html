@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="library/jquery.3.6.0.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h1>태그 생성하기</h1>
+  <ul>
+    <li>
+      html()
+      함수를 이용해서 생성하기 -> 매개변수 값을 태그형식으로 작성 
+    </li>
+    <li>
+      JQuery방식
+      $("&lt;태그명&gt;");
+    </li>
+    <li>
+      document 객체 이용하기
+      -> JS 방식
+    </li>
+  </ul>
+  <div id="container"></div>
+  <button onclick="addElement();">객체추가</button><br>
+
+  <select name="" id="select">
+    <!-- p,h1,span,h3태그 추가 -->
+    <option value="p">p</option>
+    <option value="h1">h1</option>
+    <option value="h3">h3</option>
+    <option value="span">span</option>
+
+  </select>
+  <input type="text" id="strTarget">
+  <button onclick="addElement2();">원하는 객체 추가</button>
+  <div id="container2"></div>
+  <script>
+    const addElement2=()=>{
+
+      // let optionTag = $("<option></option>")
+      // optionTag.attr("value",$("#strTarget").val());
+      // optionTag.text($("#strTarget").val());
+    
+      // $("#select").append(optionTag);
+
+      // if($("#strTarget").val()==="h1"){
+      //   $("#container2").append($("<h1>h1</h1>"))
+
+      // }else if($("#strTarget").val()==="p"){
+      //   $("#container2").append($("<p>p</p>"))
+
+      // }else if($("#strTarget").val()==="span"){
+      //   $("#container2").append($("<span>span</span>"))
+
+      // }else if($("#strTarget").val()==="h3"){
+      //   $("#container2").append($("<h3>h3</h3>"))
+      // }else{
+      //   optionTag.remove();
+      // }
+      
+    
+      $("#container2").append($("<"+$("#select").val()+">").html($("#strTarget").val()));
+    }
+
+
+    const addElement=()=>{
+      const tag1=$("<h1>"); // h1태그 객체 생성
+      console.log(tag1);
+
+      // id, class ,innerHTML 값을 같이 넣어서 생성
+      // 한번에 생성가능하다.
+      const tag2=$("<h1 id='first' class='h'>ㅎㅇ</h1>")
+      console.log(tag2);
+
+      //기본생성된 태그는 속성,스타일,출력문구 설정해줘야함.
+      tag1.attr({
+        id:"Rclass",
+        class:"kh"
+      }).css({
+        color:"red",
+        backgroundColor:"yellow",
+        fontWeight:"100"
+      }).html("이건내가만든태그");
+
+      // 추가하는 태그 append
+      $("#container").append(tag1);
+      $("#container").append(tag2);
+    }
+  </script>
+
+  <h2>생성한 태그를 페이지에 추가하기</h2>
+  <p>
+    jquery에 의해 생성된 태그는 메모리 상에서 객체로 존재함
+    그 객체를 페이지에 보이게 하려면 페이지에 있는 태그에 추가해줘야한다.
+  </p>
+
+  <ul>
+    <li>
+      자식객체로 추가하기
+        <ol>
+          <li>
+            부모태그.append(추가태그)  /   추가태그.appendTo(부모태그)
+            : 부모태그의 맨 마지막 자식으로 추가태그를 추가함.
+          </li>
+          <li>
+            부모태그.prepand(추가태그) /   추가태그.prepandTo(부모태그)
+            : 부모태그의 맨 위 자식으로 추가태그를 추가함.
+          </li>
+        </ol>
+    </li>
+    <li>
+      형제 객체로 추가하기
+      <ol>
+        <li>
+          선택태그.before(추가태그) / 추가태그.insertBefore(선택태그)
+          : 선택태그 밑에 추가태그를 추가함
+        </li>
+        <li>
+          선택태그.after(추가태그) / 추가태그.insertAfter(선택태그)
+          : 선택태그의 뒤에 추가태그를 추가함
+        </li>
+      </ol>
+    </li>
+  </ul>
+
+  <style>
+    div#container3{
+      border:1px solid red;
+    }
+  </style>
+  <h1> 자식객체로 생성된 객체 추가하기</h1>
+  <div id="container3"></div>
+  <button onclick="appendTest();">append</button>
+  <button onclick="prependTest();">prepend</button>
+  <button onclick="beforeTest();">before</button>
+  <button onclick="afterTest();">after</button>
+  <script>
+    let count=0;
+    const appendTest=()=>{
+      let p =$("<p>").html(`append p태그${count++}`);
+      //container2 의 자식으로 append추가
+      $("#container3").append(p);
+    }
+
+    let count2=0;
+    const prependTest =()=>{
+      let h3 =$("<h3>").html(`prepend h3태그 ${count2++}`);
+      $("#container3").prepend(h3);
+    }
+
+    const beforeTest =()=>{
+      let h2=$("<h2>").html("before h2");
+      $("#container3").eq(0).before(h2);
+    }
+
+    const afterTest =()=>{
+      let h2=$("<h2>").html("before h2");
+      $("#container3").eq(0).after(h2);
+    }
+  </script>
+</body>
+</html>
