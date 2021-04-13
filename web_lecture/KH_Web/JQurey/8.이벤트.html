@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../JQurey/library/jquery.3.6.0.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h2>이벤트 객체 정보확인</h2>
+  <p>
+    이벤트 객체는 이벤트가 발생했을 때 관련정보를 가지고 있는 객체
+    이벤트 핸들러(함수) 매개변수에 자동으로 넣어줌.
+    인라인으로 연결한 이벤트 핸들러는 직접 넣어줘야함
+  </p>
+  <button onclick="eventTest(event);">inline형식 테스트</button>
+  <button id="btn">이벤트연결</button>
+  <button id="btn2">이벤트연결</button>
+
+  <script>
+    const eventTest = (e)=>{
+      console.log(e);
+    }
+    $("#btn").on("click",(e)=>{
+      console.log(e);
+    })
+    $("#btn2").on("click",(e)=>{
+      console.log(e);
+    })
+  </script>
+  <h3>이벤트 JQuery방식으로 연결하기</h3>
+  <p>
+    1. on() 함수이용 : 상세설정을 할 경우 사용
+    2. 간단한 함수 이용 : 간단하게 기본적인 처리할 경우
+  </p>
+  <h4>on 함수를 이용한 이벤트 처리</h4>
+  <div id="onTest">on함수 이용 이벤트연결</div>
+  <div id="manyEvent">다수 이벤트연결</div>
+  <div id="needData">
+    <img src="https://pbs.twimg.com/profile_images/883859744498176000/pjEHfbdn_400x400.jpg" alt="" class="test" width="200" height="200">
+    <img src="https://pbs.twimg.com/profile_images/883859744498176000/pjEHfbdn_400x400.jpg" alt="" class="test" width="200" height="200">
+    <img src="https://pbs.twimg.com/profile_images/883859744498176000/pjEHfbdn_400x400.jpg" alt="" class="test" width="200" height="200">
+    <img src="https://pbs.twimg.com/profile_images/883859744498176000/pjEHfbdn_400x400.jpg" alt="" class="test" width="200" height="200">
+    <img src="https://pbs.twimg.com/profile_images/883859744498176000/pjEHfbdn_400x400.jpg" alt="" class="test" width="200" height="200">
+  </div>
+
+  <script>
+    $("#onTest").on("click",(e)=>{
+      $(e.target).css({
+        backgroundColor:"lime",
+        color:"white"
+      });
+    });
+
+    // on() 함수 매개변수에 객체를 넣어서 여러 이벤트를 연결할 수 있다.
+    // {"이벤트속성":"핸들러",이벤트속성:핸들러}
+    $("#manyEvent").on({
+      "click":(e)=>{
+        $(e.target).css({
+          "fontSize":"30px"
+        });
+      },"mouseenter":(e)=>{
+        $(e.target).html("마우스 포인터 들어왔어!");
+      },"dblclick":(e)=>{
+        $(e.target).css({
+          "backgroundColor":"tomato"
+        });
+      }
+    });
+
+    // $(".test").on("click",{name:"11"},(e)=>{
+    //   console.log(e.data);
+    // });
+    $(".test").each((i,v)=>{
+      $(v).on("click",{name:i},(e)=>{
+        console.log(e.data,e.data["name"]);
+      });
+    });
+  </script>
+
+  <h3>이벤트 한번만 실행하기</h3>
+  <p>
+    one()
+    이벤트를 한번만 실행하는 함수
+  </p>
+  <h4 id="oneTest"> 한번만 클릭가능</h4>
+  <script>
+    $("#oneTest").one("click",(e)=>{
+      alert("클릭함?");
+    })
+  </script>
+
+  <h3>간단한 이벤트 처리</h3>
+  <p>
+    이벤트 연결을위한 지정함수를 만들었음
+    함수에 이벤트 핸들러만 인자로 넘기면 이벤트가 연결됨
+  </p>
+  <h4>윈도우 크기변경히 이벤트 설정</h4>
+  <script>
+    $(function(){
+      $(window).resize((e)=>{
+        console.log(window.innerWidth);
+      });
+    });
+  </script>
+  <h3>keyup(), change()</h3>
+  <form action="">
+    <select name="" id="title">
+      <option value="title">title</option>
+      <option value="content">content</option>
+      <option value="writer">writer</option>
+    </select>
+    <input type="text" name="" id="keyword"><br><br>
+    <input type="password" name="" id="psw"><br>
+    <input type="password" name="" id="psck"><span id="result"></span>
+  </form>
+  <script>
+    $("#title").change((e)=>{
+      console.log($(e.target).val());
+      $(e.target).next().focus();
+    })
+    $("#title").keyup((e)=>{
+      console.log($(e.target).val());
+    })
+    
+    // 내가한거
+    // $("#psck").keyup((e)=>{
+    //   if($("#psw").val()===$("#psck").val()){
+    //     $("#result").text("비밀번호가 일치합니다.")
+    //   }else{
+    //     $("#result").text("비밀번호가 일치하지 않습니다.")
+    //   }
+    // });
+
+    //샘이한거
+    $("#psck").blur((e)=>{
+      let pw=$("#psw").val();
+      let ck=$(e.target).val();
+      if(pw!==ck){
+        $("#result").html("비밀번호가 일치하지 않습니다.");
+      }else{
+        $("#result").html("비밀번호가 일치합니다.");
+      }
+    });
+  </script>
+
+  <h3>이벤트 삭제</h3>
+  <p>
+    off() : 연결된 이벤트를 삭제하는 것
+  </p>
+  <p id="pTarget">이게 타겟</p>
+  <button id="execBtn">실행</button><button id="removeBtn">삭제</button>
+  <script>
+    $("#execBtn").click((e)=>{
+      let fontSize=$("#pTarget").css("fontSize");
+
+      $("#pTarget").css("fontSize",(parseInt(fontSize)+10)+"px");
+    })
+    $("#removeBtn").click((e)=>{
+      $("#execBtn").off("click");// 이벤트 삭제
+    });
+  </script>
+
+  <h3>bubbling</h3>
+  <p>
+    이벤트 처리할 때 동일이벤트가 부모에 설정되어있으면 자식 태그를 클릭하더라도
+    부모까지 이벤트를 발생시키는 효과
+  </p>
+  <div id="parent">
+    <div id="child">
+      <span>안녕</span>
+    </div>
+  </div>
+  <script>
+    $("#parent").click((e)=>{
+      alert("parent");
+    })
+    $("#child").click((e)=>{
+      alert("child");
+    })
+    $("#child>span").click((e)=>{
+      alert("호호");
+      // 이벤트 전파 되는 것을 막기 위해
+      e.stopPropagation();
+    })
+  </script>
+  <style>
+    #parent{
+      border:1px solid blue;
+      background-color: yellow;
+    }
+    #child{
+      border:1px solid red;
+      background-color: orange;
+      margin:30px;
+    }
+    #child>span{
+      border:1px solid green;
+      background-color: skyblue;
+      display: inline-block;
+      margin:30px
+    }
+  </style>
+  <h3>hover</h3>
+  <p>
+    mouseenter, mouseleave
+    hover() : 이벤트 핸들러 두개 등록함
+  </p>
+  <p id="hoverTest">이글은 ... 영국에서 시작되어...</p>
+  <script>
+    $("#hoverTest").hover((e)=>{
+      $(e.target).css("fontSize","30px");
+    },(e)=>{
+      $(e.target).css({"fontSize":"16px","backgroundColor":"orangered"});
+    })
+  </script>
+</body>
+</html>
