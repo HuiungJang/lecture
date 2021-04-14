@@ -16,6 +16,10 @@ public class GitController {
         return a+b;
     }
 
+    public double avgCalc(int a, int b, int c){
+        return (a+b+c)/3.0;
+    }
+
     public Date birthDay(int year, int month, int day){
         return new Date(new GregorianCalendar(year,month,day).getTimeInMillis());
     }
