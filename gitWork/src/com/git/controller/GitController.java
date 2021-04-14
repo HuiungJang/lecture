@@ -5,6 +5,6 @@ public class GitController {
         System.out.println("프린트하는 것");
     }
     public int calcPlus(int su1, int su2){
-        return su1+su2;
+        return su1-su2;
     }
 }
