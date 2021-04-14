@@ -12,4 +12,8 @@ public class GitController {
     public String concatTest(String a, String b){
         return a+b;
     }
+
+    public double avgCalc(int a, int b, int c){
+        return (a+b+c)/3.0;
+    }
 }
