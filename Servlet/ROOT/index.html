@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    img{margin-left: 200px;}
+    .translate:hover{transform:translate(200px,200px);}
+    .transX:active{transform:translateX(500px);}
+    .transY:active{transform:translateY(500px);}
+    .transZ:active{transform:perspective(200px) translateZ(100px);}
+
+    h3~p{margin-left: 200px;}
+    .scale:hover{transform: scale(1.2);}
+    .scaleX:hover{transform: scaleX(1.2);}
+    .scaleY:hover{transform: scaleY(1.4);}
+
+    .skew:hover{transform:skew(30deg,10deg);}
+    .skewX:hover{transform:skewX(30deg);}
+    .skewY:hover{transform:skewY(30deg);}
+
+    .rotate:hover{transform:rotate(30deg);}
+    .rotateX:hover{transform:perspective(200px) rotateX(30deg);}
+    .rotateY:hover{transform:perspective(200px) rotateY(30deg);}
+    /* X,Y축으로 회전시킬때는 원근감 표시를 꼭 해주자 */
+
+    .transitiondiv{
+      width: 100px; 
+      height: 100px; 
+      border:1px red solid; 
+      transition-property:background-color, transform; 
+      transition-duration: 1s;
+    }
+    .transition:active{
+      background-color:lime; 
+      transform:translateX(100px);
+    }
+    .transsi:hover{
+      background-color: purple;
+    }
+
+
+    .anitest:active{
+      width: 100px;
+      animation-name: ani;
+      animation-duration: 2s;
+      animation-direction: alternate;
+      animation-iteration-count: infinite;
+    }
+    .anitest2:active{
+      animation-name:ani2;
+      animation-duration: 5s;
+      animation-iteration-count: 5;
+      animation-direction: alternate;
+    }
+
+    @keyframes ani{
+      from{
+        background-color: black;
+        font-size:20px;
+        transform:rotate(30deg);
+      }
+      to{
+        background-color: coral;
+        border:3px chocolate dotted;
+        font-size:10px;
+        border-radius: 50px;
+        transform:rotate(360deg);
+      }
+    }
+    @keyframes ani2 {
+      0%{
+        background-color: darkgreen;
+        font-size:15px;
+        border-radius: 100px;
+        transform:rotate(360deg);
+      }
+      20%{
+        background-color: crimson;
+        width: 300px;
+        height: 300px;
+      }
+      40%{
+        transform:translate(100px,200px);
+        background-color: lightgreen;
+      }
+      60%{
+        width:10px;
+        height: 10px;
+      }
+      100%{
+        background-color: magenta;
+        width: 200px;
+        height: 200px;
+        transform:skew(20deg,20deg);
+      }
+    }
+    
+    header>nav>ul>li{
+      display:inline-block;
+      font-size: 30px;
+      font-family: "Noto Sans KR";
+      margin-right: 50px;
+      color:lightgreen;
+      cursor: pointer;
+    }
+    header>nav li:hover{
+      animation:menumove 0.5s infinite alternate;
+    }
+
+    @keyframes menumove{
+      from{
+        transform:translateX(3px);
+        color: lime;
+        text-decoration: underline;
+        font-size:40px;
+      }
+      to{
+        transform:translateX(-3px);
+        color:lightgreen;
+        text-decoration: underline;
+        font-size:40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>transform 속성</h1>
+  <p>
+    페이지에서 요소를 변형시키기위해 사용 <br>
+    2차원과 3차원 속성이 있음. <br>
+    태그가 특정 동작에 의해(마우스클릭, 마우스 올라감) 변형(이동,확대,찌그러짐)되는 것
+  </p>
+  <h3>태그 이동시키기</h3>
+  <h4>translate함수를 이용해서 설정된 태그가 특정위치로 이동하게 하기</h4>
+  <img class="translate"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <br>
+  <img class="transX"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <br>
+  <img class="transY"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <br>
+  <img class="transZ"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+
+
+  <h3>태그 확대하기</h3>
+  <p class="scale">
+    여러분 이거는 재미있나요?
+  </p>
+  <p class="scaleX">
+    여러분 이거는 재미있나요?
+  </p>
+  <p class="scaleY">
+    여러분 이거는 재미있나요?
+  </p>
+  <h3>skew적용하기 </h3>
+  <img class="skew"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <img class="skewX"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <img class="skewY"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+
+  <h3>rotate</h3>
+  <img class="rotate"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <img class="rotateX"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+  <img class="rotateY"src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/oZe-PqSQboQE1VQ4UrEvsN8WSG8.jpg"
+  width="200" height="200" alt="">
+
+  <h3>트랜지션</h3>
+  <p>
+    태그가 변형속성에 의해 변형이 될때 부드럽게 변형이 될  수 있게 해주는 속성<br>
+    tansition-property : 적용할 속성<br>
+    transition-duration : 지속시간<br>
+    transition-timing-function: linear, ease, ease-in, ease-out <br>
+    transition : 한번에 모든 속성을 지정하는 것
+  </p>
+  <div class="transitiondiv transition transsi"></div>
+
+  <h3>애니메이션 적용하기</h3>
+  <div class="anitest">기본애니메이션 적용하기</div>
+  <div class="anitest2">이거는 두번째 애니메이션</div>
+
+  <header>
+    <nav>
+      <ul>
+        <li>메뉴</li>
+        <li>게시판</li>
+        <li>앨범</li>
+        <li>카테고리</li>
+      </ul>
+    </nav>
+  </header>
+</body>
+</html>
