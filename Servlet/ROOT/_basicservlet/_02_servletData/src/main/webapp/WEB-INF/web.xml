@@ -3,4 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>inittest</servlet-name>
+        <servlet-class>com.data.controller.InitParamServlet</servlet-class>
+        <init-param>
+            <param-name>email</param-name>
+            <param-value>jhw1345@gmail.com</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>inittest</servlet-name>
+        <url-pattern>/initparam.do</url-pattern>
+    </servlet-mapping>
+
 </web-app>

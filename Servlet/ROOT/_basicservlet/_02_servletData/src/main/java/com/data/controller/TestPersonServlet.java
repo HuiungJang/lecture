@@ -34,7 +34,7 @@ public class TestPersonServlet extends HttpServlet {
         System.out.println("이름 " + name);
         System.out.println("나이 " + age);
         System.out.println("키 " + height);
-        System.out.println("색상 " + color);
+        System.out.println("색상 " + color); 
 //        System.out.println("음식 " + Arrays.asList(foods));
         System.out.print("음식 : ");
         for (String fo:foods) {
