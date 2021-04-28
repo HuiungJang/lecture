@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.member.model.vo.Member" %><%--
   Created by IntelliJ IDEA.
   User: jang
   Date: 2021/04/27
@@ -17,7 +17,13 @@
         <header>
             <h1>Hello MVC</h1>
             <div class ="login-container">
-                <form id="loginFrm" action="" method="post" onsubmit="return fn_login_validate();">
+            <%
+//                Member loginMember =(Member)request.getAttribute("loginMember");
+//                session으로 저장했으니까 request 가아니라 session으로 가져오자
+                Member loginMember=(Member)session.getAttribute("loginMember");
+
+                if(loginMember==null){%>
+                <form id="loginFrm" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return fn_login_validate();">
                     <table>
                         <tr>
                             <td>
@@ -42,12 +48,24 @@
                         </tr>
                     </table>
                 </form>
+                <%}else {%>
+                    <table>
+                        <tr>
+                            <td><%=loginMember.getUserName()%>님 환영합니다.</td>
+                        </tr>
+                        <form action="<%=request.getContextPath()%>/logout" method="post">
+                            <tr>
+                                <td><input type="submit" value="로그아웃"></td>
+                            </tr>
+                        </form>
+                    </table>
+                <%}%>
             </div>
             <nav>
                 <ul class="main-nav">
                     <li class="home"><a href="">Home</a></li>
                     <li id="notice"><a href="">공지사항</a></li>
-                    <li id="board"><a href="">게시</a></li>
+                    <li id="board"><a href="">게시판</a></li>
                 </ul>
             </nav>
         </header>
