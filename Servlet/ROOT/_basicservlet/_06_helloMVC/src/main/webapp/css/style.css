@@ -77,3 +77,10 @@ ul.main-nav li:hover{
 ul.main-nav li:hover > a{
     color:#FFF; /* 글자색*/
 }
+
+div.login-container table#logged-in{
+    border-spacing: 10px;
+}
+div.login-container table#logged-in input[type=button]{
+    border-radius: 3px;
+}

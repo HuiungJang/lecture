@@ -1,4 +1,5 @@
-<%@ page import="com.member.model.vo.Member" %><%--
+<%@ page import="com.member.model.vo.Member" %>
+<%@ page import="com.common.listener.LoginCheckListener" %><%--
   Created by IntelliJ IDEA.
   User: jang
   Date: 2021/04/27
@@ -9,7 +10,7 @@
 <html>
 <head>
     <title>Hello MVC</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
     <script src="<%=request.getContextPath()%>/js/jquery.3.6.0.js"></script>
 </head>
 <body>
@@ -22,12 +23,24 @@
 //                session으로 저장했으니까 request 가아니라 session으로 가져오자
                 Member loginMember=(Member)session.getAttribute("loginMember");
 
+                // 쿠키값 가져오기
+                Cookie[] cookies = request.getCookies();
+                String saveId = null;
+                if(cookies != null){
+                    for(Cookie c : cookies){
+                        if(c.getName().equals("saveId")){
+                            saveId=c.getValue();
+                            break;
+                        }
+                    }
+                }
+
                 if(loginMember==null){%>
                 <form id="loginFrm" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return fn_login_validate();">
                     <table>
                         <tr>
                             <td>
-                                <input type="text" name="userId" id="userId" placeholder="아이디">
+                                <input type="text" name="userId" id="userId"  value="<%=saveId !=null? saveId:""%>" placeholder="아이디">
                             </td>
                             <td></td>
                         </tr>
@@ -41,23 +54,31 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="checkbox" name="saveId" id="saveId">
+                                <input type="checkbox" name="saveId" id="saveId" <%=saveId!=null ?"checked":""%>>
                                 <label for="saveId">아이디 저장</label>
-                                <input type="button" value="회원가입" onclick="">
+                                <input type="button" value="회원가입" onclick=location.replace('<%=request.getContextPath()%>/views/member/memberenroll.jsp')>
                             </td>
                         </tr>
                     </table>
                 </form>
                 <%}else {%>
-                    <table>
+                    <table id="logged-in">
                         <tr>
-                            <td><%=loginMember.getUserName()%>님 환영합니다.</td>
+                            <td colspan="2"><%=loginMember.getUserName()%>님 환영합니다.</td>
                         </tr>
-                        <form action="<%=request.getContextPath()%>/logout" method="post">
-                            <tr>
-                                <td><input type="submit" value="로그아웃"></td>
-                            </tr>
-                        </form>
+<%--                        <tr>--%>
+<%--                            <td colspan="2">현재접속자 수 :<%=LoginCheckListener.getCount()%></td>--%>
+<%--                        </tr>--%>
+<%--                        <form action="<%=request.getContextPath()%>/logout" method="post">--%>
+<%--                            <tr>--%>
+<%--                                <td><input type="submit" value="로그아웃"></td>--%>
+<%--                                <td><input type="button" value="내정보 보기"></td>--%>
+<%--                            </tr>--%>
+<%--                        </form>--%>
+                        <tr>
+                            <td><input type="button" value="로그아웃" onclick="location.replace('<%=request.getContextPath()%>/logout')"></td>
+                            <td><input type="button" value="내정보 보기" onclick="location.assign('<%=request.getContextPath()%>/memberView.do?userId=<%=loginMember.getUserId()%>')"></td>
+                        </tr>
                     </table>
                 <%}%>
             </div>
@@ -85,7 +106,6 @@
                 alert("비밀번호를 입력하세요");
                 return false;
               }
-
             }
 
         </script>
