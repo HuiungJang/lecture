@@ -46,7 +46,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="password" name="userPw" id="pw" placeholder="비밀번호">
+                                <input type="password" name="password" id="pw" placeholder="비밀번호">
                             </td>
                             <td>
                                 <input type="submit" value="로그인">

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String msg = (String)request.getAttribute("msg");
+    String script=(String)request.getAttribute("close");
 %>
 <html>
 <head>
@@ -16,6 +17,7 @@
 <body>
     <script>
         alert('<%=msg%>');
+        <%=script!=null?script:""%>
         location.replace('<%=request.getContextPath()%><%=request.getAttribute("loc")%>');
     </script>
 </body>
