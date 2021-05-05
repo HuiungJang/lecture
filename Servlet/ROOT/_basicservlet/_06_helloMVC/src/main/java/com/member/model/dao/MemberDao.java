@@ -128,13 +128,13 @@ public class MemberDao {
         int result =0;
         try{
             pstmt = conn.prepareStatement(pp.getProperty("updateMember"));
-            pstmt.setString(1,m.getPassword());
-            pstmt.setString(2,m.getUserName());
-            pstmt.setString(3,m.getEmail());
-            pstmt.setString(4,m.getPhone());
-            pstmt.setString(5,m.getAddress());
-            pstmt.setString(6,m.getHobby());
-            pstmt.setString(7,m.getUserId());
+//            pstmt.setString(1,m.getPassword());
+            pstmt.setString(1,m.getUserName());
+            pstmt.setString(2,m.getEmail());
+            pstmt.setString(3,m.getPhone());
+            pstmt.setString(4,m.getAddress());
+            pstmt.setString(5,m.getHobby());
+            pstmt.setString(6,m.getUserId());
 
             result = pstmt.executeUpdate();
 
@@ -157,6 +157,28 @@ public class MemberDao {
 
             result = pstmt.executeUpdate();
 
+        }catch (SQLException e){
+            e.printStackTrace();
+            // 에러나면 로그만 찍히도록 하는 것이 아니라
+            // 다른 페이지로 연결하거나 다른 로직을 실행 할 수 있음.
+        }finally {
+            close(pstmt);
+            close(conn);
+        }
+
+        return result;
+    }
+
+    public int changePw(Connection conn, String id, String pw){
+        PreparedStatement pstmt = null;
+        int result=0;
+
+        try{
+            pstmt = conn.prepareStatement(pp.getProperty("changePw"));
+            pstmt.setString(1,pw);
+            pstmt.setString(2,id);
+
+            result = pstmt.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
