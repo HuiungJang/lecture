@@ -17,7 +17,7 @@
 </style>
 <section id=enroll-container>
     <h2>회원 정보 수정</h2>
-    <form id="memberFrm" method="post" onsubmit="return fn_update_validate();">
+    <form name="memberReplace" id="memberFrm" method="post" onsubmit="return fn_update_validate();">
         <table>
             <tr>
                 <th>아이디</th>
@@ -26,18 +26,18 @@
                     <input type="text" name="userId" id="userId_" value="<%=m.getUserId()%>" readonly>
                 </td>
             </tr>
-            <tr>
-                <th>패스워드</th>
-                <td>
-                    <input type="password" name="password" id="password_" value="<%=m.getPassword()%>" required>
-                </td>
-            </tr>
-            <tr>
-                <th>패스워드확인</th>
-                <td>
-                    <input type="password" id="password_2"><br>
-                </td>
-            </tr>
+<%--            <tr>--%>
+<%--                <th>패스워드</th>--%>
+<%--                <td>--%>
+<%--                    <input type="password" name="password" id="password_" value="<%=m.getPassword()%>" required>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
+<%--            <tr>--%>
+<%--                <th>패스워드확인</th>--%>
+<%--                <td>--%>
+<%--                    <input type="password" id="password_2"><br>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
             <tr>
                 <th>이름</th>
                 <td>
@@ -103,9 +103,14 @@
         </table>
         <input type="button" value="정보수정" onclick="fn_update_member();"/>
         <input type="button" value="탈퇴" onclick="fn_delete_member();"/>
+        <button type="button" onclick="fn_password_update();">비밀번호변경</button>
     </form>
 </section>
 <script>
+    const fn_password_update=()=>{
+        window.open("<%=request.getContextPath()%>/updatepassword?userId=<%=request.getParameter("userId")%>","changePassword","width=400, height=210, left=500,top200");
+    }
+
     const fn_update_validate= ()=>{
     // 정규표현식을 사용해보자
       return true;
