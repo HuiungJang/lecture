@@ -14,7 +14,9 @@ public class MemberUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+//        request.setCharacterEncoding("UTF-8");
+        // 필터를 통해 인코딩
+
         System.out.println("정보수정");
 
         String userId = request.getParameter("userId");
