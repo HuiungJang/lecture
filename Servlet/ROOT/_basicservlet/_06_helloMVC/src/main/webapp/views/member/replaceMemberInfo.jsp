@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.common.AESCrypto" %><%--
   Created by IntelliJ IDEA.
   User: jang
   Date: 2021/05/03
