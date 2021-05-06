@@ -1,6 +1,6 @@
 package com.member.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Member {
     private String userId;
@@ -15,6 +15,18 @@ public class Member {
     private Date enrollDate;
 
     public Member() {
+    }
+
+    public Member(String userId, String password, String userName, String gender, int age, String email, String phone, String address, String hobby) {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.gender = gender;
+        this.age = age;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.hobby = hobby;
     }
 
     public Member(String userId, String password) {
@@ -81,7 +93,6 @@ public class Member {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -94,11 +105,15 @@ public class Member {
         this.hobby = hobby;
     }
 
-    public Date getEnrollDate(java.sql.Date enrolldate) {
+    public Date getEnrollDate(Date enrolldate) {
         return enrollDate;
     }
 
     public void setEnrollDate(Date enrollDate) {
         this.enrollDate = enrollDate;
+    }
+
+    public Date getEnrollDate() {
+        return enrollDate;
     }
 }
