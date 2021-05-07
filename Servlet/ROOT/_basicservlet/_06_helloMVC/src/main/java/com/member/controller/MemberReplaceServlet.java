@@ -1,5 +1,6 @@
 package com.member.controller;
 
+import com.common.AESCrypto;
 import com.member.model.service.Service;
 import com.member.model.vo.Member;
 
@@ -19,6 +20,14 @@ public class MemberReplaceServlet extends HttpServlet {
 
         String userId = request.getParameter("userId");
         Member m = new Service().checkDuplicateId(userId);
+
+        // 암호화된 정보를 복호화하기
+        try{
+            m.setPhone(AESCrypto.decrypt(m.getPhone()));
+            m.setEmail(AESCrypto.decrypt(m.getEmail()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         // m = null 이면 회원정보 수정불가(일치하는 회원이 없음)
         // msg페이지로 이동알림 메세지를 출력하고 로그인을 취소하고 메인화면으로 이동

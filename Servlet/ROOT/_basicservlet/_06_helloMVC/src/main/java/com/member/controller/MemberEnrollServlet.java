@@ -1,5 +1,6 @@
 package com.member.controller;
 
+import com.common.AESCrypto;
 import com.common.JDBCTemplate;
 import com.member.model.dao.MemberDao;
 import com.member.model.service.Service;
@@ -23,14 +24,24 @@ public class MemberEnrollServlet extends HttpServlet {
         // 1. 클라이언트가 가입을 위해 전송하는 데이터를 받아옴
         // request.getParameter , getParameterValues()
         // 한글 입력시 깨짐. -> 인코딩해야함
-        request.setCharacterEncoding("UTF-8");
+//        request.setCharacterEncoding("UTF-8");
+
+        // 필터를 통해 인코딩
 
         String userId = request.getParameter("userId");
         String userPw = request.getParameter("password");
         String userName = request.getParameter("userName");
         int age = Integer.parseInt(request.getParameter("age"));
+        // 이메일과 폰번호 암호화하기
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        try {
+            email = AESCrypto.encrypt(email);
+            phone = AESCrypto.encrypt(phone);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         String address = request.getParameter("address");
         String gender = request.getParameter("gender");
         String[] hobby= request.getParameterValues("hobby");

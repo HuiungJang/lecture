@@ -12,20 +12,76 @@
 
     section#memberList-container table#tbl-member {width:100%; border:1px solid gray; border-collapse:collapse;}
     section#memberList-container table#tbl-member th, table#tbl-member td {border:1px solid gray; padding:10px; }
+    section#memberList-container>div#pageBar>*{margin-right: 20px;}
+
+    /* 검색창에 대한 스타일 */
+    div#search-container {margin:0 0 10px 0; padding:3px;
+        background-color: rgba(0, 188, 212, 0.3);}
+    div#search-userId{display:inline-block;}
+    div#search-userName{display:none;}
+    div#search-gender{display:none;}
+    div#numPerpage-container{float:right;}
+    form#numperPageFrm{display:inline;}
 </style>
 <%
     List<Member> members = (List<Member>)request.getAttribute("members");
-    int totalPages = (members.size()/10) +1; // 한페이지에 10개 씩 12페이지
+    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
 
-    for(int i=0; i<totalPages-1; i++){
-      if(i/10 ==0){
-          List<Member> numPerPage= members.subList(0,i);
-      }
+    if(searchMember !=null){
+        members=(List<Member>)request.getAttribute("searchMember");
     }
 
 %>
+<script>
+  function changeVal() {
+    let select = $('#search-type option:selected').val()
+
+    if (select === 'userName') {
+      $('#search-userId').css("display", "none");
+      $('#search-gender').css("display", "none");
+      $('#search-userName').css("display", "inline-block");
+
+    } else if (select === 'gender') {
+      $('#search-userId').css("display", "none");
+      $('#search-gender').css("display", "inline-block");
+      $('#search-userName').css("display", "none");
+
+    } else {
+      $('#search-userId').css("display", "inline-block");
+      $('#search-gender').css("display", "none");
+      $('#search-userName').css("display", "none");
+    }
+  }
+</script>
 <section id="memberList-container">
     <h2>회원관리</h2>
+    <div id="search-container">
+        검색타입:
+        <select id="search-type" onchange="changeVal();">
+            <option value="userId">아이디</option>
+            <option value="userName">이름</option>
+            <option value="gender">성별</option>
+        </select>
+        <div id="search-userId">
+            <form action="">
+                <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        <div id="search-userName">
+            <form action="">
+                <input type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        <div id="search-gender">
+            <form action="">
+                <label><input type="radio" name="searchKeyword" value="M">남</label>
+                <label><input type="radio" name="searchKeyword" value="F">여</label>
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </div>
     <table id="tbl-member">
         <thead>
         <tr>
@@ -63,6 +119,9 @@
         <%}%>
         </tbody>
     </table>
+    <div id ="pageBar">
+        <%=request.getAttribute("pageBar")%>
+    </div>
 </section>
 <%--
 페이징 처리는 로직(연산에 의해) 원하는 데이터를 출력 할 수 있게 해야함
