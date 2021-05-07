@@ -108,12 +108,12 @@ public class MemberListServlet extends HttpServlet {
                         +pageNo+"&numPerPage="+numPerPage+"'>[다음]</a>";
             }
 
-
-            String searchKeyword = request.getParameter("searchKeyword");
-            if(searchKeyword != null) {
-                List<Member> searchMember = new AdminService().searchMember(searchKeyword);
-                request.setAttribute("searchMember",searchMember);
-            }
+//            내가한 부분조회 샘이한거는 새롭게 서블릿을 만들었음 -> SearchMemberServlet
+//            String searchKeyword = request.getParameter("searchKeyword");
+//            if(searchKeyword != null) {
+//                List<Member> searchMember = new AdminService().searchMember(searchKeyword);
+//                request.setAttribute("searchMember",searchMember);
+//            }
 
             request.setAttribute("pageBar",pageBar);
             // 가져온 값을 jsp 페이지에 전달

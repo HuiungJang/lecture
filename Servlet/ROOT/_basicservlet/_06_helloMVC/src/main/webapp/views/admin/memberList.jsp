@@ -25,60 +25,99 @@
 </style>
 <%
     List<Member> members = (List<Member>)request.getAttribute("members");
-    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
 
-    if(searchMember !=null){
-        members=(List<Member>)request.getAttribute("searchMember");
-    }
+    // 내가한 상세 조회 로직
+//    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
+//
+//    if(searchMember !=null){
+//        members=(List<Member>)request.getAttribute("searchMember");
+//    }
 
 %>
 <script>
-  function changeVal() {
-    let select = $('#search-type option:selected').val()
+  // 내가한거
+  // function changeVal() {
+  //   let select = $('#search-type option:selected').val()
+  //
+  //   if (select === 'userName') {
+  //     $('#search-userId').css("display", "none");
+  //     $('#search-gender').css("display", "none");
+  //     $('#search-userName').css("display", "inline-block");
+  //
+  //   } else if (select === 'gender') {
+  //     $('#search-userId').css("display", "none");
+  //     $('#search-gender').css("display", "inline-block");
+  //     $('#search-userName').css("display", "none");
+  //
+  //   } else {
+  //     $('#search-userId').css("display", "inline-block");
+  //     $('#search-gender').css("display", "none");
+  //     $('#search-userName').css("display", "none");
+  //   }
+  // }
 
-    if (select === 'userName') {
-      $('#search-userId').css("display", "none");
-      $('#search-gender').css("display", "none");
-      $('#search-userName').css("display", "inline-block");
+  // 샘이 한거
+  $("#search-type").change(e=>{
+    const userId=$("#search-userId");
+    const userName=$("#search-userName");
+    const gender = $("#search-gender");
+    const value = $(e.target).val();
 
-    } else if (select === 'gender') {
-      $('#search-userId').css("display", "none");
-      $('#search-gender').css("display", "inline-block");
-      $('#search-userName').css("display", "none");
+    // 전부 display none 로 바꾼다.
+    userId.css("display","none");
+    userName.css("display","none");
+    gender.css("display","none");
 
-    } else {
-      $('#search-userId').css("display", "inline-block");
-      $('#search-gender').css("display", "none");
-      $('#search-userName').css("display", "none");
-    }
-  }
+    // 여기서 선택된거는 무조건 inline-block로 바뀌니까.
+    $("#search-"+value).css("display","inline-block");
+
+  });
 </script>
 <section id="memberList-container">
     <h2>회원관리</h2>
     <div id="search-container">
         검색타입:
+<%--        숙제 3--%>
+<%--        회원이름 검색하면 input창에 유지하게 하기--%>
         <select id="search-type" onchange="changeVal();">
             <option value="userId">아이디</option>
             <option value="userName">이름</option>
             <option value="gender">성별</option>
         </select>
         <div id="search-userId">
-            <form action="">
+            <form action="<%=request.getContextPath()%>/admin/searchMember">
+                <input type="hidden" name="searchType" value="userId">
                 <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
         <div id="search-userName">
-            <form action="">
+            <form action="<%=request.getContextPath()%>/admin/searchMember">
+                <input type="hidden" name="searchType" value="userName">
                 <input type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
         <div id="search-gender">
-            <form action="">
+            <form action="<%=request.getContextPath()%>/admin/searchMember">
+                <input type="hidden" name="searchType" value="gender">
                 <label><input type="radio" name="searchKeyword" value="M">남</label>
                 <label><input type="radio" name="searchKeyword" value="F">여</label>
                 <button type="submit">검색</button>
+            </form>
+        </div>
+
+<%--        숙제 2--%>
+<%--        회원수 고르면 그에 맞춰서 조회--%>
+        <div id="numPerpage-container">
+            페이지당 회원수 :
+            <form action="" id="" name="">
+                <%--            아이디나 이름 값은 자유--%>
+                <select name="numPerPage" id="numPerPage">
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="3">3</option>
+                </select>
             </form>
         </div>
     </div>
@@ -140,5 +179,12 @@ pageBarSize :  pageBar당 페이지 숫자의 갯수
 pageNo : pageBar의 시작숫자
 pageEnd : pageBar의 끝 숫자
 
+--%>
+
+<%--
+숙제 4.
+새로운 프로젝트 만들어서
+kh 계정의 employee 사원 전체 조회하고
+페이징 처리하기 , 1페이지에 3개씩 나오게하기
 --%>
 <%@ include file="/views/common/footer.jsp"%>

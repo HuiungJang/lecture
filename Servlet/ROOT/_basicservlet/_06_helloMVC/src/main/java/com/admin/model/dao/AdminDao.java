@@ -125,30 +125,82 @@ public class AdminDao {
         return result;
     }
 
-    public List<Member> searchKeyword(Connection conn, String searchKeyword){
+    // 내가한 상세조회 Dao logic
+//    public List<Member> searchKeyword(Connection conn, String searchKeyword){
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        Member m = null;
+//        List<Member> searchMem = new ArrayList<>();
+//
+//        try{
+//            if(searchKeyword.equals("M") || searchKeyword.equals("F")) {
+//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordGender"));
+//
+//            }else if(Pattern.matches("^[가-힣]*$",searchKeyword)){
+//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordName"));
+//
+//            }else{
+//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordId"));
+//
+//            }
+//
+//            pstmt.setString(1,searchKeyword);
+//
+//            rs=pstmt.executeQuery();
+//
+//            while(rs.next()){
+//                m = new Member();
+//                m.setUserId(rs.getString("userid"));
+//                m.setUserName(rs.getString("username"));
+//                m.setGender(rs.getString("gender"));
+//                m.setAge(rs.getInt("age"));
+//                m.setEmail(rs.getString("email"));
+//                m.setPhone(rs.getString("phone"));
+//                m.setAddress(rs.getString("address"));
+//                m.setHobby(rs.getString("hobby"));
+//                m.setEnrollDate(rs.getDate("enrolldate"));
+//
+//                searchMem.add(m);
+//            }
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//
+//        return searchMem;
+//    }
+
+    // 샘이 한 상세조회 logic
+    public List<Member> searchMember(Connection conn, String searchType, String keyword){
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Member m = null;
-        List<Member> searchMem = new ArrayList<>();
+        List<Member> list = new ArrayList<>();
+        String sql=pp.getProperty("searchMember");
+
+//        switch (searchType){
+//            case "userId": sql="searchMemberId"; break;
+//            case "userName": sql="searchMemberName"; break;
+//            case "gender:" : sql="searchMemberGender"; break;
+//        }
 
         try{
-            if(searchKeyword.equals("M") || searchKeyword.equals("F")) {
-                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordGender"));
+            // 쿼리문을 3개 써야한다.
+//            pstmt = conn.prepareStatement(pp.getProperty(sql));
 
-            }else if(Pattern.matches("^[가-힣]*$",searchKeyword)){
-                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordName"));
+            // 쿼리문 3개일때는 1개만 있어도 됨
+//            pstmt.setString(1,keyword);
 
-            }else{
-                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordId"));
+            // 쿼리문을 1개로 줄여보자
+            pstmt = conn.prepareStatement(sql.replace("@",searchType));
 
-            }
-
-            pstmt.setString(1,searchKeyword);
+            // 쿼리문이 1개이면
+            pstmt.setString(1, "%"+keyword+"%");
 
             rs=pstmt.executeQuery();
 
             while(rs.next()){
-                m = new Member();
+                Member m = new Member();
+
                 m.setUserId(rs.getString("userid"));
                 m.setUserName(rs.getString("username"));
                 m.setGender(rs.getString("gender"));
@@ -159,13 +211,16 @@ public class AdminDao {
                 m.setHobby(rs.getString("hobby"));
                 m.setEnrollDate(rs.getDate("enrolldate"));
 
-                searchMem.add(m);
+                list.add(m);
             }
 
         }catch (SQLException e){
             e.printStackTrace();
+        }finally {
+            close(rs);
+            close(pstmt);
         }
 
-        return searchMem;
+        return list;
     }
 }
