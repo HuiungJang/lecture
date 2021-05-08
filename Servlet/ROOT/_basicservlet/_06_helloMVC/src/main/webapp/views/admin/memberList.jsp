@@ -57,21 +57,24 @@
   // }
 
   // 샘이 한거
-  $("#search-type").change(e=>{
-    const userId=$("#search-userId");
-    const userName=$("#search-userName");
-    const gender = $("#search-gender");
-    const value = $(e.target).val();
+  $(function(){
+    $("#search-type").change((e)=>{
+      const userId=$("#search-userId");
+      const userName=$("#search-userName");
+      const gender = $("#search-gender");
+      const value = $(e.target).val();
 
-    // 전부 display none 로 바꾼다.
-    userId.css("display","none");
-    userName.css("display","none");
-    gender.css("display","none");
+      // 전부 display none 로 바꾼다.
+      userId.css("display","none");
+      userName.css("display","none");
+      gender.css("display","none");
 
-    // 여기서 선택된거는 무조건 inline-block로 바뀌니까.
-    $("#search-"+value).css("display","inline-block");
+      // 여기서 선택된거는 무조건 inline-block로 바뀌니까.
+      $("#search-"+value).css("display","inline-block");
 
-  });
+    });
+  })
+
 </script>
 <section id="memberList-container">
     <h2>회원관리</h2>
@@ -79,7 +82,8 @@
         검색타입:
 <%--        숙제 3--%>
 <%--        회원이름 검색하면 input창에 유지하게 하기--%>
-        <select id="search-type" onchange="changeVal();">
+<%--        <select id="search-type" onchange="changeVal();">--%>
+        <select id="search-type">
             <option value="userId">아이디</option>
             <option value="userName">이름</option>
             <option value="gender">성별</option>
@@ -109,17 +113,17 @@
 
 <%--        숙제 2--%>
 <%--        회원수 고르면 그에 맞춰서 조회--%>
-        <div id="numPerpage-container">
-            페이지당 회원수 :
-            <form action="" id="" name="">
-                <%--            아이디나 이름 값은 자유--%>
-                <select name="numPerPage" id="numPerPage">
-                    <option value="10">10</option>
-                    <option value="5">5</option>
-                    <option value="3">3</option>
-                </select>
-            </form>
-        </div>
+<%--        <div id="numPerpage-container">--%>
+<%--            페이지당 회원수 :--%>
+<%--            <form action="" id="" name="">--%>
+<%--                &lt;%&ndash;            아이디나 이름 값은 자유&ndash;%&gt;--%>
+<%--                <select name="numPerPage" id="numPerPage">--%>
+<%--                    <option value="10">10</option>--%>
+<%--                    <option value="5">5</option>--%>
+<%--                    <option value="3">3</option>--%>
+<%--                </select>--%>
+<%--            </form>--%>
+<%--        </div>--%>
     </div>
     <table id="tbl-member">
         <thead>

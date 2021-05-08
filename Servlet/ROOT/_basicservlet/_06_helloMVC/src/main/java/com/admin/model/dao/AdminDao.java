@@ -171,11 +171,11 @@ public class AdminDao {
 //    }
 
     // 샘이 한 상세조회 logic
-    public List<Member> searchMember(Connection conn, String searchType, String keyword){
+    public List<Member> searchMember(Connection conn, String searchType, String keyword,int cPage, int numPerPage){
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<Member> list = new ArrayList<>();
-        String sql=pp.getProperty("searchMember");
+        String sql=pp.getProperty("searchMemberHW");
 
 //        switch (searchType){
 //            case "userId": sql="searchMemberId"; break;
@@ -195,6 +195,10 @@ public class AdminDao {
 
             // 쿼리문이 1개이면
             pstmt.setString(1, "%"+keyword+"%");
+
+            // 숙제1 쿼리문 수정한것-> 불러온 것 페이징 처리
+            pstmt.setInt(2,(cPage-1)*numPerPage+1);
+            pstmt.setInt(3,cPage*numPerPage);
 
             rs=pstmt.executeQuery();
 
@@ -222,5 +226,31 @@ public class AdminDao {
         }
 
         return list;
+    }
+
+    public int detailListCount(Connection conn,String searchType, String keyword){
+        PreparedStatement pstmt=null;
+        ResultSet rs= null;
+        int result=0;
+
+        try{
+            pstmt = conn.prepareStatement(pp.getProperty("detailListCount").replace("@",searchType));
+            pstmt.setString(1,"%"+keyword+"%");
+
+            rs=pstmt.executeQuery();
+
+            if(rs.next()){
+                result=rs.getInt(1);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(rs);
+            close(pstmt);
+        }
+
+
+        return result;
     }
 }

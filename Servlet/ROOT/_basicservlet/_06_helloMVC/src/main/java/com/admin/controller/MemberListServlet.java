@@ -102,7 +102,7 @@ public class MemberListServlet extends HttpServlet {
             }
 
             if(pageNo>totalPage){
-                pageBar+="<sapn>다음</span>";
+                pageBar+="<span>다음</span>";
             }else {
                 pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="
                         +pageNo+"&numPerPage="+numPerPage+"'>[다음]</a>";

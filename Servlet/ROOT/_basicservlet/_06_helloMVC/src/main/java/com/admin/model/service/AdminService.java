@@ -45,12 +45,20 @@ public class AdminService {
 //    }
 
     // 샘이 한거
-    public List<Member> searchMember(String searchType, String keyword){
+    public List<Member> searchMember(String searchType, String keyword,int cPage, int numPerPage){
         Connection conn = getConnection();
-        List<Member> list =dao.searchMember(conn,searchType,keyword);
+        List<Member> list =dao.searchMember(conn,searchType,keyword,cPage,numPerPage);
         close(conn);
 
         return list;
+    }
+
+    public int detailListCount(String searchType,String keyword){
+        Connection conn = getConnection();
+        int result = dao.detailListCount(conn,searchType,keyword);
+        close(conn);
+
+        return result;
     }
 
 }
