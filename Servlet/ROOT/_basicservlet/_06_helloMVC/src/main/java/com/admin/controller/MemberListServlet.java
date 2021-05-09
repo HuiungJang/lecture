@@ -18,8 +18,9 @@ public class MemberListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("utf-8");
 
-       // 관리자가 아닌 사용자가 접근했을 때 예외 처리하기
+        // 관리자가 아닌 사용자가 접근했을 때 예외 처리하기
         HttpSession session = request.getSession(false);
         Member loginMember = (Member)session.getAttribute("loginMember");
 
@@ -45,7 +46,7 @@ public class MemberListServlet extends HttpServlet {
             try {
                 numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
             }catch (NumberFormatException e){
-                numPerPage=5;
+                numPerPage=10;
             }
 
             // 클릭시 전체 회원에 대한 정보를 조회해서 가져옴
@@ -114,6 +115,12 @@ public class MemberListServlet extends HttpServlet {
 //                List<Member> searchMember = new AdminService().searchMember(searchKeyword);
 //                request.setAttribute("searchMember",searchMember);
 //            }
+
+            // 숙제2
+            // 페이지 당 회원수 선택하면 제출
+            // numPerPage 받아와서 스크립트에 넣고 다시 전송
+            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
+            request.setAttribute("numPerPageVal",numPerPageVal);
 
             request.setAttribute("pageBar",pageBar);
             // 가져온 값을 jsp 페이지에 전달

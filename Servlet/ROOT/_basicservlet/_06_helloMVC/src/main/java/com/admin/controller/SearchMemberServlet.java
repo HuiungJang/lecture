@@ -15,7 +15,7 @@ public class SearchMemberServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession(false);
         Member loginMember = (Member)session.getAttribute("loginMember");
 
@@ -36,7 +36,7 @@ public class SearchMemberServlet extends HttpServlet {
             int numPerPage;
 
             try {
-                System.out.println(request.getParameter("cPage") + ": cPage");
+//                System.out.println(request.getParameter("cPage") + ": cPage");
                 cPage = Integer.parseInt(request.getParameter("cPage"));
 
             } catch (NumberFormatException e) {
@@ -44,12 +44,13 @@ public class SearchMemberServlet extends HttpServlet {
             }
 
             try {
-                System.out.println(request.getParameter("numPerPage") + ": numPerPage");
                 numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+                System.out.println(Integer.parseInt(request.getParameter("numPerPage"))+ ": numPerPage");
 
             } catch (NumberFormatException e) {
-                numPerPage = 5;
+                numPerPage = 10;
             }
+
 
             List<Member> result = new AdminService().searchMember(searchType, keyword, cPage, numPerPage);
 
@@ -58,8 +59,8 @@ public class SearchMemberServlet extends HttpServlet {
             // 이렇게 하면 페이지에 numPerPage에 설정한 수 만큼만 결과가 나옴 -> numPerPage 개수 초과하는 결과는 안나옴
             int totalData = new AdminService().detailListCount(searchType, keyword);
 
-            System.out.println(totalData + "토탈데이터");
-            System.out.println(result.size() + "리스트");
+//            System.out.println(totalData + "토탈데이터");
+//            System.out.println(result.size() + "리스트");
 
             int totalPage = (int) (Math.ceil((double) (totalData / numPerPage)));
             int pageBarSize = 4;
@@ -94,7 +95,21 @@ public class SearchMemberServlet extends HttpServlet {
                         "&searchType=" + searchType + "&cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
             }
 
-            System.out.println(pageBar);
+//            System.out.println(pageBar);
+            // 숙제2
+            // 페이지 당 회원수 선택하면 제출
+            // numPerPage 받아와서 스크립트에 넣고 다시 전송
+            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
+            request.setAttribute("numPerPageVal",numPerPageVal);
+
+//            String formPath= "$(function(){$('#perPageSubmit').attr('action','/_06_helloMVC_war_exploded/admin/searchMember?" +
+//                    "searchType="+searchType+"&searchKeyword="+keyword+"&numPerPage="+numPerPageVal+
+//                    "')});";
+
+            // 숙제 3
+            // 회원이름 검색하면 input 창에 유지하게 하기
+            String stayInputKeyword = "$(function(){$('input[name=searchKeyword]').val('"+keyword+"')});";
+            request.setAttribute("stayInputKeyword",stayInputKeyword);
 
             request.setAttribute("pageBar", pageBar);
             request.setAttribute("members", result);

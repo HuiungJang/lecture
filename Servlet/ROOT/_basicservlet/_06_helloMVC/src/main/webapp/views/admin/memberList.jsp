@@ -23,9 +23,11 @@
     div#numPerpage-container{float:right;}
     form#numperPageFrm{display:inline;}
 </style>
+<%--<script><%=request.getAttribute("formPath")%></script>--%>
+
 <%
     List<Member> members = (List<Member>)request.getAttribute("members");
-
+    request.getAttribute("numPerPageVal");
     // 내가한 상세 조회 로직
 //    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
 //
@@ -35,7 +37,8 @@
 
 %>
 <script>
-  // 내가한거
+
+// 내가한거
   // function changeVal() {
   //   let select = $('#search-type option:selected').val()
   //
@@ -58,6 +61,7 @@
 
   // 샘이 한거
   $(function(){
+
     $("#search-type").change((e)=>{
       const userId=$("#search-userId");
       const userName=$("#search-userName");
@@ -71,9 +75,29 @@
 
       // 여기서 선택된거는 무조건 inline-block로 바뀌니까.
       $("#search-"+value).css("display","inline-block");
-
     });
-  })
+
+    // 숙제2
+    // 페이지 당 회원수 선택하면 제출
+    $("#numPerPage").change(()=>{
+      const path ='<%=request.getContextPath()%>/admin/searchMember?searchType='
+        +'<%=request.getParameter("searchType")%>'
+        +'&searchKeyword='+'<%=request.getParameter("searchKeyword")%>'+
+      '&numPerPage='+$('#numPerPage').val();
+      // console.log(path);
+      location.assign(path)
+    });
+
+
+  });
+
+  // 숙제2
+  // 페이지 당 회원수 선택하면 제
+  <%=request.getAttribute("numPerPageVal")%>
+
+  //숙제3
+  //회원이름 검색하면 input창에 유지하게 하기
+  <%=request.getAttribute("stayInputKeyword")%>
 
 </script>
 <section id="memberList-container">
@@ -82,6 +106,7 @@
         검색타입:
 <%--        숙제 3--%>
 <%--        회원이름 검색하면 input창에 유지하게 하기--%>
+
 <%--        <select id="search-type" onchange="changeVal();">--%>
         <select id="search-type">
             <option value="userId">아이디</option>
@@ -91,14 +116,14 @@
         <div id="search-userId">
             <form action="<%=request.getContextPath()%>/admin/searchMember">
                 <input type="hidden" name="searchType" value="userId">
-                <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요">
+                <input class="keyword" type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
         <div id="search-userName">
             <form action="<%=request.getContextPath()%>/admin/searchMember">
                 <input type="hidden" name="searchType" value="userName">
-                <input type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요">
+                <input class="keyword" type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
@@ -113,17 +138,17 @@
 
 <%--        숙제 2--%>
 <%--        회원수 고르면 그에 맞춰서 조회--%>
-<%--        <div id="numPerpage-container">--%>
-<%--            페이지당 회원수 :--%>
-<%--            <form action="" id="" name="">--%>
-<%--                &lt;%&ndash;            아이디나 이름 값은 자유&ndash;%&gt;--%>
-<%--                <select name="numPerPage" id="numPerPage">--%>
-<%--                    <option value="10">10</option>--%>
-<%--                    <option value="5">5</option>--%>
-<%--                    <option value="3">3</option>--%>
-<%--                </select>--%>
-<%--            </form>--%>
-<%--        </div>--%>
+        <div id="numPerpage-container">
+            페이지당 회원수 :
+            <form id="perPageSubmit" action='<%=request.getContextPath()%>/admin/memberList'>
+                <%--            아이디나 이름 값은 자유--%>
+                <select name="numPerPage" id="numPerPage">
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="3">3</option>
+                </select>
+            </form>
+        </div>
     </div>
     <table id="tbl-member">
         <thead>
