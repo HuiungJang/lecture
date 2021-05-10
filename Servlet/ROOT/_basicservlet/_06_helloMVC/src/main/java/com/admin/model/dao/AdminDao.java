@@ -171,6 +171,7 @@ public class AdminDao {
 //    }
 
     // 샘이 한 상세조회 logic
+    // 페이징처리는 내가함
     public List<Member> searchMember(Connection conn, String searchType, String keyword,int cPage, int numPerPage){
         PreparedStatement pstmt = null;
         ResultSet rs = null;

@@ -48,7 +48,9 @@ public class SearchMemberServlet extends HttpServlet {
                 System.out.println(Integer.parseInt(request.getParameter("numPerPage"))+ ": numPerPage");
 
             } catch (NumberFormatException e) {
-                numPerPage = 10;
+                // 내가한거
+                //                numPerPage = 10;
+                numPerPage=5;
             }
 
 
@@ -70,11 +72,11 @@ public class SearchMemberServlet extends HttpServlet {
             String pageBar = "";
             if (pageNo == 1) {
                 // 첫번째 페이지 일때
-                pageBar += "<span>이전</span>";
+                pageBar += "<span></span>";
             } else {
                 // 첫번째 페이지 아니면 이전 버튼 활성화
                 pageBar += "<a href='" + request.getContextPath() + "/admin/searchMember?searchType=" + searchType +
-                        "&searchType=" + searchType + "&cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
+                        "&searchKeyword=" + keyword + "&cPage=" + (pageNo - 1) + "&numPerPage=" + numPerPage + "'>[이전]</a>";
             }
 
             while (!(pageNo > pageEnd || pageNo > totalPage)) {
@@ -89,27 +91,27 @@ public class SearchMemberServlet extends HttpServlet {
 
             if (pageNo > totalPage) {
                 // 마지막 페이지 일때
-                pageBar += "<span>다음</span>";
+                pageBar += "<span></span>";
             } else {
                 pageBar += "<a href='" + request.getContextPath() + "/admin/searchMember?searchType=" + searchType +
-                        "&searchType=" + searchType + "&cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
+                        "&searchKeyword=" + keyword + "&cPage=" + pageNo + "&numPerPage=" + numPerPage + "'>[다음]</a>";
             }
 
 //            System.out.println(pageBar);
             // 숙제2
             // 페이지 당 회원수 선택하면 제출
             // numPerPage 받아와서 스크립트에 넣고 다시 전송
-            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
-            request.setAttribute("numPerPageVal",numPerPageVal);
+//            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
+//            request.setAttribute("numPerPageVal",numPerPageVal);
 
 //            String formPath= "$(function(){$('#perPageSubmit').attr('action','/_06_helloMVC_war_exploded/admin/searchMember?" +
 //                    "searchType="+searchType+"&searchKeyword="+keyword+"&numPerPage="+numPerPageVal+
 //                    "')});";
 
-            // 숙제 3
-            // 회원이름 검색하면 input 창에 유지하게 하기
-            String stayInputKeyword = "$(function(){$('input[name=searchKeyword]').val('"+keyword+"')});";
-            request.setAttribute("stayInputKeyword",stayInputKeyword);
+//            // 숙제 3
+//            // 회원이름 검색하면 input 창에 유지하게 하기
+//            String stayInputKeyword = "$(function(){$('input[name=searchKeyword]').val('"+keyword+"')});";
+//            request.setAttribute("stayInputKeyword",stayInputKeyword);
 
             request.setAttribute("pageBar", pageBar);
             request.setAttribute("members", result);

@@ -46,7 +46,9 @@ public class MemberListServlet extends HttpServlet {
             try {
                 numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
             }catch (NumberFormatException e){
-                numPerPage=10;
+                // 내가한거
+                //                numPerPage = 10;
+                numPerPage=5;
             }
 
             // 클릭시 전체 회원에 대한 정보를 조회해서 가져옴
@@ -85,7 +87,7 @@ public class MemberListServlet extends HttpServlet {
             // 사용자가 클릭할 수 있는 페이지 바를 구성해보자
             String pageBar="";
             if(pageNo==1){
-                pageBar+="<span>[이전]</span>";
+                pageBar+="<span></span>";
             }else{
                 pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="
                         +(pageNo-1)+"&numPerPage="
@@ -103,7 +105,7 @@ public class MemberListServlet extends HttpServlet {
             }
 
             if(pageNo>totalPage){
-                pageBar+="<span>다음</span>";
+                pageBar+="<span></span>";
             }else {
                 pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="
                         +pageNo+"&numPerPage="+numPerPage+"'>[다음]</a>";
@@ -119,8 +121,8 @@ public class MemberListServlet extends HttpServlet {
             // 숙제2
             // 페이지 당 회원수 선택하면 제출
             // numPerPage 받아와서 스크립트에 넣고 다시 전송
-            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
-            request.setAttribute("numPerPageVal",numPerPageVal);
+//            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
+//            request.setAttribute("numPerPageVal",numPerPageVal);
 
             request.setAttribute("pageBar",pageBar);
             // 가져온 값을 jsp 페이지에 전달
