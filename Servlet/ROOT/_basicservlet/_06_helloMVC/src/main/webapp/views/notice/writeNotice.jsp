@@ -9,49 +9,40 @@
 <%@include file="/views/common/header.jsp"%>
 
 <div id="notice-container">
-    <form action="" method="post">
+    <form action="<%=request.getContextPath()%>/notice/enrollNotice" method="post" enctype="multipart/form-data">
+<%--        파일을 업로드하려면 enctype를 꼭 넣어야한다. multipart/form-data --%>
+<%--        파일 업로드 할 때는 cos.jar 라이브러리를 사용한다.--%>
         <table id="tbl-notice">
-            <form action="<%=request.getContextPath()%>/enrollNotice" method="post">
-                <tr>
-                    <th>제 목</th>
-                    <td>
-                        <input type="text" size="48" id="title" name="title" required>
-                    </td>
-                </tr>
-                <tr>
-                    <th>작성자</th>
-                    <td><%=((Member) session.getAttribute("loginMember")).getUserId()%></td>
-                <tr>
-                    <th>첨부파일</th>
-                    <td>
-                        <input type="file" id="uploadFile" name="filePath">
-                    </td>
-                </tr>
-                <tr>
-                    <th>내 용</th>
-                    <td>
-                        <textarea id="content" cols="41" rows="15" name="content"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <input type="submit" value="등록하기" onclick="enrollNotice();">
-                    </th>
-                </tr>
-            </form>
+            <tr>
+                <th>제 목</th>
+                <td>
+                    <input type="text" size="48" id="title" name="title" required>
+                </td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td><input type="text" value="<%=loginMember.getUserId()%>" name="writer" readonly> </td>
+            <tr>
+                <th>첨부파일</th>
+                <td>
+                    <input type="file" id="uploadFile" name="filePath">
+                </td>
+            </tr>
+            <tr>
+                <th>내 용</th>
+                <td>
+                    <textarea id="content" cols="41" rows="15" name="content"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="등록하기" onclick="">
+                </th>
+            </tr>
         </table>
     </form>
 </div>
-<script>
-    const enrollNotice = ()=>{
-      const title = $("#title").val();
-      const file = $("#uploadFile").val();
-      const content =$("#content").val();
 
-      <%--location.href('<%=request.getContextPath()%>/a');--%>
-      <%--console.log('title :'+ title   + 'file :'+file+    'content :'+content);--%>
-    }
-</script>
 <%--스타일추가--%>
 
 <style>

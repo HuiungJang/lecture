@@ -12,6 +12,9 @@
 <%@include file="/views/common/header.jsp"%>
 <%
     Notice list =(Notice) request.getAttribute("contentView");
+
+    Member m = (Member) session.getAttribute("loginMember");
+
 %>
 <div id="notice-container">
     <table id="tbl-notice">
@@ -26,10 +29,14 @@
         <tr>
             <th>첨부파일</th>
             <% if(list.getFilePath() != null){%>
-                <td><img src="<%=request.getContextPath()%>/images/file.png"></td>
+                <td>
+                    <a href="<%=request.getContextPath()%>/notice/fileDownload?fname=<%=list.getFilePath()%>"><img src="<%=request.getContextPath()%>/images/file.png"></a>
+                </td>
             <%}else{%>
                 <td></td>
-            <%}%>
+            <%}
+                assert m != null;
+            %>
         </tr>
         <tr>
             <th>내 용</th>
@@ -37,14 +44,41 @@
         </tr>
         <tr>
             <th colspan="2">
-                <input type="button" value="수정하기" onclick="">
-                <input type="button" value="삭제하기" onclick="">
+                <form  class="revise" >
+                    <input type="button" value="수정하기" onclick="reviseNotice();">
+                    <input type="button" value="삭제하기" onclick="deleteNotice();">
+                </form>
             </th>
         </tr>
     </table>
 </div>
 <script>
+  function reviseNotice() {
+    if (<%= m!= null && m.getUserId().equals("admin")%>) {
+      location.replace("<%=request.getContextPath()%>/notice/moveRevise?noticeNo=<%=list.getNoticeNo()%>");
+    } else {
+      alert("관리자만 수정가능합니다.");
+    }
+  }
 
+  function deleteNotice(){
+    if (<%= m!= null && m.getUserId().equals("admin")%>) {
+      if(confirm("정말 삭제하시겠습니까?")) {
+        location.replace("<%=request.getContextPath()%>/notice/deletenotice?noticeNo=<%=list.getNoticeNo()%>");
+      }else{
+        alert("삭제가 취소되었습니다.");
+      }
+
+    } else {
+      alert("관리자만 삭제가능합니다.");
+    }
+  }
+
+
+  //
+  // function submit(){
+  //   $(".revise").submit();
+  // };
 </script>
 <%--스타일추가--%>
 <style>

@@ -1,0 +1,51 @@
+   CREATE TABLE NOTICE(<section>
+    <div id="container">
+        <div id="profileContainer">
+            <div id="con">
+                <div id="title">
+                    <span><img src="https://files.globalgiving.org/pfil/36946/pict_large.jpg?m=1542315706000" class="certifiedChef"></span>
+        <%--            인증마크 서버에서 조회해서 셰프 등급만 달아줄 예정--%>
+                    <span class="title">000 셰프의 레시피 에센스</span>
+        <%--      있다면 검색한 이름을 넣을 예정--%>
+        <%--            없다면 없다는 화면 보여줄 예정--%>
+                    <span><img src="" name="settingButton"></span>
+                </div>
+                <div id="profileImg">
+                    <span>
+                        <img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" name="profileImg">
+                    </span>
+                    <div>
+                        <input type="button" value="추천">
+                    </div>
+                    <div id="profileContent">
+                        <span><p>이름:</p></span>
+                        <span><p>홈페이지:</p></span>
+                    </div>
+                </div>
+                <div id="dmContainer">
+                    <button>DM 보내기</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="searchResult">
+            <div id="contentSort">
+                <select id="sort">
+                    <option value="userId">최신순</option>
+                    <option value="userName">추천순</option>
+                    <option value="gender">조회순</option>
+                </select>
+            </div>
+            <div id="contentContainer">
+                <ul>
+                    <li class="content">
+                        <div id></div>
+                    </li>
+                    <li class="content">조회해서 여기에 하나씩 넣을 예정</li>
+                    <li class="content">조회해서 여기에 하나씩 넣을 예정</li>
+                    <li class="content">조회해서 여기에 하나씩 넣을 예정</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

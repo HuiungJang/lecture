@@ -13,6 +13,7 @@
 %>
 <section id="notice-container">
     <h2>공지사항</h2>
+    <input type="button" value="글쓰기" id="btn-add" onclick="fn_noticeWrite();">
     <table id="tbl-notice">
         <thead>
             <tr>
@@ -38,7 +39,9 @@
                     <td><a href="<%=request.getContextPath()%>/notice/detailNotice?contentNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
                     <td><%=n.getNoticeWriter()%></td>
                     <% if(n.getFilePath() != null){%>
-                        <td><img src="<%=request.getContextPath()%>/images/file.png" width="16px" height="16px"></td>
+                        <td>
+                            <img src="<%=request.getContextPath()%>/images/file.png" width="16px" height="16px">
+                        </td>
                     <%}else{%>
                         <td>첨부파일없음</td>
                     <%}%>
@@ -52,6 +55,12 @@
         <%=request.getAttribute("pageBar")%>
     </div>
 </section>
+<script>
+  const fn_noticeWrite = ()=>{
+    location.assign('<%=request.getContextPath()%>/notice/noticeForm');
+  }
+
+</script>
 <%@include file="/views/common/footer.jsp"%>
 <style>
     section#notice-container{width:600px; margin:0 auto; text-align:center;}
@@ -63,6 +72,10 @@
     }
     a{
         text-decoration: none;
+    }
+    input#btn-add{
+        float:right;
+        margin: 0 0 15px;
     }
 </style>
 
