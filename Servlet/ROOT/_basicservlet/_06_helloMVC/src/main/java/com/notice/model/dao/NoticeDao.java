@@ -90,7 +90,7 @@ public class NoticeDao {
 //    public List<Notice> viewContent(Connection conn,int contentNo){
     public Notice viewContent(Connection conn,int contentNo){
 
-    PreparedStatement pstmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         Notice n =null;
 
@@ -119,5 +119,114 @@ public class NoticeDao {
         }
 
         return n;
+    }
+
+    // 내가한 공지사항 수정 로직
+//    public int reviseNotice(Connection conn,int contentNo, String title, String filePath,String content){
+//        PreparedStatement pstmt= null;
+//        int result = 0;
+//        try{
+//            pstmt= conn.prepareStatement(pp.getProperty("reviseNotice"));
+//            pstmt.setString(1,title);
+//            pstmt.setString(2,content);
+//            pstmt.setString(3,filePath);
+//            pstmt.setInt(4,contentNo);
+//
+//            result=pstmt.executeUpdate();
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }finally {
+//            close(pstmt);
+//        }
+//
+//        return result;
+//    }
+    public int reviseNotice(Connection conn, Notice n){
+        PreparedStatement pstmt= null;
+        int result = 0;
+
+        try{
+            pstmt= conn.prepareStatement(pp.getProperty("reviseNotice"));
+            pstmt.setString(1,n.getNoticeTitle());
+            pstmt.setString(2,n.getNoticeWriter());
+            pstmt.setString(3,n.getNoticeContent());
+            pstmt.setString(4,n.getFilePath());
+            pstmt.setInt(5,n.getNoticeNo());
+
+            result=pstmt.executeUpdate();
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+    // 내가한거
+//    public int enrollNotice(Connection conn, String title, String writer,String filePath, String content){
+//        PreparedStatement pstmt= null;
+//        int result=0;
+//
+//        try{
+//            pstmt=conn.prepareStatement(pp.getProperty("enrollNotice"));
+//            pstmt.setString(1, title);
+//            pstmt.setString(2, writer);
+//            pstmt.setString(3,content);
+//            pstmt.setString(4, filePath);
+//
+//            result=pstmt.executeUpdate();
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }finally {
+//            close(pstmt);
+//        }
+//
+//        return result;
+//    }
+
+    // 샘이 한거
+    public int insertNotice(Connection conn, Notice n){
+        PreparedStatement pstmt= null;
+        int result=0;
+
+        try{
+            pstmt=conn.prepareStatement(pp.getProperty("enrollNotice"));
+            pstmt.setString(1, n.getNoticeTitle());
+            pstmt.setString(2, n.getNoticeWriter());
+            pstmt.setString(3, n.getNoticeContent());
+            pstmt.setString(4, n.getFilePath());
+
+            result=pstmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public int deleteNotice(Connection conn, int contentNo){
+        PreparedStatement pstmt=null;
+        int result=0;
+
+        try{
+            pstmt = conn.prepareStatement(pp.getProperty("deleteNotice"));
+            pstmt.setInt(1,contentNo);
+
+            result = pstmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+
+        return result;
     }
 }

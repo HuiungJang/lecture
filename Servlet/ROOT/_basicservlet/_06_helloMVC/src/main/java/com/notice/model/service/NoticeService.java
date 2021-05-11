@@ -33,4 +33,65 @@ public class NoticeService {
 
         return result;
     }
+
+    // 내가한 공지사항 수정로직
+//    public int reviseNotice(int contentNo, String title, String filePath,String content){
+//        Connection conn = getConnection();
+//        int result = dao.reviseNotice(conn,contentNo,title,filePath,content);
+//
+//        if(result>0) commit(conn);
+//        else rollback(conn);
+//
+//        close(conn);
+//
+//        return result;
+//    }
+    public int reviseNotice(Notice n){
+        Connection conn = getConnection();
+        int result = dao.reviseNotice(conn,n);
+
+        if(result>0) commit(conn);
+        else rollback(conn);
+
+        close(conn);
+
+        return result;
+    }
+
+    // 내가한거
+//    public int enrollNotice(String title, String writer,String filePath, String content){
+//        Connection conn = getConnection();
+//        int result = dao.enrollNotice(conn,title,writer,filePath,content);
+//
+//        if(result>0) commit(conn);
+//        else rollback(conn);
+//
+//        close(conn);
+//
+//        return result;
+//    }
+    // 샘이 한거
+    public int insertNotice(Notice n){
+        Connection conn = getConnection();
+        int result = dao.insertNotice(conn,n);
+
+        if(result>0) commit(conn);
+        else rollback(conn);
+
+        close(conn);
+
+        return result;
+    }
+
+    public int deleteNotice(int noticeNo){
+        Connection conn = getConnection();
+        int result = dao.deleteNotice(conn,noticeNo);
+
+        if(result>0) commit(conn);
+        else rollback(conn);
+
+        close(conn);
+
+        return result;
+    }
 }
