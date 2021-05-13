@@ -1,6 +1,7 @@
 package com.board.model.dao;
 
 import com.board.model.vo.Board;
+import com.board.model.vo.BoardComment;
 import oracle.jdbc.proxy.annotation.Pre;
 
 import java.io.FileNotFoundException;
@@ -154,5 +155,63 @@ public class BoardDao {
         }
 
         return result;
+    }
+
+    public int insertBoardComment(Connection conn, BoardComment bc){
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        try{
+            pstmt= conn.prepareStatement(pp.getProperty("insertBoardComment"));
+            pstmt.setInt(1,bc.getBoardCommentLevel());
+            pstmt.setString(2,bc.getBoardCommentWriter());
+            pstmt.setString(3,bc.getBoardCommentContent());
+            pstmt.setInt(4,bc.getBoardRef());
+
+            // null 이면 -> 답글 아니면 댓글
+            // pstmt.setInt(5,(bc.getBoardCommentRef()==0?null:bc.getBoardCommentRef()));
+            // 오라클에서 자동형변환하니 그걸 이용하자.
+            pstmt.setString(5,(bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef())) );
+            result =pstmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public List<BoardComment> selectBoardComment(Connection conn, int boardNo){
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<BoardComment> list = new ArrayList<>();
+        try{
+            pstmt = conn.prepareStatement(pp.getProperty("selectBoardComment"));
+            pstmt.setInt(1,boardNo);
+
+            rs= pstmt.executeQuery();
+
+            while(rs.next()){
+                BoardComment bc = new BoardComment();
+
+                bc.setBoardCommentNo(rs.getInt("board_comment_no"));
+                bc.setBoardCommentLevel(rs.getInt("board_comment_level"));
+                bc.setBoardCommentWriter(rs.getString("board_comment_writer"));
+                bc.setBoardCommentContent(rs.getString("board_comment_content"));
+                bc.setBoardRef(rs.getInt("board_ref"));
+                bc.setBoardCommentRef(rs.getInt("board_comment_ref"));
+                bc.setBoardCommentDate(rs.getDate("board_comment_date"));
+
+                list.add(bc);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(rs);
+            close(pstmt);
+        }
+
+        return list;
     }
 }

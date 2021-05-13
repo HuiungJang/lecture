@@ -2,6 +2,7 @@ package com.board.model.service;
 
 import com.board.model.dao.BoardDao;
 import com.board.model.vo.Board;
+import com.board.model.vo.BoardComment;
 
 import java.sql.Connection;
 import java.util.List;
@@ -66,5 +67,24 @@ public class BoardService {
         close(conn);
 
         return result;
+    }
+
+    public int insertBoardComment(BoardComment bc){
+        Connection conn =getConnection();
+        int result = dao.insertBoardComment(conn,bc);
+
+        if(result>0) commit(conn);
+        else rollback(conn);
+
+        return result;
+    }
+
+    public List<BoardComment> selectBoardComment(int boardNo){
+        Connection conn = getConnection();
+        List<BoardComment> list = dao.selectBoardComment(conn,boardNo);
+
+        close(conn);
+
+        return  list;
     }
 }
