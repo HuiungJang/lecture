@@ -2,11 +2,13 @@ package com.board.controller;
 
 import com.board.model.service.BoardService;
 import com.board.model.vo.Board;
+import com.board.model.vo.BoardComment;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "BoardDetailServlet", value = "/board/view")
 public class BoardDetailServlet extends HttpServlet {
@@ -47,6 +49,11 @@ public class BoardDetailServlet extends HttpServlet {
         }
 
         Board result = new BoardService().viewBoard(boardNo,readFlag);
+
+        // 댓글도 가져오자
+        List<BoardComment> comments = new BoardService().selectBoardComment(boardNo);
+        request.setAttribute("comments",comments);
+
 
         request.setAttribute("viewBoard",result);
         request.getRequestDispatcher("/views/board/boardDetail.jsp").forward(request,response);
