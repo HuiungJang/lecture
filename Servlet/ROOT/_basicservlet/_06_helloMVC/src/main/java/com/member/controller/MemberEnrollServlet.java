@@ -35,12 +35,12 @@ public class MemberEnrollServlet extends HttpServlet {
         // 이메일과 폰번호 암호화하기
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        try {
-            email = AESCrypto.encrypt(email);
-            phone = AESCrypto.encrypt(phone);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//            email = AESCrypto.encrypt(email);
+//            phone = AESCrypto.encrypt(phone);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
         String address = request.getParameter("address");
         String gender = request.getParameter("gender");

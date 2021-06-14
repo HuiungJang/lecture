@@ -23,176 +23,62 @@
     div#numPerpage-container{float:right;}
     form#numperPageFrm{display:inline;}
 </style>
-<%--<script><%=request.getAttribute("formPath")%></script>--%>
-
 <%
     List<Member> members = (List<Member>)request.getAttribute("members");
-    request.getAttribute("numPerPageVal");
+    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
 
-    // 샘이 한 숙제 3번 로직
-    String searchType = request.getParameter("searchType") == null? "":request.getParameter("searchType");
-    String keyword = request.getParameter("searchKeyword") ==null?"":request.getParameter("searchKeyword");
-
-
-    // 내가한 상세 조회 로직
-//    List<Member> searchMember = (List<Member>)request.getAttribute("searchMember");
-//
-//    if(searchMember !=null){
-//        members=(List<Member>)request.getAttribute("searchMember");
-//    }
+    if(searchMember !=null){
+        members=(List<Member>)request.getAttribute("searchMember");
+    }
 
 %>
 <script>
+  function changeVal() {
+    let select = $('#search-type option:selected').val()
 
-// 내가한거
-  // function changeVal() {
-  //   let select = $('#search-type option:selected').val()
-  //
-  //   if (select === 'userName') {
-  //     $('#search-userId').css("display", "none");
-  //     $('#search-gender').css("display", "none");
-  //     $('#search-userName').css("display", "inline-block");
-  //
-  //   } else if (select === 'gender') {
-  //     $('#search-userId').css("display", "none");
-  //     $('#search-gender').css("display", "inline-block");
-  //     $('#search-userName').css("display", "none");
-  //
-  //   } else {
-  //     $('#search-userId').css("display", "inline-block");
-  //     $('#search-gender').css("display", "none");
-  //     $('#search-userName').css("display", "none");
-  //   }
-  // }
+    if (select === 'userName') {
+      $('#search-userId').css("display", "none");
+      $('#search-gender').css("display", "none");
+      $('#search-userName').css("display", "inline-block");
 
-  // 샘이 한거
-  $(function(){
+    } else if (select === 'gender') {
+      $('#search-userId').css("display", "none");
+      $('#search-gender').css("display", "inline-block");
+      $('#search-userName').css("display", "none");
 
-    $("#search-type").change((e)=>{
-      const userId=$("#search-userId");
-      const userName=$("#search-userName");
-      const gender = $("#search-gender");
-      const value = $(e.target).val();
-
-      // 전부 display none 로 바꾼다.
-      userId.css("display","none");
-      userName.css("display","none");
-      gender.css("display","none");
-
-      // 여기서 선택된거는 무조건 inline-block로 바뀌니까.
-      $("#search-"+value).css("display","inline-block");
-    });
-
-    // 숙제2
-    // 페이지 당 회원수 선택하면 제출
-    $("#numPerPage").change(()=>{
-      // action 값을 분기처리함
-      // 검색어가 없을 때
-      if(<%=keyword.equals("")%>){
-        $("#perPageSubmit").attr("action","<%=request.getContextPath()%>/admin/memberList");
-
-        $("#perPageSubmit").append($("<input>").attr({
-          type:"hidden",name:"cPage",value:"<%=request.getParameter("cPage")%>"
-        }));
-
-        $("#perPageSubmit").append($("<input>").attr({
-          type:"hidden",name:"numPerPage",value:"<%=request.getParameter("numPerPage")%>"
-        }));
-
-      }else{
-        // 내가 한거
-        <%--const path ='<%=request.getContextPath()%>/admin/searchMember?searchType='--%>
-        <%--  +'<%=request.getParameter("searchType")%>'--%>
-        <%--  +'&searchKeyword='+'<%=request.getParameter("searchKeyword")%>'+--%>
-        <%--  '&numPerPage='+$('#numPerPage').val();--%>
-        <%--// console.log(path);--%>
-        <%--location.assign(path)--%>
-
-        // 검색했을
-        $("#perPageSubmit").attr('action','<%=request.getContextPath()%>/admin/searchMember');
-
-        $("#perPageSubmit").append($("<input>").attr({
-          type:"hidden",name:"cPage",value:"<%=request.getParameter("cPage")%>"
-        }));
-        $("#perPageSubmit").append($("<input>").attr({
-          type:"hidden",name:"searchType",value:"<%=searchType%>"
-        }));
-        $("#perPageSubmit").append($("<input>").attr({
-          type:"hidden",name:"searchKeyword",value:"<%=keyword%>"
-        }));
-      }
-
-      $("#perPageSubmit").submit();
-
-    });
-
-  });
-  $(function(){
-    $("#search-type").change();
-  });
-
-  // 숙제2
-  // 페이지 당 회원수 선택하면 제
-<%--  <%=request.getAttribute("numPerPageVal")%>--%>
-
-  //숙제3
-  //회원이름 검색하면 input 창에 유지하게 하기
-<%--  <%=request.getAttribute("stayInputKeyword")%>--%>
-
+    } else {
+      $('#search-userId').css("display", "inline-block");
+      $('#search-gender').css("display", "none");
+      $('#search-userName').css("display", "none");
+    }
+  }
 </script>
 <section id="memberList-container">
     <h2>회원관리</h2>
     <div id="search-container">
         검색타입:
-<%--        숙제 3--%>
-<%--        회원이름 검색하면 input창에 유지하게 하기--%>
-
-<%--        <select id="search-type" onchange="changeVal();">--%>
-<%--            // 샘이 한 숙제 3번 로직--%>
-        <select id="search-type">
-            <option value="userId"  <%=searchType.equals("userId")?"selected":""%>>아이디</option>
-            <option value="userName" <%=searchType.equals("userName")?"selected":""%>>이름</option>
-            <option value="gender" <%=searchType.equals("gender")?"selected":""%>>성별</option>
+        <select id="search-type" onchange="changeVal();">
+            <option value="userId">아이디</option>
+            <option value="userName">이름</option>
+            <option value="gender">성별</option>
         </select>
         <div id="search-userId">
-            <form action="<%=request.getContextPath()%>/admin/searchMember">
-                <input type="hidden" name="searchType" value="userId">
-                <input class="keyword" type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요"
-                value='<%=searchType.equals("userId")?keyword:""%>'>
+            <form action="">
+                <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
         <div id="search-userName">
-            <form action="<%=request.getContextPath()%>/admin/searchMember">
-                <input type="hidden" name="searchType" value="userName">
-                <input class="keyword" type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요"
-                       value='<%=searchType.equals("userId")?keyword:""%>'>
+            <form action="">
+                <input type="text" name="searchKeyword" size="25" placeholder="검색할 이름을 입력해주세요">
                 <button type="submit">검색</button>
             </form>
         </div>
         <div id="search-gender">
-            <form action="<%=request.getContextPath()%>/admin/searchMember">
-                <input type="hidden" name="searchType" value="gender">
-                <label><input type="radio" name="searchKeyword" value="M"
-                              <%=searchType.equals("gender")&&keyword.equals('M')?"checked":""%>>남</label>
-                <label><input type="radio" name="searchKeyword" value="F"
-                    <%=searchType.equals("gender")&&keyword.equals('F')?"checked":""%>>여</label>
+            <form action="">
+                <label><input type="radio" name="searchKeyword" value="M">남</label>
+                <label><input type="radio" name="searchKeyword" value="F">여</label>
                 <button type="submit">검색</button>
-            </form>
-        </div>
-
-<%--        숙제 2--%>
-<%--        회원수 고르면 그에 맞춰서 조회--%>
-        <div id="numPerpage-container">
-            페이지당 회원수 :
-<%--            샘이 한 2번 숙제 로직--%>
-            <form id="perPageSubmit" action='<%=request.getContextPath()%>/admin/memberList'>
-                <%--            아이디나 이름 값은 자유--%>
-                <select name="numPerPage" id="numPerPage">
-                    <option value="10" <%=request.getParameter("numPerPage")!=null&& request.getParameter("numPerPage").equals("10")?"selected":""%>>10</option>
-                    <option value="5" <%=request.getParameter("numPerPage")==null|| request.getParameter("numPerPage").equals("5")?"selected":""%>>5</option>
-                    <option value="3" <%=request.getParameter("numPerPage")!=null&& request.getParameter("numPerPage").equals("3")?"selected":""%>>3</option>
-                </select>
             </form>
         </div>
     </div>
@@ -254,12 +140,5 @@ pageBarSize :  pageBar당 페이지 숫자의 갯수
 pageNo : pageBar의 시작숫자
 pageEnd : pageBar의 끝 숫자
 
---%>
-
-<%--
-숙제 4.
-새로운 프로젝트 만들어서
-kh 계정의 employee 사원 전체 조회하고
-페이징 처리하기 , 1페이지에 3개씩 나오게하기
 --%>
 <%@ include file="/views/common/footer.jsp"%>

@@ -2,37 +2,51 @@ package com.member.model.service;
 
 import com.member.model.dao.MemberDao;
 import com.member.model.vo.Member;
+import org.apache.ibatis.session.SqlSession;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
+import static com.common.SqlSessionTemplate.getSession;
 
 import static com.common.JDBCTemplate.*;
 
 public class Service {
     private MemberDao dao = new MemberDao();
 
-    public Member login(String id, String pw){
-        Connection conn = getConnection();
-        Member m = dao.login(conn,id,pw);
-        close(conn);
-        return m;
+//    public Member login(String id, String pw){
+//        Connection conn = getConnection();
+//        Member m = dao.login(conn,id,pw);
+//        close(conn);
+//        return m;
+//    }
+
+    // Mybatis 전환
+    public Member login(Member m){
+        SqlSession session = getSession();
+        Member result = dao.login(session,m);
+
+        return result;
     }
+//    public int enrollMember(Member m){
+//        Connection conn = getConnection();
+//        int mem = dao.memberEnroll(conn,m);
+//
+//        if(mem>0) commit(conn);
+//        else rollback(conn);
+//
+//        close(conn);
+//
+//        return mem;
+//    }
+    // Mybatis 전환
 
     public int enrollMember(Member m){
-        Connection conn = getConnection();
-        int mem = dao.memberEnroll(conn,m);
+        SqlSession session = getSession();
+        int result= dao.memberEnroll(session,m);
 
-        if(mem>0) commit(conn);
-        else rollback(conn);
+        if(result>0) session.commit();
+        else session.rollback();
 
-        close(conn);
-
-        return mem;
+        return result;
     }
 
     public Member checkDuplicateId(String id){

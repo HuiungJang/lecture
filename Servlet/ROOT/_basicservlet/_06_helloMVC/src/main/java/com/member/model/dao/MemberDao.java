@@ -2,6 +2,7 @@ package com.member.model.dao;
 
 import com.common.JDBCTemplate;
 import com.member.model.vo.Member;
+import org.apache.ibatis.session.SqlSession;
 
 import java.io.FileReader;
 import java.sql.Connection;
@@ -26,68 +27,81 @@ public class MemberDao {
         }
     }
 
-    public Member login(Connection conn, String id, String pw){
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        Member m = null;
+//    public Member login(Connection conn, String id, String pw){
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        Member m = null;
+//
+//        try{
+//            pstmt=conn.prepareStatement(pp.getProperty("search"));
+//            pstmt.setString(1,id);
+//            pstmt.setString(2,pw);
+//            rs= pstmt.executeQuery();
+//
+//            if(rs.next()){
+//                m=new Member();
+//                m.setUserId(rs.getString("userid"));
+//                m.setPassword(rs.getString("password"));
+//                m.setUserName(rs.getString("username"));
+//                m.setGender(rs.getString("gender"));
+//                m.setAge(rs.getInt("age"));
+//                m.setEmail(rs.getString("email"));
+//                m.setPhone(rs.getString("phone"));
+//                m.setAddress(rs.getString("address"));
+//                m.setHobby(rs.getString("hobby"));
+//                m.getEnrollDate(rs.getDate("enrolldate"));
+//            }
+//
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }finally {
+//            close(rs);
+//            close(pstmt);
+//        }
+//
+//        return m;
+//    }
+    // Mybatis 전환
 
-        try{
-            pstmt=conn.prepareStatement(pp.getProperty("search"));
-            pstmt.setString(1,id);
-            pstmt.setString(2,pw);
-            rs= pstmt.executeQuery();
-
-            if(rs.next()){
-                m=new Member();
-                m.setUserId(rs.getString("userid"));
-                m.setPassword(rs.getString("password"));
-                m.setUserName(rs.getString("username"));
-                m.setGender(rs.getString("gender"));
-                m.setAge(rs.getInt("age"));
-                m.setEmail(rs.getString("email"));
-                m.setPhone(rs.getString("phone"));
-                m.setAddress(rs.getString("address"));
-                m.setHobby(rs.getString("hobby"));
-                m.getEnrollDate(rs.getDate("enrolldate"));
-            }
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            close(rs);
-            close(pstmt);
-        }
-
-        return m;
+    public Member login(SqlSession session,Member m){
+        System.out.println(m.getUserId());
+        Member result  = session.selectOne("student.search",m);
+        return result;
     }
-    public int memberEnroll(Connection conn,Member m){
-        PreparedStatement pstmt = null;
-        int result = 0;
 
-        try{
-            pstmt = conn.prepareStatement(pp.getProperty("insertmember"));
-
-            pstmt.setString(1,m.getUserId());
-            pstmt.setString(2,m.getPassword());
-            pstmt.setString(3,m.getUserName());
-            pstmt.setString(4,m.getGender());
-            pstmt.setInt(5,m.getAge());
-            pstmt.setString(6,m.getEmail());
-            pstmt.setString(7,m.getPhone());
-            pstmt.setString(8,m.getAddress());
-            pstmt.setString(9,m.getHobby());
-
-            result= pstmt.executeUpdate();
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
-            close(pstmt);
-            close(conn);
-        }
-
-        return  result;
+//    public int memberEnroll(Connection conn,Member m){
+//        PreparedStatement pstmt = null;
+//        int result = 0;
+//
+//        try{
+//            pstmt = conn.prepareStatement(pp.getProperty("insertmember"));
+//
+//            pstmt.setString(1,m.getUserId());
+//            pstmt.setString(2,m.getPassword());
+//            pstmt.setString(3,m.getUserName());
+//            pstmt.setString(4,m.getGender());
+//            pstmt.setInt(5,m.getAge());
+//            pstmt.setString(6,m.getEmail());
+//            pstmt.setString(7,m.getPhone());
+//            pstmt.setString(8,m.getAddress());
+//            pstmt.setString(9,m.getHobby());
+//
+//            result= pstmt.executeUpdate();
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }finally {
+//            close(pstmt);
+//            close(conn);
+//        }
+//
+//        return  result;
+//    }
+    // Mybatis 전환
+    public int memberEnroll(SqlSession session, Member m){
+        int result = session.insert("student.enrollMember",m);
+        return result;
     }
 
     public Member checkDuplicateId(Connection conn, String id){

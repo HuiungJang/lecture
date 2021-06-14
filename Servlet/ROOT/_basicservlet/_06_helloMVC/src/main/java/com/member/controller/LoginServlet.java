@@ -18,12 +18,15 @@ public class LoginServlet extends HttpServlet {
         // 1. client가 보낸 값 가져오기
         String id = request.getParameter("userId");
         String pw = request.getParameter("password");
-
+        Member tmp = new Member();
         // 2. 가져온 값이 DB에 있는지 확인
-        Member m = new Service().login(id,pw);
-        System.out.println("login 로직 실행");
-        System.out.println(m);
+//        Member m = new Service().login(id,pw);
+//        System.out.println("login 로직 실행");
+//        System.out.println(m);
+        tmp.setUserId(id);
+        tmp.setPassword(pw);
 
+        Member m = new Service().login(tmp);
 
         // checkbox 에 있는 값을 가져오자
         String saveId= request.getParameter("saveId");

@@ -35,30 +35,12 @@ public class AdminService {
         return result;
     }
 
-    // 내가한 상세조회 Service logic
-//    public List<Member> searchMember(String searchKeyword){
-//        Connection conn = getConnection();
-//        List<Member> mem = dao.searchKeyword(conn,searchKeyword);
-//        close(conn);
-//
-//        return mem;
-//    }
-
-    // 샘이 한거
-    public List<Member> searchMember(String searchType, String keyword,int cPage, int numPerPage){
+    public List<Member> searchMember(String searchKeyword){
         Connection conn = getConnection();
-        List<Member> list =dao.searchMember(conn,searchType,keyword,cPage,numPerPage);
+        List<Member> mem = dao.searchKeyword(conn,searchKeyword);
         close(conn);
 
-        return list;
-    }
-
-    public int detailListCount(String searchType,String keyword){
-        Connection conn = getConnection();
-        int result = dao.detailListCount(conn,searchType,keyword);
-        close(conn);
-
-        return result;
+        return mem;
     }
 
 }
