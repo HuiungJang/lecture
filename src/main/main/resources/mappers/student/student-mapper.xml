@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+    <insert id="insertStudent">
+        insert into student values(seq_student.nextval,'유병승','01012345678','1234@1234.com','경기도','')
+    </insert>
+
+    <insert id="insertParamName" parameterType="java.util.List">
+        insert into student values(seq_student.nextval,
+        <foreach collection="list" item="item" index="index">
+            #{item.name},'01012345678', #{item.email},'경기도',default)
+        </foreach>
+    </insert>
+
+    <insert id="insertParamAll" parameterType="com.mybatis.model.vo.Student">
+        insert into student
+        values(seq_student.nextval,#{studentName},#{studentTel},#{studentEmail},#{studentAddr},default)
+    </insert>
+
+    <insert id="insertParamMap" parameterType="java.util.Map">
+        insert into STUDENT
+        values(SEQ_STUDENT.nextval,#{name},#{phone},#{email},#{addr},default)
+    </insert>
+<!--    기본자료형을 반환하는 select문 작성하기-->
+<!--    select 문은 반드시 반환형 설정해야함-->
+<!--    1. resultType 속성 -> 기본 자료형,선언한 클래스, jre클래스들을 선언할때-->
+<!--        * 자동으로 컬럼과 vo핑 객체를 매핑 *기준 -> 컬렴명== 멤버변수명 대소문자 구별없음 -->
+<!--    2. resultMap 속성 -> vo 객체의 멤버변수명이랑 컬럼명이 다른것을 매칭시키는 객체-->
+<!--        1) <resultMap>태그로 resultMap을 만듦 -> 컬럼과 멤버변수를 매칭시키는 기능 -->
+<!--        2) resultMap 태그의 id 속성값을 resultMap 속성에 대입-->
+    <select id="getInfo" resultType="java.util.Map">
+        select * from STUDENT
+    </select>
+
+    <update id="updateInfo" parameterType="java.util.Map">
+        update STUDENT set STUDENT_ADDR = #{replaceAddr} , STUDENT_TEL =#{replaceTel} where STUDENT_NAME=#{replaceName}
+    </update>
+
+<!--    <select id="selectStudent" parameterType="_int" resultType="com.mybatis.model.vo.Student">-->
+    <select id="selectStudent" parameterType="_int" resultMap="selectStudentToResultMap">
+--         select student_no as studentNo,
+--                student_name as studentName,
+--                student_tel as studentTel,
+--                student_email as studentEmail,
+--                student_addr as studentAddr,
+--                reg_date as regDate
+        select *
+        from STUDENT
+        where student_no = #{no}
+    </select>
+<!--    resultType -> resultMap 으로 변환하기-->
+<!--    <resultMap id="selectStudentToResultMap" type="com.mybatis.model.vo.Student">-->
+<!--    별칭부여한 후 -->
+    <resultMap id="selectStudentToResultMap" type="student">
+        <result column="student_no" property="studentNo"/>
+        <result column="student_name" property="studentName"/>
+        <result column="student_tel" property="studentTel"/>
+        <result column="student_email" property="studentEmail"/>
+        <result column="student_addr" property="studentAddr"/>
+        <result column="ref_date" property="regDate"/>
+    </resultMap>
+
+<!--    결과를 List로 가져와보자-->
+<!--    <select id="selectList" resultType="com.mybatis.model.vo.Student">-->
+    <select id="selectList" resultMap="studentMap">
+        select *
+        from STUDENT
+    </select>
+<!--    type에는 vo를 적는다.-->
+<!--    컬럼명이 없다면 그리고 프로퍼티 값이 일치하지 않는다면 넘어감-->
+    <resultMap id="studentMap" type="com.mybatis.model.vo.Student">
+        <result column="student_no" property="studentNo"/>
+        <result column="student_name" property="studentName"/>
+        <result column="student_tel" property="studentTel"/>
+        <result column="student_email" property="studentEmail"/>
+        <result column="student_addr" property="studentAddr"/>
+        <result column="ref_date" property="regDate"/>
+    </resultMap>
+
+    <select id="searchStudent" parameterType="string" resultMap="searchStudentList">
+        select *
+        from STUDENT
+--         정확히 일치하는 이메일만 검색
+--         where student_email=#{email}
+--         비슷한 이메일도 검색
+        where student_email like '%'||#{email}||'%'
+    </select>
+    <resultMap id="searchStudentList" type="com.mybatis.model.vo.Student">
+        <result column="student_no" property="studentNo"/>
+        <result column="student_name" property="studentName"/>
+        <result column="student_tel" property="studentTel"/>
+        <result column="student_email" property="studentEmail"/>
+        <result column="student_addr" property="studentAddr"/>
+        <result column="ref_date" property="regDate"/>
+    </resultMap>
+
+    <select id="selectStudentMap" parameterType="_int" resultType="java.util.Map">
+        select *
+        from STUDENT
+        where student_no = #{no}
+    </select>
+</mapper>
