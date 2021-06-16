@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh">
+    <select id="getList" resultType="java.util.Map">
+        select *
+        from EMPLOYEE
+    </select>
+    <select id="searchEmp" parameterType="java.util.Map" resultType="java.util.Map">
+        select *
+        from(
+            select e.*, decode(substr(emp_no,8,1),'1','M','2','F') as gender
+            from EMPLOYEE e
+            )
+<!--         항상 참인 조건식을 넣으면 <where> </where> <trim></trim> 안쓰고 사용가능하다 -->
+            where 1=1
+<!--         <where>-->
+<!--        <trim prefix="where" prefixOverrides="and|or">-->
+          <if test="val != null and val !=''">
+            and ${key} LIKE '%'||#{val}||'%'
+          </if>
+          <if test="gender != null and gender != ''">
+            and gender = #{gender}
+          </if>
+          <if test="salaryRef !=null and salaryRef != '' and salary != null and salary != ''" >
+              <!--
+                    if 문을 사용하면 식이 참이든 아니든 무조건 확인한다.
+                    choose는 거짓이면 넘어간다.
+               -->
+<!--              <if test="salaryRef =='le'">-->
+<!--                 &lt;!&ndash;and SALARY &lt;= #{salary}&ndash;&gt;-->
+<!--                  and SALARY <![CDATA[<=]]> #{salary}-->
+<!--              </if>-->
+<!--              <if test="salaryRef =='ge'">-->
+<!--                  &lt;!&ndash;and SALARY &gt;= #{salary}&ndash;&gt;-->
+<!--                  and SALARY <![CDATA[ >=]]> #{salary}-->
+<!--              </if>-->
+            <choose>
+                <when test="salaryRef eq 'le'">
+                    and SALARY &lt;= #{salary}
+                </when>
+                <otherwise>
+                    and SALARY &gt;= #{salary}
+                </otherwise>
+            </choose>
+          </if>
+
+        <if test="hireDate !=null and hireDate != '' and H_le_ge != null and H_le_ge != ''" >
+            <choose>
+                <when test="hireDate == le">
+                    <!-- and HIRE_DATE &lt;= #{hireDate}-->
+                    <!--
+                    날짜는 비교할때 형변환해서 비교하는 것이 가장 정확하다.
+                     String -> TO_DATE
+                    들어오는 날짜가 String 형태이기 때문이다.
+                    -->
+                    and TO_DATE(TO_CHAR(HIRE_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') <![CDATA[<=]]> TO_DATE(#{hireDate},'YYYY-MM-DD')
+                </when>
+                <otherwise>
+                    <!-- and HIRE_DATE &gt;= #{hireDate} -->
+                    and TO_DATE(TO_CHAR(HIRE_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') <![CDATA[>=]]> TO_DATE(#{hireDate},'YYYY-MM-DD')
+                </otherwise>
+            </choose>
+        </if>
+<!--        </trim>-->
+<!--         </where>-->
+    </select>
+</mapper>
