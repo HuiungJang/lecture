@@ -18,9 +18,8 @@ public class MemberListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("utf-8");
 
-        // 관리자가 아닌 사용자가 접근했을 때 예외 처리하기
+       // 관리자가 아닌 사용자가 접근했을 때 예외 처리하기
         HttpSession session = request.getSession(false);
         Member loginMember = (Member)session.getAttribute("loginMember");
 
@@ -46,8 +45,6 @@ public class MemberListServlet extends HttpServlet {
             try {
                 numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
             }catch (NumberFormatException e){
-                // 내가한거
-                //                numPerPage = 10;
                 numPerPage=5;
             }
 
@@ -87,7 +84,7 @@ public class MemberListServlet extends HttpServlet {
             // 사용자가 클릭할 수 있는 페이지 바를 구성해보자
             String pageBar="";
             if(pageNo==1){
-                pageBar+="<span></span>";
+                pageBar+="<span>[이전]</span>";
             }else{
                 pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="
                         +(pageNo-1)+"&numPerPage="
@@ -105,24 +102,18 @@ public class MemberListServlet extends HttpServlet {
             }
 
             if(pageNo>totalPage){
-                pageBar+="<span></span>";
+                pageBar+="<sapn>다음</span>";
             }else {
                 pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="
                         +pageNo+"&numPerPage="+numPerPage+"'>[다음]</a>";
             }
 
-//            내가한 부분조회 샘이한거는 새롭게 서블릿을 만들었음 -> SearchMemberServlet
-//            String searchKeyword = request.getParameter("searchKeyword");
-//            if(searchKeyword != null) {
-//                List<Member> searchMember = new AdminService().searchMember(searchKeyword);
-//                request.setAttribute("searchMember",searchMember);
-//            }
 
-            // 숙제2
-            // 페이지 당 회원수 선택하면 제출
-            // numPerPage 받아와서 스크립트에 넣고 다시 전송
-//            String numPerPageVal = "$(function(){$(\"#numPerPage\").val("+numPerPage+")});";
-//            request.setAttribute("numPerPageVal",numPerPageVal);
+            String searchKeyword = request.getParameter("searchKeyword");
+            if(searchKeyword != null) {
+                List<Member> searchMember = new AdminService().searchMember(searchKeyword);
+                request.setAttribute("searchMember",searchMember);
+            }
 
             request.setAttribute("pageBar",pageBar);
             // 가져온 값을 jsp 페이지에 전달

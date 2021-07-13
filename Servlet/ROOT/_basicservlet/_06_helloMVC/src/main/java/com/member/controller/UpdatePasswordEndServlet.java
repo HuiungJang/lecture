@@ -21,22 +21,22 @@ public class UpdatePasswordEndServlet extends HttpServlet {
         String psw = request.getParameter("password");
         String pswNew = request.getParameter("password_new");
 
-        Member m = new Service().login(id,psw);
+//        Member m = new Service().login(id,psw);
 
         String msg= "";
         String loc="";
         String script="";
-        if(m != null){
-
-            int result = new Service().changePw(id, pswNew);
-            msg = result > 0 ? "비밀번호가 변경되었습니다." : "비밀번호 변경이 실패했습니다.";
-            script = "window.close();";
-            // 스크립트 문구를 request에 담아서 보낼 수 도 있다.
-
-        }else {
-            msg="비밀번호가 일치하지 않습니다.";
-            loc="/updatepassword?userId="+id;
-        }
+//        if(m != null){
+//
+//            int result = new Service().changePw(id, pswNew);
+//            msg = result > 0 ? "비밀번호가 변경되었습니다." : "비밀번호 변경이 실패했습니다.";
+//            script = "window.close();";
+//            // 스크립트 문구를 request에 담아서 보낼 수 도 있다.
+//
+//        }else {
+//            msg="비밀번호가 일치하지 않습니다.";
+//            loc="/updatepassword?userId="+id;
+//        }
 
         request.setAttribute("msg", msg);
         request.setAttribute("loc", loc);

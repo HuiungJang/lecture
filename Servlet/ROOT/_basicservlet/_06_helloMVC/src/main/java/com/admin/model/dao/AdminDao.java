@@ -125,87 +125,30 @@ public class AdminDao {
         return result;
     }
 
-    // 내가한 상세조회 Dao logic
-//    public List<Member> searchKeyword(Connection conn, String searchKeyword){
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//        Member m = null;
-//        List<Member> searchMem = new ArrayList<>();
-//
-//        try{
-//            if(searchKeyword.equals("M") || searchKeyword.equals("F")) {
-//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordGender"));
-//
-//            }else if(Pattern.matches("^[가-힣]*$",searchKeyword)){
-//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordName"));
-//
-//            }else{
-//                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordId"));
-//
-//            }
-//
-//            pstmt.setString(1,searchKeyword);
-//
-//            rs=pstmt.executeQuery();
-//
-//            while(rs.next()){
-//                m = new Member();
-//                m.setUserId(rs.getString("userid"));
-//                m.setUserName(rs.getString("username"));
-//                m.setGender(rs.getString("gender"));
-//                m.setAge(rs.getInt("age"));
-//                m.setEmail(rs.getString("email"));
-//                m.setPhone(rs.getString("phone"));
-//                m.setAddress(rs.getString("address"));
-//                m.setHobby(rs.getString("hobby"));
-//                m.setEnrollDate(rs.getDate("enrolldate"));
-//
-//                searchMem.add(m);
-//            }
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//        return searchMem;
-//    }
-
-    // 샘이 한 상세조회 logic
-    // 페이징처리는 내가함
-    public List<Member> searchMember(Connection conn, String searchType, String keyword,int cPage, int numPerPage){
+    public List<Member> searchKeyword(Connection conn, String searchKeyword){
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<Member> list = new ArrayList<>();
-        String sql=pp.getProperty("searchMemberHW");
-
-//        switch (searchType){
-//            case "userId": sql="searchMemberId"; break;
-//            case "userName": sql="searchMemberName"; break;
-//            case "gender:" : sql="searchMemberGender"; break;
-//        }
+        Member m = null;
+        List<Member> searchMem = new ArrayList<>();
 
         try{
-            // 쿼리문을 3개 써야한다.
-//            pstmt = conn.prepareStatement(pp.getProperty(sql));
+            if(searchKeyword.equals("M") || searchKeyword.equals("F")) {
+                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordGender"));
 
-            // 쿼리문 3개일때는 1개만 있어도 됨
-//            pstmt.setString(1,keyword);
+            }else if(Pattern.matches("^[가-힣]*$",searchKeyword)){
+                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordName"));
 
-            // 쿼리문을 1개로 줄여보자
-            pstmt = conn.prepareStatement(sql.replace("@",searchType));
+            }else{
+                pstmt = conn.prepareStatement(pp.getProperty("searchKeywordId"));
 
-            // 쿼리문이 1개이면
-            pstmt.setString(1, "%"+keyword+"%");
+            }
 
-            // 숙제1 쿼리문 수정한것-> 불러온 것 페이징 처리
-            pstmt.setInt(2,(cPage-1)*numPerPage+1);
-            pstmt.setInt(3,cPage*numPerPage);
+            pstmt.setString(1,searchKeyword);
 
             rs=pstmt.executeQuery();
 
             while(rs.next()){
-                Member m = new Member();
-
+                m = new Member();
                 m.setUserId(rs.getString("userid"));
                 m.setUserName(rs.getString("username"));
                 m.setGender(rs.getString("gender"));
@@ -216,42 +159,13 @@ public class AdminDao {
                 m.setHobby(rs.getString("hobby"));
                 m.setEnrollDate(rs.getDate("enrolldate"));
 
-                list.add(m);
+                searchMem.add(m);
             }
 
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
-            close(rs);
-            close(pstmt);
         }
 
-        return list;
-    }
-
-    public int detailListCount(Connection conn,String searchType, String keyword){
-        PreparedStatement pstmt=null;
-        ResultSet rs= null;
-        int result=0;
-
-        try{
-            pstmt = conn.prepareStatement(pp.getProperty("detailListCount").replace("@",searchType));
-            pstmt.setString(1,"%"+keyword+"%");
-
-            rs=pstmt.executeQuery();
-
-            if(rs.next()){
-                result=rs.getInt(1);
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
-            close(rs);
-            close(pstmt);
-        }
-
-
-        return result;
+        return searchMem;
     }
 }
